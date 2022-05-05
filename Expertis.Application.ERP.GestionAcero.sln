@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Expertis.Application.ERP.GestionAcero", "Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero.vbproj", "{F1451F39-06D1-4590-A47D-FC6ED0AD58FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1451F39-06D1-4590-A47D-FC6ED0AD58FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1451F39-06D1-4590-A47D-FC6ED0AD58FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1451F39-06D1-4590-A47D-FC6ED0AD58FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1451F39-06D1-4590-A47D-FC6ED0AD58FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
