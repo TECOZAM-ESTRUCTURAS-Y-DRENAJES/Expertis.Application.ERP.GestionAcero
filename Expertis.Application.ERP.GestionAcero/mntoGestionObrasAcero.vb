@@ -7,6 +7,8 @@ Imports Solmicro.Expertis.Business.Obra
 Imports Solmicro.Expertis.Business.Negocio
 Imports Solmicro.Expertis.Engine.UI
 Imports Solmicro.Expertis.Business.ClasesTecozam
+Imports Microsoft.Office
+Imports Microsoft.Office.Interop
 
 Public Class MntoGestionObrasAcero
     Inherits Solmicro.Expertis.Engine.UI.SimpleMnto
@@ -110,6 +112,8 @@ Public Class MntoGestionObrasAcero
                 Me.AddSeparator()
                 .Add("Generar Orden de Trabajo", AddressOf AccionOrdenTrabajo)
                 .Add("Introducir Medición Albaran/Colada/Paquete", AddressOf AccionAddProduccion)
+                Me.AddSeparator()
+                '.Add("Exportar Grid a Excel", AddressOf ExportarGridaExcel)
             End With
 
         Catch ex As Exception
@@ -1073,6 +1077,116 @@ Public Class MntoGestionObrasAcero
         Finally
             frm = Nothing
         End Try
+    End Sub
+    Private Function borraColumnas(ByVal dt As DataTable)
+        dt.Columns.Remove("IDLineaMedicionA")
+        dt.Columns.Remove("IdObra")
+        dt.Columns.Remove("FechaRef")
+        dt.Columns.Remove("SnRecibido")
+        dt.Columns.Remove("ESoldado")
+        dt.Columns.Remove("Soldado")
+        dt.Columns.Remove("ETransporte")
+        dt.Columns.Remove("Transporte")
+        dt.Columns.Remove("Mallazo")
+        dt.Columns.Remove("EMallazo")
+        dt.Columns.Remove("ncamion")
+        dt.Columns.Remove("ED8")
+        dt.Columns.Remove("ED10")
+        dt.Columns.Remove("ED12")
+        dt.Columns.Remove("ED16")
+        dt.Columns.Remove("ED20")
+        dt.Columns.Remove("ED25")
+        dt.Columns.Remove("ED32")
+        dt.Columns.Remove("ncarga")
+        dt.Columns.Remove("fproduccion")
+        dt.Columns.Remove("FechaAnifer")
+        dt.Columns.Remove("PrecioCertElaboracionB")
+        dt.Columns.Remove("PrecioCertElaboracion")
+        dt.Columns.Remove("NCertificacion")
+        dt.Columns.Remove("TotalMediosE")
+        dt.Columns.Remove("CertificadoMontaje")
+        dt.Columns.Remove("CertificadoMediosE")
+        dt.Columns.Remove("TotalMontaje")
+        dt.Columns.Remove("TotalSuministro")
+        dt.Columns.Remove("CertificadoSuministro")
+        dt.Columns.Remove("PrecioCertMediosElevB")
+        dt.Columns.Remove("PrecioCertMontajeB")
+        dt.Columns.Remove("PrecioCertSuministroB")
+        dt.Columns.Remove("MedElaboracion")
+        dt.Columns.Remove("Facturable")
+        dt.Columns.Remove("Observaciones")
+        dt.Columns.Remove("Observaciones2")
+        dt.Columns.Remove("Secuencia")
+        dt.Columns.Remove("IDUDMedida")
+        dt.Columns.Remove("Certificar")
+        dt.Columns.Remove("SuministroFacturado")
+        dt.Columns.Remove("PrecioCertMediosElev")
+        dt.Columns.Remove("PrecioCertSuministro")
+        dt.Columns.Remove("PrecioCertMontaje")
+        dt.Columns.Remove("DiferenciaP")
+
+        Return dt
+    End Function
+    'David Velasco 17/05/22
+    Private Sub ExportarGridaExcel()
+        Dim dt As New DataTable
+        dt = Me.GridMediciones.DataSource
+        Dim dt2 As New DataTable
+
+        dt2 = borraColumnas(dt)
+        Dim oExcel As New Excel.Application
+        Dim libro As Excel.Workbook
+        Dim hoja As Excel.Worksheet
+
+        Try
+
+            libro = oExcel.Workbooks.Add '.Open(file)
+
+            hoja = libro.Worksheets(1)
+
+            hoja.Name = dt.Rows(0)("NObra")
+
+            Dim r As Integer, c As Integer
+
+            Dim rCount As Integer
+
+            Dim cCount As Integer
+
+            rCount = dt2.Rows.Count
+
+            cCount = dt2.Columns.Count()
+
+            For c = 1 To cCount
+
+                hoja.Cells(1, c) = dt2.Columns(c - 1).Caption 'Set the column title
+
+            Next
+
+            c = 0 : r = 0
+
+            For r = 1 To rCount
+
+                For c = 1 To cCount
+
+                    hoja.Cells(r + 1, c) = CStr(dt2.Rows(r - 1)(c - 1).ToString)
+
+                Next
+
+            Next
+
+            oExcel.Visible = True
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+        oExcel = Nothing
+
+        libro = Nothing
+
+        hoja = Nothing
     End Sub
 
     Private Sub AccionAddProduccion()
