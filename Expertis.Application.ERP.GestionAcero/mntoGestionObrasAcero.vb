@@ -316,6 +316,12 @@ Public Class MntoGestionObrasAcero
             'David Velasco 30/11
             Dim obra As New ObraMedicion
             dt = obra.seleccion(Strsql)
+
+            Dim strsql2 As String
+            strsql2 = "SELECT DISTINCT " & columna & " FROM vFrmObraMedicionesAEstructura WHERE IDOBRA = " & IDObra
+            Dim f As New Filter
+            f.Add(columna, FilterOperator.NotEqual, "")
+            dt = New BE.DataEngine().Filter(strsql2, f)
             'David Velaco
 
             'FwConsulta = Nothing
