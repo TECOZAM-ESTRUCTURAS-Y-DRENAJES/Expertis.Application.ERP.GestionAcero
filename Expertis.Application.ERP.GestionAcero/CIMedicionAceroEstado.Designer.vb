@@ -24,6 +24,8 @@ Partial Class CIMedicionAceroEstado
     Private Sub InitializeComponent()
         Dim Grid_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cmbEstado_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbMes_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbAño_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIMedicionAceroEstado))
         Me.advNObra = New Solmicro.Expertis.Engine.UI.AdvSearch
         Me.lblNObra = New Solmicro.Expertis.Engine.UI.Label
@@ -33,6 +35,10 @@ Partial Class CIMedicionAceroEstado
         Me.lblFecha1 = New Solmicro.Expertis.Engine.UI.Label
         Me.cmbEstado = New Solmicro.Expertis.Engine.UI.ComboBox
         Me.lblEstado = New Solmicro.Expertis.Engine.UI.Label
+        Me.Label1 = New Solmicro.Expertis.Engine.UI.Label
+        Me.Label2 = New Solmicro.Expertis.Engine.UI.Label
+        Me.cbMes = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.cbAño = New Solmicro.Expertis.Engine.UI.ComboBox
         Me.FilterPanel.SuspendLayout()
         Me.CIMntoGridPanel.suspendlayout()
         CType(Me.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,10 +48,16 @@ Partial Class CIMedicionAceroEstado
         Me.MainPanel.SuspendLayout()
         Me.MainPanelCIMntoContainer.SuspendLayout()
         CType(Me.cmbEstado, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbMes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbAño, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'FilterPanel
         '
+        Me.FilterPanel.Controls.Add(Me.cbAño)
+        Me.FilterPanel.Controls.Add(Me.cbMes)
+        Me.FilterPanel.Controls.Add(Me.Label2)
+        Me.FilterPanel.Controls.Add(Me.Label1)
         Me.FilterPanel.Controls.Add(Me.cmbEstado)
         Me.FilterPanel.Controls.Add(Me.lblEstado)
         Me.FilterPanel.Controls.Add(Me.clbFecha1)
@@ -55,17 +67,17 @@ Partial Class CIMedicionAceroEstado
         Me.FilterPanel.Controls.Add(Me.advNObra)
         Me.FilterPanel.Controls.Add(Me.lblNObra)
         Me.FilterPanel.Location = New System.Drawing.Point(0, 162)
-        Me.FilterPanel.Size = New System.Drawing.Size(579, 98)
+        Me.FilterPanel.Size = New System.Drawing.Size(638, 98)
         '
         'CIMntoGridPanel
         '
-        Me.CIMntoGridPanel.Size = New System.Drawing.Size(579, 162)
+        Me.CIMntoGridPanel.Size = New System.Drawing.Size(638, 162)
         '
         'Grid
         '
         Grid_DesignTimeLayout.LayoutString = resources.GetString("Grid_DesignTimeLayout.LayoutString")
         Me.Grid.DesignTimeLayout = Grid_DesignTimeLayout
-        Me.Grid.Size = New System.Drawing.Size(579, 162)
+        Me.Grid.Size = New System.Drawing.Size(638, 162)
         Me.Grid.ViewName = "vMedicionAceroEstado"
         '
         'Toolbar
@@ -78,11 +90,11 @@ Partial Class CIMedicionAceroEstado
         '
         'MainPanel
         '
-        Me.MainPanel.Size = New System.Drawing.Size(579, 260)
+        Me.MainPanel.Size = New System.Drawing.Size(638, 260)
         '
         'MainPanelCIMntoContainer
         '
-        Me.MainPanelCIMntoContainer.Size = New System.Drawing.Size(579, 260)
+        Me.MainPanelCIMntoContainer.Size = New System.Drawing.Size(638, 260)
         '
         'advNObra
         '
@@ -110,14 +122,14 @@ Partial Class CIMedicionAceroEstado
         '
         Me.TryDataBinding(clbFecha, New System.Windows.Forms.Binding("BindableValue", Me, "Fecha", True))
         Me.clbFecha.DisabledBackColor = System.Drawing.Color.White
-        Me.clbFecha.Location = New System.Drawing.Point(387, 29)
+        Me.clbFecha.Location = New System.Drawing.Point(307, 29)
         Me.clbFecha.Name = "clbFecha"
         Me.clbFecha.Size = New System.Drawing.Size(121, 21)
         Me.clbFecha.TabIndex = 10
         '
         'lblFecha
         '
-        Me.lblFecha.Location = New System.Drawing.Point(323, 32)
+        Me.lblFecha.Location = New System.Drawing.Point(243, 32)
         Me.lblFecha.Name = "lblFecha"
         Me.lblFecha.Size = New System.Drawing.Size(62, 13)
         Me.lblFecha.TabIndex = 11
@@ -127,14 +139,14 @@ Partial Class CIMedicionAceroEstado
         '
         Me.TryDataBinding(clbFecha1, New System.Windows.Forms.Binding("BindableValue", Me, "Fecha", True))
         Me.clbFecha1.DisabledBackColor = System.Drawing.Color.White
-        Me.clbFecha1.Location = New System.Drawing.Point(387, 57)
+        Me.clbFecha1.Location = New System.Drawing.Point(307, 57)
         Me.clbFecha1.Name = "clbFecha1"
         Me.clbFecha1.Size = New System.Drawing.Size(121, 21)
         Me.clbFecha1.TabIndex = 12
         '
         'lblFecha1
         '
-        Me.lblFecha1.Location = New System.Drawing.Point(323, 64)
+        Me.lblFecha1.Location = New System.Drawing.Point(243, 64)
         Me.lblFecha1.Name = "lblFecha1"
         Me.lblFecha1.Size = New System.Drawing.Size(62, 13)
         Me.lblFecha1.TabIndex = 13
@@ -161,11 +173,51 @@ Partial Class CIMedicionAceroEstado
         Me.lblEstado.TabIndex = 15
         Me.lblEstado.Text = "Estado"
         '
+        'Label1
+        '
+        Me.Label1.Location = New System.Drawing.Point(453, 34)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(29, 13)
+        Me.Label1.TabIndex = 16
+        Me.Label1.Text = "Mes"
+        '
+        'Label2
+        '
+        Me.Label2.Location = New System.Drawing.Point(453, 64)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(29, 13)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "Año"
+        '
+        'cbMes
+        '
+        cbMes_DesignTimeLayout.LayoutString = resources.GetString("cbMes_DesignTimeLayout.LayoutString")
+        Me.cbMes.DesignTimeLayout = cbMes_DesignTimeLayout
+        Me.cbMes.DisabledBackColor = System.Drawing.Color.White
+        Me.cbMes.Location = New System.Drawing.Point(508, 27)
+        Me.cbMes.Name = "cbMes"
+        Me.cbMes.SelectedIndex = -1
+        Me.cbMes.SelectedItem = Nothing
+        Me.cbMes.Size = New System.Drawing.Size(100, 21)
+        Me.cbMes.TabIndex = 18
+        '
+        'cbAño
+        '
+        cbAño_DesignTimeLayout.LayoutString = resources.GetString("cbAño_DesignTimeLayout.LayoutString")
+        Me.cbAño.DesignTimeLayout = cbAño_DesignTimeLayout
+        Me.cbAño.DisabledBackColor = System.Drawing.Color.White
+        Me.cbAño.Location = New System.Drawing.Point(508, 57)
+        Me.cbAño.Name = "cbAño"
+        Me.cbAño.SelectedIndex = -1
+        Me.cbAño.SelectedItem = Nothing
+        Me.cbAño.Size = New System.Drawing.Size(100, 21)
+        Me.cbAño.TabIndex = 19
+        '
         'CIMedicionAceroEstado
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(587, 348)
+        Me.ClientSize = New System.Drawing.Size(646, 348)
         Me.Name = "CIMedicionAceroEstado"
         Me.Text = "CIMedicionAceroEstado"
         Me.ViewName = "vMedicionAceroEstado"
@@ -179,6 +231,8 @@ Partial Class CIMedicionAceroEstado
         Me.MainPanel.ResumeLayout(False)
         Me.MainPanelCIMntoContainer.ResumeLayout(False)
         CType(Me.cmbEstado, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbMes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbAño, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -190,4 +244,8 @@ Partial Class CIMedicionAceroEstado
     Friend WithEvents lblNObra As Solmicro.Expertis.Engine.UI.Label
     Friend WithEvents cmbEstado As Solmicro.Expertis.Engine.UI.ComboBox
     Friend WithEvents lblEstado As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents cbAño As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents cbMes As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents Label2 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents Label1 As Solmicro.Expertis.Engine.UI.Label
 End Class

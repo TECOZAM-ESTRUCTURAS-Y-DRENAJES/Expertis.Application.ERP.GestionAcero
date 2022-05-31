@@ -731,6 +731,18 @@ Public Class MntoGestionObrasAcero
                     Case .Columns("PesoPedido").Index, .Columns("CertificadoSuministro").Index, .Columns("CertificadoMontaje").Index, .Columns("CertificadoMediosE").Index, .Columns("FacElaboracion").Index
                         ' Recalculo de columnas
                         CalculoMedicion()
+                        'David Velasco 31/05/22
+                    Case .Columns("Fecha").Index
+                        Dim fecha As DateTime
+                        fecha = .GetValue("Fecha")
+                        'Obtengo el año
+                        Dim año As String
+                        año = fecha.Year
+                        .SetValue("Año", año)
+                        'Obtengo el mes
+                        Dim mes As String
+                        mes = fecha.Month
+                        .SetValue("Mes", mes)
                     Case Else
 
                 End Select
