@@ -81,6 +81,8 @@ Public Class CIMedicionAceroTotales
         dt.Columns.Add(dc)
         dc = New DataColumn("Estado")
         dt.Columns.Add(dc)
+        dc = New DataColumn("PesoPlanilla", System.Type.GetType("System.Double"))
+        dt.Columns.Add(dc)
         Return dt
     End Function
 
@@ -118,6 +120,8 @@ Public Class CIMedicionAceroTotales
                 Dim EPorte As Double = 0.0
                 Dim Celosia As Double = 0.0
                 Dim ECelosia As Double = 0.0
+                'Añadida la opcion de Albaran
+                Dim PesoPlanilla As Double = 0.0
 
                 Dim dtObra As New DataTable
                 Dim filtro As New Filter
@@ -164,7 +168,7 @@ Public Class CIMedicionAceroTotales
                     Celosia += Nz(dtObra.Rows(contador)("Celosia"), 0)
                     ECelosia += Nz(dtObra.Rows(contador)("ECelosia"), 0)
 
-                    'MsgBox(dtObra.Rows(contador)("NObra") & " - " & dtObra.Rows(contador + 1)("NObra"))
+                    PesoPlanilla += Nz(dtObra.Rows(contador)("PesoPlanilla"), 0)
                     Try
                         If (dtObra.Rows(contador)("NObra") <> dtObra.Rows(contador + 1)("NObra")) Then
                             dr = dt.NewRow
@@ -195,6 +199,7 @@ Public Class CIMedicionAceroTotales
                             dr("Celosia") = Celosia
                             dr("ECelosia") = ECelosia
                             dr("Estado") = dtObra.Rows(contador)("Estado")
+                            dr("PesoPlanilla") = PesoPlanilla
                             dt.Rows.Add(dr)
                             D8 = 0.0
                             ED8 = 0.0
@@ -220,6 +225,7 @@ Public Class CIMedicionAceroTotales
                             EPorte = 0.0
                             Celosia = 0.0
                             ECelosia = 0.0
+                            PesoPlanilla = 0.0
                         Else
 
                         End If
@@ -252,6 +258,7 @@ Public Class CIMedicionAceroTotales
                         dr("Celosia") = Celosia
                         dr("ECelosia") = ECelosia
                         dr("Estado") = dtObra.Rows(0)("Estado")
+                        dr("PesoPlanilla") = PesoPlanilla
                         dt.Rows.Add(dr)
                     End Try
                     contador += 1
@@ -293,6 +300,7 @@ Public Class CIMedicionAceroTotales
                 Dim EPorte As Double = 0.0
                 Dim Celosia As Double = 0.0
                 Dim ECelosia As Double = 0.0
+                Dim PesoPlanilla As Double = 0.0
 
                 Dim dtObra As New DataTable
                 Dim filtro As New Filter
@@ -342,6 +350,7 @@ Public Class CIMedicionAceroTotales
                     EPorte += Nz(dtObra.Rows(contador)("EPorte"), 0)
                     Celosia += Nz(dtObra.Rows(contador)("Celosia"), 0)
                     ECelosia += Nz(dtObra.Rows(contador)("ECelosia"), 0)
+                    PesoPlanilla += Nz(dtObra.Rows(contador)("PesoPlanilla"), 0)
                     contador += 1
                 Next
                 dr("D8") = D8
@@ -370,6 +379,7 @@ Public Class CIMedicionAceroTotales
                 dr("Celosia") = Celosia
                 dr("ECelosia") = ECelosia
                 dr("Estado") = dtObra.Rows(0)("Estado")
+                dr("PesoPlanilla") = PesoPlanilla
                 dt.Rows.Add(dr)
                 filtro.Clear()
 
