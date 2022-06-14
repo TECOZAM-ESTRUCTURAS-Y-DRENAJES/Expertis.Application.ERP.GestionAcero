@@ -61,7 +61,7 @@ Public Class MntoGestionObrasAcero
         With GridMediciones
             .Actions.Add(cnCOPIARLINEA, AddressOf CopiarMedicion, ExpertisApp.GetIcon("xConceptos.ico"))
         End With
-
+        'cambiaNombreColumnasOcultas()
     End Sub
 
     Private Sub MntoGestionObrasAcero_RecordAdding(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.RecordAdding
@@ -613,16 +613,38 @@ Public Class MntoGestionObrasAcero
                     Dim dt As DataTable = cli.SelOnPrimaryKey(idcliente)
                     UnderLineLabel4.Text = dt.Rows(0)("DescCliente")
                 End If
-
-
-
                 'David Velasco 16/12
+                'cambiaNombreColumnasOcultas()
             End If
         Catch ex As Exception
-            ExpertisApp.GenerateMessage(ex.Message)
         End Try
     End Sub
-
+    'Private Sub cambiaNombreColumnasOcultas()
+    '    Try
+    '        If GridMediciones.Columns("Celosia").Visible And GridMediciones.Columns("Celosia").Caption = "Celosia Ml" Then
+    '        Else
+    '            If GridMediciones.Columns("Celosia").Visible Then
+    '                GridMediciones.Columns("Celosia").Caption = "Celosia Ml"
+    '            Else
+    '                GridMediciones.Columns("Celosia").Visible = True
+    '                GridMediciones.Columns("Celosia").Caption = "Celosia Ml"
+    '                GridMediciones.HideColumn("Celosia")
+    '            End If
+    '        End If
+    '        If GridMediciones.Columns("Porte").Visible And GridMediciones.Columns("Porte").Caption = "Porte Ud" Then
+    '        Else
+    '            If GridMediciones.Columns("Porte").Visible = True Then
+    '                GridMediciones.Columns("Porte").Caption = "Porte Ud"
+    '            Else
+    '                GridMediciones.Columns("Porte").Visible = True
+    '                GridMediciones.Columns("Porte").Caption = "Porte Ud"
+    '                GridMediciones.HideColumn("Porte")
+    '            End If
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.ToString)
+    '    End Try
+    'End Sub
     Private Sub GridMediciones_AddingRecord(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles GridMediciones.AddingRecord
         Try
             With GridMediciones
