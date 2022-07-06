@@ -256,7 +256,7 @@ Public Class MntoGestionObrasAcero
                 End If
             End If
 
-            Strsql = "SELECT Estructura FROM vFrmObraMedicionesAEstructura WHERE IDOBRA = " & IDObra
+            Strsql = "SELECT DISTINCT(Estructura) FROM vFrmObraMedicionesAEstructura WHERE IDOBRA = " & IDObra
             'dt = AdminData.Filter(Strsql, , , , False)
             'David Velasco 30/11
             Dim obra As New ObraMedicion
