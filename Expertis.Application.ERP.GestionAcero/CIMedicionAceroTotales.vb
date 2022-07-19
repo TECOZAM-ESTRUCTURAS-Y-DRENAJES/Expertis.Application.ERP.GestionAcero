@@ -1011,11 +1011,18 @@ Public Class CIMedicionAceroTotales
                 For Each fila As DataRow In dtObra.Rows
                     dr = dt.NewRow
                     dr("Obra") = dtObra.Rows(0)("NObra")
-                    If dtObra.Rows(contador)("Mes") = 1 Or dtObra.Rows(contador)("Mes") = 2 Or dtObra.Rows(contador)("Mes") = 3 Or dtObra.Rows(contador)("Mes") = 4 Or dtObra.Rows(contador)("Mes") = 5 Or dtObra.Rows(contador)("Mes") = 6 Or dtObra.Rows(contador)("Mes") = 7 Or dtObra.Rows(contador)("Mes") = 8 Or dtObra.Rows(contador)("Mes") = 9 Then
-                        dr("Fecha") = "01/0" & dtObra.Rows(contador)("Mes") & "/" & dtObra.Rows(contador)("Año")
-                    Else
-                        dr("Fecha") = "01/" & dtObra.Rows(contador)("Mes") & "/" & dtObra.Rows(contador)("Año")
-                    End If
+
+                    Try
+                        If dtObra.Rows(contador)("Mes") = 1 Or dtObra.Rows(contador)("Mes") = 2 Or dtObra.Rows(contador)("Mes") = 3 Or dtObra.Rows(contador)("Mes") = 4 Or dtObra.Rows(contador)("Mes") = 5 Or dtObra.Rows(contador)("Mes") = 6 Or dtObra.Rows(contador)("Mes") = 7 Or dtObra.Rows(contador)("Mes") = 8 Or dtObra.Rows(contador)("Mes") = 9 Then
+                            dr("Fecha") = "01/0" & dtObra.Rows(contador)("Mes") & "/" & dtObra.Rows(contador)("Año")
+                        Else
+                            dr("Fecha") = "01/" & dtObra.Rows(contador)("Mes") & "/" & dtObra.Rows(contador)("Año")
+                        End If
+                    Catch ex As Exception
+                        MsgBox("ERROR EN LA OBRA " & dr("Obra") & ". Falta el mes y año en una linea.")
+                        Exit Sub
+                    End Try
+                    
                     D8 += dtObra.Rows(contador)("D8")
                     D10 += dtObra.Rows(contador)("D10")
                     D12 += dtObra.Rows(contador)("D12")
