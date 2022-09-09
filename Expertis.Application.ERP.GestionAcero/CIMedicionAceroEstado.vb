@@ -49,4 +49,40 @@ Public Class CIMedicionAceroEstado
 
     End Sub
 
+    Private Sub advNObra_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles advNObra.TextChanged
+        'Try
+        '    Dim idObra As String
+        '    idObra = advNObra.Value
+        '    Dim dt As New DataTable
+        '    Dim filtro As New Filter
+        '    filtro.Add("IDObra", FilterOperator.Equal, idObra)
+        '    dt = New BE.DataEngine().Filter("frmMntoObras", filtro)
+        '    If dt.Rows(0)("DiaFacturacion") Is DBNull.Value Then
+        '        txtDiaCierre.Text = "No tiene dia asignado."
+        '    Else
+        '        txtDiaCierre.Text = dt.Rows(0)("DiaFacturacion")
+        '    End If
+        'Catch ex As Exception
+
+        'End Try
+
+    End Sub
+
+    Private Sub advNObra_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles advNObra.Leave
+        Try
+            Dim NObra As String
+            NObra = advNObra.Text
+            Dim dt As New DataTable
+            Dim filtro As New Filter
+            filtro.Add("NObra", FilterOperator.Equal, NObra)
+            dt = New BE.DataEngine().Filter("frmMntoObras", filtro)
+            If dt.Rows(0)("DiaFacturacion") Is DBNull.Value Then
+                txtDiaCierre.Text = "No tiene dia asignado."
+            Else
+                txtDiaCierre.Text = dt.Rows(0)("DiaFacturacion")
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

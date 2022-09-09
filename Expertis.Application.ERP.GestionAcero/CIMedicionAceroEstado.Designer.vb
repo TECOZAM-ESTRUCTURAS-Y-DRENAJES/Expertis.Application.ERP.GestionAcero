@@ -39,6 +39,8 @@ Partial Class CIMedicionAceroEstado
         Me.Label2 = New Solmicro.Expertis.Engine.UI.Label
         Me.cbMes = New Solmicro.Expertis.Engine.UI.ComboBox
         Me.cbAño = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label3 = New Solmicro.Expertis.Engine.UI.Label
+        Me.txtDiaCierre = New Solmicro.Expertis.Engine.UI.TextBox
         Me.FilterPanel.SuspendLayout()
         Me.CIMntoGridPanel.suspendlayout()
         CType(Me.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,6 +56,8 @@ Partial Class CIMedicionAceroEstado
         '
         'FilterPanel
         '
+        Me.FilterPanel.Controls.Add(Me.txtDiaCierre)
+        Me.FilterPanel.Controls.Add(Me.Label3)
         Me.FilterPanel.Controls.Add(Me.cbAño)
         Me.FilterPanel.Controls.Add(Me.cbMes)
         Me.FilterPanel.Controls.Add(Me.Label2)
@@ -66,18 +70,18 @@ Partial Class CIMedicionAceroEstado
         Me.FilterPanel.Controls.Add(Me.lblFecha)
         Me.FilterPanel.Controls.Add(Me.advNObra)
         Me.FilterPanel.Controls.Add(Me.lblNObra)
-        Me.FilterPanel.Location = New System.Drawing.Point(0, 162)
-        Me.FilterPanel.Size = New System.Drawing.Size(638, 98)
+        Me.FilterPanel.Location = New System.Drawing.Point(0, 133)
+        Me.FilterPanel.Size = New System.Drawing.Size(638, 127)
         '
         'CIMntoGridPanel
         '
-        Me.CIMntoGridPanel.Size = New System.Drawing.Size(638, 162)
+        Me.CIMntoGridPanel.Size = New System.Drawing.Size(638, 133)
         '
         'Grid
         '
         Grid_DesignTimeLayout.LayoutString = resources.GetString("Grid_DesignTimeLayout.LayoutString")
         Me.Grid.DesignTimeLayout = Grid_DesignTimeLayout
-        Me.Grid.Size = New System.Drawing.Size(638, 162)
+        Me.Grid.Size = New System.Drawing.Size(638, 133)
         Me.Grid.ViewName = "vMedicionAceroEstado"
         '
         'Toolbar
@@ -213,6 +217,23 @@ Partial Class CIMedicionAceroEstado
         Me.cbAño.Size = New System.Drawing.Size(100, 21)
         Me.cbAño.TabIndex = 19
         '
+        'Label3
+        '
+        Me.Label3.Location = New System.Drawing.Point(20, 99)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(84, 13)
+        Me.Label3.TabIndex = 20
+        Me.Label3.Text = "Dia de Cierre"
+        '
+        'txtDiaCierre
+        '
+        Me.txtDiaCierre.DisabledBackColor = System.Drawing.Color.White
+        Me.txtDiaCierre.Enabled = False
+        Me.txtDiaCierre.Location = New System.Drawing.Point(122, 95)
+        Me.txtDiaCierre.Name = "txtDiaCierre"
+        Me.txtDiaCierre.Size = New System.Drawing.Size(100, 21)
+        Me.txtDiaCierre.TabIndex = 21
+        '
         'CIMedicionAceroEstado
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
@@ -248,4 +269,6 @@ Partial Class CIMedicionAceroEstado
     Friend WithEvents cbMes As Solmicro.Expertis.Engine.UI.ComboBox
     Friend WithEvents Label2 As Solmicro.Expertis.Engine.UI.Label
     Friend WithEvents Label1 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents txtDiaCierre As Solmicro.Expertis.Engine.UI.TextBox
+    Friend WithEvents Label3 As Solmicro.Expertis.Engine.UI.Label
 End Class
