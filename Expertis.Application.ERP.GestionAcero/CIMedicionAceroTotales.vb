@@ -404,24 +404,39 @@ Public Class CIMedicionAceroTotales
     End Sub
 
     Private Sub CIMedicionAceroTotales_QueryExecuted(ByVal sender As System.Object, ByRef e As Solmicro.Expertis.Engine.UI.QueryExecutedEventArgs) Handles MyBase.QueryExecuted
-        Dim obra As String
-        Dim fechadesde As Date
-        Dim fechahasta As Date
-        Dim estado As String
 
-        obra = Nz(advNObra.Text.ToString, "")
-        fechadesde = Nz(clbFecha.Value.ToString, "01/01/2000")
-        fechahasta = Nz(clbFecha1.Value.ToString, "31/12/2050")
-        If (cmbEstado.Text = "Proyectado") Then
-            estado = 0
-        ElseIf (cmbEstado.Text = "Comenzado") Then
-            estado = 1
-        ElseIf (cmbEstado.Text = "Terminado") Then
-            estado = 2
+        Dim dt As New DataTable
+        Dim filtro As New Filter
+        filtro.Add("Fecha", FilterOperator.NotEqual, DBNull.Value)
+        filtro.Add("Mes", FilterOperator.Equal, DBNull.Value)
+        dt = New BE.DataEngine().Filter("tbObraMedicionAcero", filtro)
+
+        If dt.Rows.Count > 0 Then
+            Dim cont As Integer = 0
+            For Each dr As DataRow In dt.Rows
+                MsgBox("A la obra " & dt.Rows(cont)("NObra") & " en la fila con Fecha " & dt.Rows(cont)("Fecha") & " y estructura " & dt.Rows(cont)("Estructura") & " le falta el mes y el año.")
+                cont += 1
+            Next
         Else
-            estado = ""
+            Dim obra As String
+            Dim fechadesde As Date
+            Dim fechahasta As Date
+            Dim estado As String
+
+            obra = Nz(advNObra.Text.ToString, "")
+            fechadesde = Nz(clbFecha.Value.ToString, "01/01/2000")
+            fechahasta = Nz(clbFecha1.Value.ToString, "31/12/2050")
+            If (cmbEstado.Text = "Proyectado") Then
+                estado = 0
+            ElseIf (cmbEstado.Text = "Comenzado") Then
+                estado = 1
+            ElseIf (cmbEstado.Text = "Terminado") Then
+                estado = 2
+            Else
+                estado = ""
+            End If
+            creardt(obra, fechadesde, fechahasta, estado)
         End If
-        creardt(obra, fechadesde, fechahasta, estado)
     End Sub
 
     Private Sub LoadToolbarActions()
@@ -434,24 +449,45 @@ Public Class CIMedicionAceroTotales
         End Try
     End Sub
     Private Sub dividirPorMeses()
-        Dim obra As String
-        Dim fechadesde As Date
-        Dim fechahasta As Date
-        Dim estado As String
 
-        obra = Nz(advNObra.Text.ToString, "")
-        fechadesde = Nz(clbFecha.Value.ToString, "01/01/2000")
-        fechahasta = Nz(clbFecha1.Value.ToString, "31/12/2050")
-        If (cmbEstado.Text = "Proyectado") Then
-            estado = 0
-        ElseIf (cmbEstado.Text = "Comenzado") Then
-            estado = 1
-        ElseIf (cmbEstado.Text = "Terminado") Then
-            estado = 2
+        '1. Compruebo que las obras tienen la fecha not null y el mes null
+        ' Si hay lineas no hagas nada y muestra qeu lineas son
+        Dim dt As New DataTable
+        Dim filtro As New Filter
+        filtro.Add("Fecha", FilterOperator.NotEqual, DBNull.Value)
+        filtro.Add("Mes", FilterOperator.Equal, DBNull.Value)
+        dt = New BE.DataEngine().Filter("tbObraMedicionAcero", filtro)
+
+        If dt.Rows.Count > 0 Then
+            Dim cont As Integer = 0
+            For Each dr As DataRow In dt.Rows
+                MsgBox("A la obra " & dt.Rows(cont)("NObra") & " en la fila con Fecha " & dt.Rows(cont)("Fecha") & " y estructura " & dt.Rows(cont)("Estructura") & " le falta el mes y el año.")
+                cont += 1
+            Next
         Else
-            estado = ""
+            '2
+
+            Dim obra As String
+            Dim fechadesde As Date
+            Dim fechahasta As Date
+            Dim estado As String
+
+            obra = Nz(advNObra.Text.ToString, "")
+            fechadesde = Nz(clbFecha.Value.ToString, "01/01/2000")
+            fechahasta = Nz(clbFecha1.Value.ToString, "31/12/2050")
+            If (cmbEstado.Text = "Proyectado") Then
+                estado = 0
+            ElseIf (cmbEstado.Text = "Comenzado") Then
+                estado = 1
+            ElseIf (cmbEstado.Text = "Terminado") Then
+                estado = 2
+            Else
+                estado = ""
+            End If
+            creardt2(obra, fechadesde, fechahasta, estado)
         End If
-        creardt2(obra, fechadesde, fechahasta, estado)
+
+        
     End Sub
     Public Sub creardt2(ByVal obra As String, ByVal fechadesde As Date, ByVal fechahasta As Date, ByVal estado As String)
         'Creacion Estructura Tabla
