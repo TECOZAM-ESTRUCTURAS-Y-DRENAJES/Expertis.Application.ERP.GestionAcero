@@ -40,6 +40,10 @@
     <Reference Include="Expertis.Application.ERP.Obras, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Expertis.Business.BusinessEnum, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Expertis.Business.ClasesTecozam, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -119,6 +123,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -264,6 +269,12 @@
     <Compile Include="frmProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSeleccionEstructura.Designer.vb">
+      <DependentUpon>frmSeleccionEstructura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSeleccionEstructura.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmVistaPrevia.Designer.vb">
       <DependentUpon>frmVistaPrevia.vb</DependentUpon>
     </Compile>
@@ -385,6 +396,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProveedor.resx">
       <DependentUpon>frmProveedor.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSeleccionEstructura.resx">
+      <DependentUpon>frmSeleccionEstructura.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVistaPrevia.resx">

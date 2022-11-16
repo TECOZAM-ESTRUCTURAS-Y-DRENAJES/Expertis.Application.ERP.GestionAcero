@@ -8,6 +8,6 @@
     <StartProgram>C:\ExpertisNet50R2test\Bin\Expertis.Engine.UI.Shell.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
 </Project>

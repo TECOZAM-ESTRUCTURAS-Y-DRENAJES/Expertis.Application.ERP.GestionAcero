@@ -1,5 +1,7 @@
 ﻿Imports Solmicro.Expertis.Engine
 Imports Solmicro.Expertis.Engine.UI
+Imports System.Windows.Forms
+Imports Solmicro.Expertis.Business.ClasesTecozam
 
 Public Class CIMedicionAceroTotales
     Inherits Solmicro.Expertis.Engine.UI.CIMnto
@@ -25,7 +27,23 @@ Public Class CIMedicionAceroTotales
     Private Sub CIMedicionAceroTotales_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         cmbEstado.DataSource = New EnumData("enumocEstado")
         LoadToolbarActions()
+        LoadGridActions()
     End Sub
+
+    Private Sub LoadGridActions()
+        With Grid
+            .Actions.Add("Abrir Obra", AddressOf CargarObra, ExpertisApp.GetIcon("redo.ico"))
+        End With
+    End Sub
+
+    Private Sub CargarObra()
+        With Grid
+            If Length(.Value("Obra")) > 0 Then
+                ExpertisApp.OpenForm("GESTOBACE", New StringFilterItem("NObra", .Value("Obra")))
+            End If
+        End With
+    End Sub
+
     Public Function estructuraTabla() As DataTable
         Dim dt As New DataTable
         Dim dc As New DataColumn("Obra")
@@ -407,6 +425,8 @@ Public Class CIMedicionAceroTotales
 
         Dim dt As New DataTable
         Dim filtro As New Filter
+        Dim iSQL As String
+        Dim op As New OperarioCalendario
         filtro.Add("Fecha", FilterOperator.NotEqual, DBNull.Value)
         filtro.Add("Mes", FilterOperator.Equal, DBNull.Value)
         dt = New BE.DataEngine().Filter("tbObraMedicionAcero", filtro)
@@ -414,9 +434,31 @@ Public Class CIMedicionAceroTotales
         If dt.Rows.Count > 0 Then
             Dim cont As Integer = 0
             For Each dr As DataRow In dt.Rows
-                MsgBox("A la obra " & dt.Rows(cont)("NObra") & " en la fila con Fecha " & dt.Rows(cont)("Fecha") & " y estructura " & dt.Rows(cont)("Estructura") & " le falta el mes y el año.")
+                'MsgBox("A la obra " & dt.Rows(cont)("NObra") & " en la fila con Fecha " & dt.Rows(cont)("Fecha") & " y estructura " & dt.Rows(cont)("Estructura") & " le falta el mes y el año.")
+                'Hago el INSERT
+                iSQL = "update tbObraMedicionAcero set mes='" & Month(dt.Rows(cont)("Fecha")) & "' ,año='" & Year(dt.Rows(cont)("Fecha")) & "' where IDLineaMedicionA='" & dt.Rows(cont)("IDLineaMedicionA") & "'"
+                op.Ejecutar(iSQL)
                 cont += 1
             Next
+            'CODIGO PARA MOSTRAR TODO
+            Dim obra As String
+            Dim fechadesde As Date
+            Dim fechahasta As Date
+            Dim estado As String
+
+            obra = Nz(advNObra.Text.ToString, "")
+            fechadesde = Nz(clbFecha.Value.ToString, "01/01/2000")
+            fechahasta = Nz(clbFecha1.Value.ToString, "31/12/2050")
+            If (cmbEstado.Text = "Proyectado") Then
+                estado = 0
+            ElseIf (cmbEstado.Text = "Comenzado") Then
+                estado = 1
+            ElseIf (cmbEstado.Text = "Terminado") Then
+                estado = 2
+            Else
+                estado = ""
+            End If
+            creardt(obra, fechadesde, fechahasta, estado)
         Else
             Dim obra As String
             Dim fechadesde As Date
@@ -443,10 +485,38 @@ Public Class CIMedicionAceroTotales
         Try
             With Me.FormActions
                 .Add("Dividir por meses", AddressOf dividirPorMeses)
+                '.Add("Leer un Fichero", AddressOf LeerFichero)
             End With
         Catch ex As Exception
             Engine.UI.ExpertisApp.GenerateMessage(ex.Message)
         End Try
+    End Sub
+
+    Public Sub LeerFichero()
+        Dim fd As OpenFileDialog = New OpenFileDialog()
+        Dim strFileName As String = ""
+        Dim contenido As String
+
+        fd.Title = "Seleccionar fichero de importación"
+        fd.InitialDirectory = "C:\"
+        fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
+        fd.FilterIndex = 2
+        fd.RestoreDirectory = True
+
+        Try
+            If fd.ShowDialog() = DialogResult.OK Then
+                strFileName = fd.FileName
+                MsgBox(strFileName)
+            End If
+            '---
+            contenido = My.Computer.FileSystem.ReadAllText(strFileName)
+            'Dim fileReader As String
+            'fileReader = My.Computer.FileSystem.ReadAllText("C:\Users\lgonzalez\Desktop\LeerFichero.txt")
+            MsgBox(contenido)
+        Catch ex As Exception
+
+        End Try
+
     End Sub
     Private Sub dividirPorMeses()
 
@@ -487,7 +557,7 @@ Public Class CIMedicionAceroTotales
             creardt2(obra, fechadesde, fechahasta, estado)
         End If
 
-        
+
     End Sub
     Public Sub creardt2(ByVal obra As String, ByVal fechadesde As Date, ByVal fechahasta As Date, ByVal estado As String)
         'Creacion Estructura Tabla
@@ -1058,7 +1128,7 @@ Public Class CIMedicionAceroTotales
                         MsgBox("ERROR EN LA OBRA " & dr("Obra") & ". Falta el mes y año en una linea.")
                         Exit Sub
                     End Try
-                    
+
                     D8 += dtObra.Rows(contador)("D8")
                     D10 += dtObra.Rows(contador)("D10")
                     D12 += dtObra.Rows(contador)("D12")
@@ -1183,7 +1253,7 @@ Public Class CIMedicionAceroTotales
                 filtro.Clear()
                 Grid.DataSource = dt
                 dt = Nothing
-            End If 
+            End If
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try

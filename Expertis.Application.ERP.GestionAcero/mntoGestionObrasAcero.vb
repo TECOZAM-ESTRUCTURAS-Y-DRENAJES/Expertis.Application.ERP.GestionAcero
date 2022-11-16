@@ -9,6 +9,7 @@ Imports Solmicro.Expertis.Engine.UI
 Imports Solmicro.Expertis.Business.ClasesTecozam
 Imports Microsoft.Office
 Imports Microsoft.Office.Interop
+Imports Microsoft.VisualBasic.FileIO
 
 Public Class MntoGestionObrasAcero
     Inherits Solmicro.Expertis.Engine.UI.SimpleMnto
@@ -29,13 +30,14 @@ Public Class MntoGestionObrasAcero
 
 
         With GridCertificaciones
-            Me.FormActions.Add("Importar Albaran por Excel - GRAPHICO - ", AddressOf ImportarAlbaran)
+            'Me.FormActions.Add("Importar Albaran por Excel - GRAPHICO - ", AddressOf ImportarAlbaran)
             Me.AddSeparator()
             Me.FormActions.Add("Abrir Factura", AddressOf AbrirFactura)
             Me.FormActions.Add("Abrir Obra", AddressOf AbrirObra)
         End With
 
         With GridMediciones
+            Me.FormActions.Add("UNIFICAR EXCEL - ALLPLAN", AddressOf UnificarExcel)
             Me.AddSeparator()
             Me.FormActions.Add("Bloquear Grid", AddressOf BloquearGridMediciones)
             Me.FormActions.Add("DesBloquear Grid", AddressOf DesbloquearGridMediciones)
@@ -1511,6 +1513,20 @@ Public Class MntoGestionObrasAcero
         Return dt
 
     End Function
+    Public Function ObtenerDatosExcelAllPlan(ByVal ruta As String, ByVal hoja As String, ByVal rango As String) As DataTable
+        Dim MyConnection As System.Data.OleDb.OleDbConnection
+        Dim DtSet As System.Data.DataSet
+        Dim MyCommand As System.Data.OleDb.OleDbDataAdapter
+        MyConnection = New System.Data.OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" & ruta & "';Extended Properties=Excel 12.0;")
+        MyCommand = New System.Data.OleDb.OleDbDataAdapter("select * from [" & hoja & "$" & rango & "]", MyConnection)
+        'MyCommand.TableMappings.Add("Table", "Net-informations.com")
+        DtSet = New System.Data.DataSet
+        MyCommand.Fill(DtSet)
+        Dim dt As DataTable = DtSet.Tables(0)
+        MyConnection.Close()
+        Return dt
+
+    End Function
 
     Private Sub AbrirFactura()
         Dim lngIdFactura As Integer
@@ -1537,6 +1553,376 @@ Public Class MntoGestionObrasAcero
         End Try
     End Sub
 
+    Private Function ObtenerDatosExcelAbs(ByVal ruta As String)
+        Dim dt As New DataTable
+        dt.Columns.Add("0")
+        dt.Columns.Add("1")
+        dt.Columns.Add("2")
+        dt.Columns.Add("3")
+        Dim dc As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dt.Columns.Add(dc)
+        dt.Columns.Add("5")
+        dt.Columns.Add("6")
+        dt.Columns.Add("7")
+        dt.Columns.Add("8")
+        dt.Columns.Add("9")
+        dt.Columns.Add("10")
+        dt.Columns.Add("11")
+        dt.Columns.Add("12")
+        dt.Columns.Add("13")
+        dt.Columns.Add("14")
+        dt.Columns.Add("15")
+        dt.Columns.Add("16")
+        dt.Columns.Add("17")
+        dt.Columns.Add("18")
+        dt.Columns.Add("19")
+        dt.Columns.Add("20")
+        dt.Columns.Add("21")
+        dt.Columns.Add("22")
+        dt.Columns.Add("23")
+        dt.Columns.Add("24")
+        dt.Columns.Add("25")
+        dt.Columns.Add("26")
+        dt.Columns.Add("27")
+        dt.Columns.Add("28")
+        dt.Columns.Add("29")
+        dt.Columns.Add("30")
+        dt.Columns.Add("31")
+        dt.Columns.Add("32")
+        dt.Columns.Add("33")
+        dt.Columns.Add("34")
+        dt.Columns.Add("35")
+        dt.Columns.Add("36")
+        dt.Columns.Add("37")
+        dt.Columns.Add("38")
+        dt.Columns.Add("39")
+        dt.Columns.Add("40")
+
+
+
+        'Obtener tabla
+        Dim sb As New System.Text.StringBuilder()
+
+        Using reader As New TextFieldParser(ruta)
+
+            reader.TextFieldType = FieldType.Delimited
+            reader.SetDelimiters("@") ' Los campos del archivo están separados por comas.
+
+            ' Recorremos el archivo hasta el final del mismo.
+            While Not reader.EndOfData
+                Try
+                    ' Obtenemos una matriz con los datos existentes en la línea actual.
+                    Dim lineaActual As String() = reader.ReadFields()
+                    Dim dr As DataRow = dt.NewRow()
+                    Dim c As Integer = 0
+
+                    For Each campo As String In lineaActual
+                        'sb.AppendFormat("{0}|", campo)
+                        dr(c) = campo
+                        c += 1
+                    Next
+                    dt.Rows.Add(dr)
+                    'MessageBox.Show(sb.ToString)
+                    sb.AppendLine()
+
+                Catch ex As MalformedLineException
+                    MessageBox.Show("La línea actual " & ex.Message & " no es válida.")
+                End Try
+            End While
+        End Using
+        'Ordenarla
+        'Dim dtOrdenada As New DataTable
+        'dt.DefaultView.Sort = "Posicion asc"
+
+        'dtOrdenada = dt.DefaultView.ToTable
+        Return dt
+    End Function
+    Private Sub UnificarExcel()
+        MessageBox.Show("Seleccione el fichero .abs", "SELECCION FICHERO", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        'TABLA ALLPLAN
+        Dim dtAllPlan As New DataTable
+        Dim ruta As String
+        Dim hoja As String = "Hoja1"
+        Dim rango As String = "A1:AJ1000"
+        Dim openFD As New OpenFileDialog()
+        With openFD
+            .Title = "Seleccionar archivos"
+            .Filter = "Todos los archivos(*.*)|*.*"
+            .Multiselect = False
+            .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
+            If .ShowDialog = Windows.Forms.DialogResult.OK Then
+
+                Try
+                    ruta = openFD.FileName
+                    'dtAllPlan = ObtenerDatosExcelAllPlan(ruta, hoja, rango)
+                    dtAllPlan = ObtenerDatosExcelAbs(ruta)
+                Catch ex As Exception
+                    MsgBox("ERROR EN LA TABLA DE ALLPLAN: " & ex.ToString)
+                End Try
+            End If
+        End With
+
+        'TABLA INTERMEDIA
+        MessageBox.Show("Seleccione  el fichero .xlsx con la tabla intermedia.", "SELECCION FICHERO", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim dtTablaIntermedia As New DataTable
+        Dim ruta2 As String
+        Dim hoja2 As String = "TECOZAM_POS+LY"
+        Dim rango2 As String = "A16:C1000"
+        Dim openFD2 As New OpenFileDialog()
+        With openFD2
+            .Title = "Seleccionar archivos"
+            .Filter = "Archivos Excel(*.xls;*.xlsx)|*.xls;*xlsx|Todos los archivos(*.*)|*.*"
+            .Multiselect = False
+            .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
+            If .ShowDialog = Windows.Forms.DialogResult.OK Then
+
+                Try
+                    ruta2 = openFD2.FileName
+                    dtTablaIntermedia = ObtenerDatosExcelAllPlan(ruta2, hoja2, rango2)
+                Catch ex As Exception
+                    MsgBox("ERROR EN LA TABLA INTERMEDIA: " & ex.ToString)
+                End Try
+            End If
+        End With
+
+        'Borrar columna de la tabla intermedia
+        dtTablaIntermedia.Columns.Remove("F2")
+
+        Dim cont As Integer = 0
+        Dim contInter As Integer
+        Dim valorceldap As String = ""
+        Dim valorcelda As String = ""
+        'CAMBIAR VALORES CON LA TABLA INTERMEDIA
+        For Each drAllPlan As DataRow In dtAllPlan.Rows
+            If IsDBNull(drAllPlan(0)) Then
+            Else
+                valorceldap = dtAllPlan.Rows(cont)(4)
+                'valorcelda = valorceldap.Substring(1, valorceldap.Length - 1)
+                Try
+                    valorcelda = valorceldap.Substring(1, valorceldap.IndexOf(".") - 1)
+                Catch ex As Exception
+                    valorcelda = valorceldap.Substring(1, valorceldap.Length - 1)
+                End Try
+
+                contInter = 0
+                For Each drTablaIntermedia As DataRow In dtTablaIntermedia.Rows
+                    If dtTablaIntermedia.Rows(contInter)(0).ToString = valorcelda Then
+                        'MsgBox(dtTablaIntermedia.Rows(contInter)(0).ToString)
+                        dtAllPlan.Rows(cont)(4) = "p" & dtTablaIntermedia.Rows(contInter)(1)
+                        Exit For
+                    End If
+                    contInter += 1
+                Next
+                'dtAllPlan.Rows(cont)(4) = "p" & dtTablaIntermedia.Rows(cont)(1)
+                cont += 1
+            End If
+        Next
+
+        Dim dtOrdenada As New DataTable
+        dtAllPlan.DefaultView.Sort = "Posicion asc"
+
+        dtOrdenada = dtAllPlan.DefaultView.ToTable
+        'ORDENA LOS QUE TIENEN MAS DE 1 DIGITO
+        'DEPENDIENDO DE LA ESTRUCTURA LO ORDENA DE UNA MANERA U OTRA
+        Dim frm As New frmSeleccionEstructura
+        frm.ShowDialog()
+
+        Dim num As Integer
+        num = frm.cmbEstructura.Value
+        Select Case num
+
+            Case 0
+                'pPos.
+                dtOrdenada = OrdenaTodadtPOS(dtOrdenada)
+            Case 1
+                'Zuncho
+            Case 2
+                'MURO
+
+        End Select
+
+
+
+        Me.Cursor = Cursors.WaitCursor
+        ExportarACsv(dtOrdenada)
+        Me.Cursor = Cursors.Default
+        'ExportarAExcel(dtAllPlan)
+
+        MsgBox("Fichero generado correctamente.")
+    End Sub
+    Public Function OrdenaTodadtPOS(ByVal dtOrdenada As DataTable)
+        Dim dtOrFinal As New DataTable
+
+        dtOrFinal.Columns.Add("0")
+        dtOrFinal.Columns.Add("1")
+        dtOrFinal.Columns.Add("2")
+        dtOrFinal.Columns.Add("3")
+        Dim dc As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal.Columns.Add(dc)
+        dtOrFinal.Columns.Add("5")
+        dtOrFinal.Columns.Add("6")
+        dtOrFinal.Columns.Add("7")
+        dtOrFinal.Columns.Add("8")
+        dtOrFinal.Columns.Add("9")
+        dtOrFinal.Columns.Add("10")
+        dtOrFinal.Columns.Add("11")
+        dtOrFinal.Columns.Add("12")
+        dtOrFinal.Columns.Add("13")
+        dtOrFinal.Columns.Add("14")
+        dtOrFinal.Columns.Add("15")
+        dtOrFinal.Columns.Add("16")
+        dtOrFinal.Columns.Add("17")
+        dtOrFinal.Columns.Add("18")
+        dtOrFinal.Columns.Add("19")
+        dtOrFinal.Columns.Add("20")
+        dtOrFinal.Columns.Add("21")
+        dtOrFinal.Columns.Add("22")
+        dtOrFinal.Columns.Add("23")
+        dtOrFinal.Columns.Add("24")
+        dtOrFinal.Columns.Add("25")
+        dtOrFinal.Columns.Add("26")
+        dtOrFinal.Columns.Add("27")
+        dtOrFinal.Columns.Add("28")
+        dtOrFinal.Columns.Add("29")
+        dtOrFinal.Columns.Add("30")
+        dtOrFinal.Columns.Add("31")
+        dtOrFinal.Columns.Add("32")
+        dtOrFinal.Columns.Add("33")
+        dtOrFinal.Columns.Add("34")
+        dtOrFinal.Columns.Add("35")
+        dtOrFinal.Columns.Add("36")
+        dtOrFinal.Columns.Add("37")
+        dtOrFinal.Columns.Add("38")
+        dtOrFinal.Columns.Add("39")
+        dtOrFinal.Columns.Add("40")
+
+        Dim dtOrFinal2 As New DataTable
+
+        dtOrFinal2.Columns.Add("0")
+        dtOrFinal2.Columns.Add("1")
+        dtOrFinal2.Columns.Add("2")
+        dtOrFinal2.Columns.Add("3")
+        Dim dc2 As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal2.Columns.Add(dc2)
+        dtOrFinal2.Columns.Add("5")
+        dtOrFinal2.Columns.Add("6")
+        dtOrFinal2.Columns.Add("7")
+        dtOrFinal2.Columns.Add("8")
+        dtOrFinal2.Columns.Add("9")
+        dtOrFinal2.Columns.Add("10")
+        dtOrFinal2.Columns.Add("11")
+        dtOrFinal2.Columns.Add("12")
+        dtOrFinal2.Columns.Add("13")
+        dtOrFinal2.Columns.Add("14")
+        dtOrFinal2.Columns.Add("15")
+        dtOrFinal2.Columns.Add("16")
+        dtOrFinal2.Columns.Add("17")
+        dtOrFinal2.Columns.Add("18")
+        dtOrFinal2.Columns.Add("19")
+        dtOrFinal2.Columns.Add("20")
+        dtOrFinal2.Columns.Add("21")
+        dtOrFinal2.Columns.Add("22")
+        dtOrFinal2.Columns.Add("23")
+        dtOrFinal2.Columns.Add("24")
+        dtOrFinal2.Columns.Add("25")
+        dtOrFinal2.Columns.Add("26")
+        dtOrFinal2.Columns.Add("27")
+        dtOrFinal2.Columns.Add("28")
+        dtOrFinal2.Columns.Add("29")
+        dtOrFinal2.Columns.Add("30")
+        dtOrFinal2.Columns.Add("31")
+        dtOrFinal2.Columns.Add("32")
+        dtOrFinal2.Columns.Add("33")
+        dtOrFinal2.Columns.Add("34")
+        dtOrFinal2.Columns.Add("35")
+        dtOrFinal2.Columns.Add("36")
+        dtOrFinal2.Columns.Add("37")
+        dtOrFinal2.Columns.Add("38")
+        dtOrFinal2.Columns.Add("39")
+        dtOrFinal2.Columns.Add("40")
+
+        For Each dr As DataRow In dtOrdenada.Rows
+            Dim valores() As String
+            valores = dr("Posicion").ToString.Split(".")
+            Try
+                If valores(1).Length >= 2 Then
+                    dtOrFinal.ImportRow(dr)
+                Else
+                    dtOrFinal2.ImportRow(dr)
+                End If
+            Catch ex As Exception
+            End Try
+        Next
+
+        'UNO LAS TABLAS EN UNA DEFINITIVA
+        For Each dr As DataRow In dtOrFinal.Rows
+            dtOrFinal2.ImportRow(dr)
+        Next
+
+        Return dtOrFinal2
+    End Function
+    Public Sub ExportarACsv(ByVal dtAllPlan As DataTable)
+        Dim csvFilePath As String = "C:\MisDocumentosAllPlan\UNIFICACION.abs" 'Path to create or existing file
+        Dim outFile As IO.StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(csvFilePath, False)
+
+        Dim celda As String = ""
+        Dim filas As String = ""
+        Dim i As Integer = 0
+        Dim j As Integer = 0
+        Dim c As Integer = 0
+        For Each dr As DataRow In dtAllPlan.Rows
+            c = 0
+            filas = ""
+            Try
+                While dr(c).ToString.Length <> 0
+                    celda = dr(c).ToString
+                    c += 1
+                    filas += celda & "@"
+                End While
+                outFile.WriteLine(filas)
+            Catch ex As Exception
+                outFile.WriteLine(filas)
+            End Try
+        Next
+        outFile.Close()
+    End Sub
+
+    Public Sub ExportarAExcel(ByVal dtAllPlan As DataTable)
+        Dim _excel As New Microsoft.Office.Interop.Excel.Application
+        Dim wBook As Microsoft.Office.Interop.Excel.Workbook
+        Dim wSheet As Microsoft.Office.Interop.Excel.Worksheet
+
+        wBook = _excel.Workbooks.Add()
+        wSheet = wBook.ActiveSheet()
+
+        Dim dt As System.Data.DataTable = dtAllPlan
+        Dim dc As System.Data.DataColumn
+        Dim dr As System.Data.DataRow
+        Dim colIndex As Integer = 0
+        Dim rowIndex As Integer = 0
+
+        For Each dc In dt.Columns
+            colIndex = colIndex + 1
+            _excel.Cells(1, colIndex) = dc.ColumnName
+        Next
+        For Each dr In dt.Rows
+            rowIndex = rowIndex + 1
+            colIndex = 0
+            For Each dc In dt.Columns
+                colIndex = colIndex + 1
+                _excel.Cells(rowIndex + 1, colIndex) = dr(dc.ColumnName)
+            Next
+        Next
+        wSheet.Columns.AutoFit()
+        Dim strFileName As String = "C:\MisDocumentosAllPlan\Libro1.xlsx"
+        If System.IO.File.Exists(strFileName) Then
+            System.IO.File.Delete(strFileName)
+        End If
+
+        wBook.SaveAs(strFileName)
+        wBook.Close()
+        _excel.Quit()
+    End Sub
     Private Sub AbrirObra()
         Dim f As New Filter
         Try
