@@ -10,6 +10,7 @@ Imports Solmicro.Expertis.Business.ClasesTecozam
 Imports Microsoft.Office
 Imports Microsoft.Office.Interop
 Imports Microsoft.VisualBasic.FileIO
+Imports System.IO
 
 Public Class MntoGestionObrasAcero
     Inherits Solmicro.Expertis.Engine.UI.SimpleMnto
@@ -1738,17 +1739,18 @@ Public Class MntoGestionObrasAcero
                 'Zuncho
             Case 2
                 'MURO
-
+                dtOrdenada = OrdenaTodadtMuro(dtOrdenada)
         End Select
 
 
 
         Me.Cursor = Cursors.WaitCursor
-        ExportarACsv(dtOrdenada)
+        'ExportarACsv(dtOrdenada)
+        ExportarACsvCustom(dtOrdenada)
         Me.Cursor = Cursors.Default
         'ExportarAExcel(dtAllPlan)
 
-        MsgBox("Fichero generado correctamente.")
+        'MsgBox("Fichero generado correctamente.")
     End Sub
     Public Function OrdenaTodadtPOS(ByVal dtOrdenada As DataTable)
         Dim dtOrFinal As New DataTable
@@ -1851,6 +1853,7 @@ Public Class MntoGestionObrasAcero
                     dtOrFinal2.ImportRow(dr)
                 End If
             Catch ex As Exception
+                MsgBox("El valor " & valores(0) & " no tiene correspondencia. Checkear.")
             End Try
         Next
 
@@ -1861,6 +1864,136 @@ Public Class MntoGestionObrasAcero
 
         Return dtOrFinal2
     End Function
+
+    Public Function OrdenaTodadtMuro(ByVal dtOrdenada As DataTable)
+        Dim dtOrFinal As New DataTable
+
+        dtOrFinal.Columns.Add("0")
+        dtOrFinal.Columns.Add("1")
+        dtOrFinal.Columns.Add("2")
+        dtOrFinal.Columns.Add("3")
+        Dim dc As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal.Columns.Add(dc)
+        dtOrFinal.Columns.Add("5")
+        dtOrFinal.Columns.Add("6")
+        dtOrFinal.Columns.Add("7")
+        dtOrFinal.Columns.Add("8")
+        dtOrFinal.Columns.Add("9")
+        dtOrFinal.Columns.Add("10")
+        dtOrFinal.Columns.Add("11")
+        dtOrFinal.Columns.Add("12")
+        dtOrFinal.Columns.Add("13")
+        dtOrFinal.Columns.Add("14")
+        dtOrFinal.Columns.Add("15")
+        dtOrFinal.Columns.Add("16")
+        dtOrFinal.Columns.Add("17")
+        dtOrFinal.Columns.Add("18")
+        dtOrFinal.Columns.Add("19")
+        dtOrFinal.Columns.Add("20")
+        dtOrFinal.Columns.Add("21")
+        dtOrFinal.Columns.Add("22")
+        dtOrFinal.Columns.Add("23")
+        dtOrFinal.Columns.Add("24")
+        dtOrFinal.Columns.Add("25")
+        dtOrFinal.Columns.Add("26")
+        dtOrFinal.Columns.Add("27")
+        dtOrFinal.Columns.Add("28")
+        dtOrFinal.Columns.Add("29")
+        dtOrFinal.Columns.Add("30")
+        dtOrFinal.Columns.Add("31")
+        dtOrFinal.Columns.Add("32")
+        dtOrFinal.Columns.Add("33")
+        dtOrFinal.Columns.Add("34")
+        dtOrFinal.Columns.Add("35")
+        dtOrFinal.Columns.Add("36")
+        dtOrFinal.Columns.Add("37")
+        dtOrFinal.Columns.Add("38")
+        dtOrFinal.Columns.Add("39")
+        dtOrFinal.Columns.Add("40")
+
+        Dim dtOrFinal2 As New DataTable
+
+        dtOrFinal2.Columns.Add("0")
+        dtOrFinal2.Columns.Add("1")
+        dtOrFinal2.Columns.Add("2")
+        dtOrFinal2.Columns.Add("3")
+        Dim dc2 As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal2.Columns.Add(dc2)
+        dtOrFinal2.Columns.Add("5")
+        dtOrFinal2.Columns.Add("6")
+        dtOrFinal2.Columns.Add("7")
+        dtOrFinal2.Columns.Add("8")
+        dtOrFinal2.Columns.Add("9")
+        dtOrFinal2.Columns.Add("10")
+        dtOrFinal2.Columns.Add("11")
+        dtOrFinal2.Columns.Add("12")
+        dtOrFinal2.Columns.Add("13")
+        dtOrFinal2.Columns.Add("14")
+        dtOrFinal2.Columns.Add("15")
+        dtOrFinal2.Columns.Add("16")
+        dtOrFinal2.Columns.Add("17")
+        dtOrFinal2.Columns.Add("18")
+        dtOrFinal2.Columns.Add("19")
+        dtOrFinal2.Columns.Add("20")
+        dtOrFinal2.Columns.Add("21")
+        dtOrFinal2.Columns.Add("22")
+        dtOrFinal2.Columns.Add("23")
+        dtOrFinal2.Columns.Add("24")
+        dtOrFinal2.Columns.Add("25")
+        dtOrFinal2.Columns.Add("26")
+        dtOrFinal2.Columns.Add("27")
+        dtOrFinal2.Columns.Add("28")
+        dtOrFinal2.Columns.Add("29")
+        dtOrFinal2.Columns.Add("30")
+        dtOrFinal2.Columns.Add("31")
+        dtOrFinal2.Columns.Add("32")
+        dtOrFinal2.Columns.Add("33")
+        dtOrFinal2.Columns.Add("34")
+        dtOrFinal2.Columns.Add("35")
+        dtOrFinal2.Columns.Add("36")
+        dtOrFinal2.Columns.Add("37")
+        dtOrFinal2.Columns.Add("38")
+        dtOrFinal2.Columns.Add("39")
+        dtOrFinal2.Columns.Add("40")
+
+        For Each dr As DataRow In dtOrdenada.Rows
+            Dim valores() As String
+            valores = dr("Posicion").ToString.Split(".")
+            Try
+
+                If valores(2).TrimStart.Length >= 2 Then
+                    'Si el segundo caracter es un numero
+                    Dim ch As Char
+                    ch = valores(2).TrimStart.ToString.Chars(1)
+                    If esUnNumero(ch) Then
+                        dtOrFinal2.ImportRow(dr)
+                    Else
+                        dtOrFinal.ImportRow(dr)
+                    End If
+                Else
+                    dtOrFinal2.ImportRow(dr)
+                End If
+            Catch ex As Exception
+                MsgBox("El valor " & valores(0) & " no tiene correspondencia. Checkear.")
+            End Try
+        Next
+
+        'UNO LAS TABLAS EN UNA DEFINITIVA
+        For Each dr As DataRow In dtOrFinal.Rows
+            dtOrFinal2.ImportRow(dr)
+        Next
+
+        Return dtOrFinal2
+    End Function
+
+    Public Function esUnNumero(ByVal ch As Char) As Boolean
+        If ch = "0" Or ch = "1" Or ch = "2" Or ch = "3" Or ch = "4" Or ch = "5" Or ch = "6" Or ch = "7" Or ch = "8" Or ch = "9" Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
     Public Sub ExportarACsv(ByVal dtAllPlan As DataTable)
         Dim csvFilePath As String = "C:\MisDocumentosAllPlan\UNIFICACION.abs" 'Path to create or existing file
         Dim outFile As IO.StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(csvFilePath, False)
@@ -1886,6 +2019,40 @@ Public Class MntoGestionObrasAcero
         Next
         outFile.Close()
     End Sub
+
+    Public Sub ExportarACsvCustom(ByVal dtAllPlan As DataTable)
+        Dim s As New SaveFileDialog
+        s.DefaultExt = ".abs"
+        s.FileName = "Unificacion"
+        If s.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim outFile As IO.StreamWriter = My.Computer.FileSystem.OpenTextFileWriter(s.FileName, False)
+
+            Dim celda As String = ""
+            Dim filas As String = ""
+            Dim i As Integer = 0
+            Dim j As Integer = 0
+            Dim c As Integer = 0
+            For Each dr As DataRow In dtAllPlan.Rows
+                c = 0
+                filas = ""
+                Try
+                    While dr(c).ToString.Length <> 0
+                        celda = dr(c).ToString
+                        c += 1
+                        filas += celda & "@"
+                    End While
+                    outFile.WriteLine(filas)
+                Catch ex As Exception
+                    outFile.WriteLine(filas)
+                End Try
+            Next
+            outFile.Close()
+            MsgBox("Fichero generado correctamente.")
+            'My.Computer.FileSystem.WriteAllText(s.FileName, outFile.ToString, False)
+        End If
+
+    End Sub
+
 
     Public Sub ExportarAExcel(ByVal dtAllPlan As DataTable)
         Dim _excel As New Microsoft.Office.Interop.Excel.Application
@@ -3233,9 +3400,9 @@ Public Class MntoGestionObrasAcero
     Private Sub AccionExportarMediciones()
         Dim strEmpresa As String
 
-        Dim frm As FrmExportar
+        Dim frm As frmExportar
         Try
-            frm = New FrmExportar 'txtDescObra
+            frm = New frmExportar 'txtDescObra
 
             frm.lngIDObraGA = Me.CurrentRow("IDObra")
 
@@ -3351,7 +3518,7 @@ Public Class MntoGestionObrasAcero
 
 #Region " Asignación de Coladas "
     Private Sub MostrarFormularioNumeroSerie(ByVal numDiametro As Integer, ByVal pCantidad As Double, ByVal numMedicion As Double)
-        Dim frmNumSerie As New FrmNumeroSerie
+        Dim frmNumSerie As New frmNumeroSerie
 
         Try
             With GridMediciones
@@ -3946,8 +4113,8 @@ Public Class MntoGestionObrasAcero
 
             ' Recorrer las lineas certificadas
             For Shcont As Short = 0 To rselaboracion.Rows.Count - 1
-                rselaboracion.Rows(shcont)("CERTIFICAR") = 0
-                rselaboracion.Rows(shcont)("NCERTIFICACION") = lNumcertifica
+                rselaboracion.Rows(Shcont)("CERTIFICAR") = 0
+                rselaboracion.Rows(Shcont)("NCERTIFICACION") = lNumcertifica
             Next
 
             ' Lanzar el update
@@ -4305,8 +4472,8 @@ Public Class MntoGestionObrasAcero
 
             ' Recorrer las lineas certificadas
             For Shcont As Short = 0 To rselaboracion.Rows.Count - 1
-                rselaboracion.Rows(shcont)("CERTIFICAR") = 0
-                rselaboracion.Rows(shcont)("NCERTIFICACION") = lNumcertifica
+                rselaboracion.Rows(Shcont)("CERTIFICAR") = 0
+                rselaboracion.Rows(Shcont)("NCERTIFICACION") = lNumcertifica
             Next
             ' Lanzar el update
             clobra.Update(rselaboracion)
@@ -4923,7 +5090,7 @@ Public Class MntoGestionObrasAcero
         For Each dfila As DataRow In dFilas
             If dfila("idOrdenLinea") < 0 Then
                 dfila("idOrdenLinea") = shOrden
-                dFila("descArticulo") = Strings.Right(dFila("descArticulo"), CStr(dfila("DescArticulo")).Length - 6)
+                dfila("descArticulo") = Strings.Right(dfila("descArticulo"), CStr(dfila("DescArticulo")).Length - 6)
                 shOrden += 1
             End If
         Next
