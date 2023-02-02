@@ -1734,12 +1734,19 @@ Public Class MntoGestionObrasAcero
 
             Case 0
                 'pPos.
-                dtOrdenada = OrdenaTodadtPOS(dtOrdenada)
+                'dtOrdenada = OrdenaTodadtPOS(dtOrdenada)
+                dtOrdenada = OrdenaTodadtPOS2(dtOrdenada)
             Case 1
                 'Zuncho
+
             Case 2
                 'MURO
                 dtOrdenada = OrdenaTodadtMuro(dtOrdenada)
+            Case 3
+                'pPos Extremos
+                dtOrdenada = OrdenaTodadtPOS2(dtOrdenada)
+                'Borra los intermedios
+                dtOrdenada = BorraLineasIntermedias(dtOrdenada)
         End Select
 
 
@@ -1864,6 +1871,198 @@ Public Class MntoGestionObrasAcero
 
         Return dtOrFinal2
     End Function
+
+    Public Function OrdenaTodadtPOS2(ByVal dtOrdenada As DataTable)
+        Dim dtOrFinal As New DataTable
+
+        dtOrFinal.Columns.Add("0")
+        dtOrFinal.Columns.Add("1")
+        dtOrFinal.Columns.Add("2")
+        dtOrFinal.Columns.Add("3")
+        Dim dc As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal.Columns.Add(dc)
+        dtOrFinal.Columns.Add("5")
+        dtOrFinal.Columns.Add("6")
+        dtOrFinal.Columns.Add("7")
+        dtOrFinal.Columns.Add("8")
+        dtOrFinal.Columns.Add("9")
+        dtOrFinal.Columns.Add("10")
+        dtOrFinal.Columns.Add("11")
+        dtOrFinal.Columns.Add("12")
+        dtOrFinal.Columns.Add("13")
+        dtOrFinal.Columns.Add("14")
+        dtOrFinal.Columns.Add("15")
+        dtOrFinal.Columns.Add("16")
+        dtOrFinal.Columns.Add("17")
+        dtOrFinal.Columns.Add("18")
+        dtOrFinal.Columns.Add("19")
+        dtOrFinal.Columns.Add("20")
+        dtOrFinal.Columns.Add("21")
+        dtOrFinal.Columns.Add("22")
+        dtOrFinal.Columns.Add("23")
+        dtOrFinal.Columns.Add("24")
+        dtOrFinal.Columns.Add("25")
+        dtOrFinal.Columns.Add("26")
+        dtOrFinal.Columns.Add("27")
+        dtOrFinal.Columns.Add("28")
+        dtOrFinal.Columns.Add("29")
+        dtOrFinal.Columns.Add("30")
+        dtOrFinal.Columns.Add("31")
+        dtOrFinal.Columns.Add("32")
+        dtOrFinal.Columns.Add("33")
+        dtOrFinal.Columns.Add("34")
+        dtOrFinal.Columns.Add("35")
+        dtOrFinal.Columns.Add("36")
+        dtOrFinal.Columns.Add("37")
+        dtOrFinal.Columns.Add("38")
+        dtOrFinal.Columns.Add("39")
+        dtOrFinal.Columns.Add("40")
+
+        Dim dtOrFinal2 As New DataTable
+
+        dtOrFinal2.Columns.Add("0")
+        dtOrFinal2.Columns.Add("1")
+        dtOrFinal2.Columns.Add("2")
+        dtOrFinal2.Columns.Add("3")
+        Dim dc2 As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal2.Columns.Add(dc2)
+        dtOrFinal2.Columns.Add("5")
+        dtOrFinal2.Columns.Add("6")
+        dtOrFinal2.Columns.Add("7")
+        dtOrFinal2.Columns.Add("8")
+        dtOrFinal2.Columns.Add("9")
+        dtOrFinal2.Columns.Add("10")
+        dtOrFinal2.Columns.Add("11")
+        dtOrFinal2.Columns.Add("12")
+        dtOrFinal2.Columns.Add("13")
+        dtOrFinal2.Columns.Add("14")
+        dtOrFinal2.Columns.Add("15")
+        dtOrFinal2.Columns.Add("16")
+        dtOrFinal2.Columns.Add("17")
+        dtOrFinal2.Columns.Add("18")
+        dtOrFinal2.Columns.Add("19")
+        dtOrFinal2.Columns.Add("20")
+        dtOrFinal2.Columns.Add("21")
+        dtOrFinal2.Columns.Add("22")
+        dtOrFinal2.Columns.Add("23")
+        dtOrFinal2.Columns.Add("24")
+        dtOrFinal2.Columns.Add("25")
+        dtOrFinal2.Columns.Add("26")
+        dtOrFinal2.Columns.Add("27")
+        dtOrFinal2.Columns.Add("28")
+        dtOrFinal2.Columns.Add("29")
+        dtOrFinal2.Columns.Add("30")
+        dtOrFinal2.Columns.Add("31")
+        dtOrFinal2.Columns.Add("32")
+        dtOrFinal2.Columns.Add("33")
+        dtOrFinal2.Columns.Add("34")
+        dtOrFinal2.Columns.Add("35")
+        dtOrFinal2.Columns.Add("36")
+        dtOrFinal2.Columns.Add("37")
+        dtOrFinal2.Columns.Add("38")
+        dtOrFinal2.Columns.Add("39")
+        dtOrFinal2.Columns.Add("40")
+
+        For Each dr As DataRow In dtOrdenada.Rows
+            Dim valores() As String
+            valores = dr("Posicion").ToString.Split(".")
+            Try
+                If valores.Length = 2 Then
+                    dtOrFinal2.ImportRow(dr)
+                Else
+                    If valores(2).Length >= 2 Then
+                        dtOrFinal.ImportRow(dr)
+                    Else
+                        dtOrFinal2.ImportRow(dr)
+                    End If
+                End If
+                
+            Catch ex As Exception
+                MsgBox("El valor " & valores(0) & " no tiene correspondencia. Checkear.")
+            End Try
+        Next
+
+        'UNO LAS TABLAS EN UNA DEFINITIVA
+        For Each dr As DataRow In dtOrFinal.Rows
+            dtOrFinal2.ImportRow(dr)
+        Next
+
+        Return dtOrFinal2
+    End Function
+
+    Public Function BorraLineasIntermedias(ByVal dtOrdenada As DataTable)
+        Dim dtOrFinal As New DataTable
+        dtOrFinal.Columns.Add("0")
+        dtOrFinal.Columns.Add("1")
+        dtOrFinal.Columns.Add("2")
+        dtOrFinal.Columns.Add("3")
+        Dim dc As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal.Columns.Add(dc)
+        dtOrFinal.Columns.Add("5")
+        dtOrFinal.Columns.Add("6")
+        dtOrFinal.Columns.Add("7")
+        dtOrFinal.Columns.Add("8")
+        dtOrFinal.Columns.Add("9")
+        dtOrFinal.Columns.Add("10")
+        dtOrFinal.Columns.Add("11")
+        dtOrFinal.Columns.Add("12")
+        dtOrFinal.Columns.Add("13")
+        dtOrFinal.Columns.Add("14")
+        dtOrFinal.Columns.Add("15")
+        dtOrFinal.Columns.Add("16")
+        dtOrFinal.Columns.Add("17")
+        dtOrFinal.Columns.Add("18")
+        dtOrFinal.Columns.Add("19")
+        dtOrFinal.Columns.Add("20")
+        dtOrFinal.Columns.Add("21")
+        dtOrFinal.Columns.Add("22")
+        dtOrFinal.Columns.Add("23")
+        dtOrFinal.Columns.Add("24")
+        dtOrFinal.Columns.Add("25")
+        dtOrFinal.Columns.Add("26")
+        dtOrFinal.Columns.Add("27")
+        dtOrFinal.Columns.Add("28")
+        dtOrFinal.Columns.Add("29")
+        dtOrFinal.Columns.Add("30")
+        dtOrFinal.Columns.Add("31")
+        dtOrFinal.Columns.Add("32")
+        dtOrFinal.Columns.Add("33")
+        dtOrFinal.Columns.Add("34")
+        dtOrFinal.Columns.Add("35")
+        dtOrFinal.Columns.Add("36")
+        dtOrFinal.Columns.Add("37")
+        dtOrFinal.Columns.Add("38")
+        dtOrFinal.Columns.Add("39")
+        dtOrFinal.Columns.Add("40")
+
+        Dim bandera As Integer = 0
+        Dim cont As Integer = 0
+
+        For Each dr As DataRow In dtOrdenada.Rows
+            'La primera linea se inserta siempre
+            If cont = 0 Then
+                dtOrFinal.ImportRow(dr)
+            Else
+                Try
+                    If dtOrdenada.Rows(cont)("Posicion") <> dtOrdenada.Rows(cont - 1)("Posicion") Then
+                        dtOrFinal.ImportRow(dr)
+                    Else
+                        If dtOrdenada.Rows(cont)("Posicion") = dtOrdenada.Rows(cont + 1)("Posicion") Then
+
+                        Else
+                            dtOrFinal.ImportRow(dr)
+                        End If
+                    End If
+                Catch ex As Exception
+                    'La ultima siempre va dentro
+                    dtOrFinal.ImportRow(dr)
+                End Try
+            End If
+            cont += 1
+        Next
+        Return dtOrFinal
+    End Function
+
 
     Public Function OrdenaTodadtMuro(ByVal dtOrdenada As DataTable)
         Dim dtOrFinal As New DataTable
