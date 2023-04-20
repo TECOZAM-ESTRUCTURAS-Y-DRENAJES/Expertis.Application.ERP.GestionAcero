@@ -1518,7 +1518,8 @@ Public Class MntoGestionObrasAcero
         Dim MyConnection As System.Data.OleDb.OleDbConnection
         Dim DtSet As System.Data.DataSet
         Dim MyCommand As System.Data.OleDb.OleDbDataAdapter
-        MyConnection = New System.Data.OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" & ruta & "';Extended Properties=Excel 12.0;")
+        MyConnection = New System.Data.OleDb.OleDbConnection _
+        ("Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" & ruta & "';Extended Properties=Excel 12.0;")
         MyCommand = New System.Data.OleDb.OleDbDataAdapter("select * from [" & hoja & "$" & rango & "]", MyConnection)
         'MyCommand.TableMappings.Add("Table", "Net-informations.com")
         DtSet = New System.Data.DataSet
@@ -1607,7 +1608,7 @@ Public Class MntoGestionObrasAcero
         Using reader As New TextFieldParser(ruta)
 
             reader.TextFieldType = FieldType.Delimited
-            reader.SetDelimiters("@") ' Los campos del archivo están separados por comas.
+            reader.SetDelimiters("@") ' Los campos del archivo están separados por @.
 
             ' Recorremos el archivo hasta el final del mismo.
             While Not reader.EndOfData
@@ -1698,7 +1699,6 @@ Public Class MntoGestionObrasAcero
             If IsDBNull(drAllPlan(0)) Then
             Else
                 valorceldap = dtAllPlan.Rows(cont)(4)
-                'valorcelda = valorceldap.Substring(1, valorceldap.Length - 1)
                 Try
                     valorcelda = valorceldap.Substring(1, valorceldap.IndexOf(".") - 1)
                 Catch ex As Exception
@@ -1714,7 +1714,6 @@ Public Class MntoGestionObrasAcero
                     End If
                     contInter += 1
                 Next
-                'dtAllPlan.Rows(cont)(4) = "p" & dtTablaIntermedia.Rows(cont)(1)
                 cont += 1
             End If
         Next
