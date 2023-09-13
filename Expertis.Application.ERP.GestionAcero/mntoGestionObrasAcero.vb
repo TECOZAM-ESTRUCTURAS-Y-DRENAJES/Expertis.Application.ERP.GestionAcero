@@ -435,7 +435,8 @@ Public Class MntoGestionObrasAcero
 
         Dim Estructura, Localizacion1, Localizacion2, Observaciones, Observaciones2, IDUDMedida, NObra, numAlbaran, numPedido, NCertificacion As String
 
-        Dim FechaRef, Fecha, FechaAnifer As String
+        Dim FechaRef, FechaAnifer As String
+        Dim Fecha As Date
         Dim Facturable, SuministroFacturado, Certificar As Boolean
 
         Try
@@ -495,6 +496,7 @@ Public Class MntoGestionObrasAcero
                 Localizacion2 = Nz(.GetValue("Localizacion2"), "")
                 Observaciones = Nz(.GetValue("Observaciones"), "")
                 Observaciones2 = Nz(.GetValue("Observaciones2"), "")
+
 
                 Fecha = Nz(.GetValue("Fecha"), )
                 FechaRef = Nz(.GetValue("FechaRef"), )
