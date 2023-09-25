@@ -2131,6 +2131,9 @@ Public Class MntoGestionObrasAcero
             Dim valores() As String
             Dim datos() As String
             valores = dtOrdenada(contador)("Posicion").ToString.Split(".")
+            If valores(1) = 11 Then
+                'MsgBox(valores(1) & " " & valores(2))
+            End If
             Try
                 datos = dtOrdenada(contador + 1)("Posicion").ToString.Split(".")
                 If valores(1) = datos(1) Then
@@ -2144,7 +2147,9 @@ Public Class MntoGestionObrasAcero
                         dtOrFinal.ImportRow(dr)
                     Else
                         If valores.Length = 3 Then
-                            dtOrFinal2.ImportRow(dr)
+                            'Pruebo a quitar el ultimo DVH 25/09/23
+                            'dtOrFinal2.ImportRow(dr)
+                            dtOrFinal.ImportRow(dr)
                         End If
                         Try
                             For Each fila As DataRow In dtOrFinal2.Rows
