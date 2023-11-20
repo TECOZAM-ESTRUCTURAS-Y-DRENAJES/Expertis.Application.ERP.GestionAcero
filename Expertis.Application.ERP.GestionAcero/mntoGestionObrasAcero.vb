@@ -11,6 +11,7 @@ Imports Microsoft.Office
 Imports Microsoft.Office.Interop
 Imports Microsoft.VisualBasic.FileIO
 Imports System.IO
+Imports System.Text.RegularExpressions
 
 Public Class MntoGestionObrasAcero
     Inherits Solmicro.Expertis.Engine.UI.SimpleMnto
@@ -1776,10 +1777,11 @@ Public Class MntoGestionObrasAcero
             Case 2
                 'MURO
                 dtOrdenada = OrdenaTodadtMuro(dtOrdenada)
+                'Ahora. Se ordena por la segunda parte del punto
+                dtOrdenada = ordenTablaFinalMuro(dtOrdenada)
             Case 3
                 'pPos Extremos
                 dtOrdenada = OrdenaTodadtPOS2(dtOrdenada)
-
                 'Se ordena genial
                 dtOrdenada = ordenTablaFinal(dtOrdenada)
                 'Borra los intermedios
@@ -2131,9 +2133,6 @@ Public Class MntoGestionObrasAcero
             Dim valores() As String
             Dim datos() As String
             valores = dtOrdenada(contador)("Posicion").ToString.Split(".")
-            If valores(1) = 11 Then
-                'MsgBox(valores(1) & " " & valores(2))
-            End If
             Try
                 datos = dtOrdenada(contador + 1)("Posicion").ToString.Split(".")
                 If valores(1) = datos(1) Then
@@ -2143,23 +2142,236 @@ Public Class MntoGestionObrasAcero
                         dtOrFinal2.ImportRow(dr)
                     End If
                 Else
-                    If valores.Length <> 3 Then
+                    If valores(2).Length = 1 Then
                         dtOrFinal.ImportRow(dr)
                     Else
-                        If valores.Length = 3 Then
-                            'Pruebo a quitar el ultimo DVH 25/09/23
-                            'dtOrFinal2.ImportRow(dr)
-                            dtOrFinal.ImportRow(dr)
-                        End If
-                        Try
+                        dtOrFinal2.ImportRow(dr)
+                    End If
+                    Try
+                        For Each fila As DataRow In dtOrFinal2.Rows
+                            dtOrFinal.ImportRow(fila)
+                        Next
+                        dtOrFinal2.Clear()
+                    Catch ex As Exception
+                    End Try
+                End If
+
+
+                contador += 1
+
+            Catch ex As Exception
+                Try
+                    If valores(2).Length = 1 Then
+                        dtOrFinal.ImportRow(d)
+                        If dtOrFinal2.Rows.Count <> 0 Then
                             For Each fila As DataRow In dtOrFinal2.Rows
                                 dtOrFinal.ImportRow(fila)
                             Next
-                            dtOrFinal2.Clear()
-                        Catch ex As Exception
-                        End Try
+                        End If
+                    Else
+                        dtOrFinal2.ImportRow(d)
+                        If dtOrFinal2.Rows.Count <> 0 Then
+                            For Each fila As DataRow In dtOrFinal2.Rows
+                                dtOrFinal.ImportRow(fila)
+                            Next
+                        End If
                     End If
-                    
+                Catch e As Exception
+                    dtOrFinal.ImportRow(d)
+                End Try
+                contador += 1
+            End Try
+        Next
+
+        Return dtOrFinal
+    End Function
+    Public Function ordenTablaFinalMuro(ByVal dtOrdenada As DataTable)
+        Dim dtOrFinal As New DataTable
+
+        dtOrFinal.Columns.Add("0")
+        dtOrFinal.Columns.Add("1")
+        dtOrFinal.Columns.Add("2")
+        dtOrFinal.Columns.Add("3")
+        Dim dc As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal.Columns.Add(dc)
+        dtOrFinal.Columns.Add("5")
+        dtOrFinal.Columns.Add("6")
+        dtOrFinal.Columns.Add("7")
+        dtOrFinal.Columns.Add("8")
+        dtOrFinal.Columns.Add("9")
+        dtOrFinal.Columns.Add("10")
+        dtOrFinal.Columns.Add("11")
+        dtOrFinal.Columns.Add("12")
+        dtOrFinal.Columns.Add("13")
+        dtOrFinal.Columns.Add("14")
+        dtOrFinal.Columns.Add("15")
+        dtOrFinal.Columns.Add("16")
+        dtOrFinal.Columns.Add("17")
+        dtOrFinal.Columns.Add("18")
+        dtOrFinal.Columns.Add("19")
+        dtOrFinal.Columns.Add("20")
+        dtOrFinal.Columns.Add("21")
+        dtOrFinal.Columns.Add("22")
+        dtOrFinal.Columns.Add("23")
+        dtOrFinal.Columns.Add("24")
+        dtOrFinal.Columns.Add("25")
+        dtOrFinal.Columns.Add("26")
+        dtOrFinal.Columns.Add("27")
+        dtOrFinal.Columns.Add("28")
+        dtOrFinal.Columns.Add("29")
+        dtOrFinal.Columns.Add("30")
+        dtOrFinal.Columns.Add("31")
+        dtOrFinal.Columns.Add("32")
+        dtOrFinal.Columns.Add("33")
+        dtOrFinal.Columns.Add("34")
+        dtOrFinal.Columns.Add("35")
+        dtOrFinal.Columns.Add("36")
+        dtOrFinal.Columns.Add("37")
+        dtOrFinal.Columns.Add("38")
+        dtOrFinal.Columns.Add("39")
+        dtOrFinal.Columns.Add("40")
+        dtOrFinal.Columns.Add("41")
+        dtOrFinal.Columns.Add("42")
+        dtOrFinal.Columns.Add("43")
+        dtOrFinal.Columns.Add("44")
+        dtOrFinal.Columns.Add("45")
+        dtOrFinal.Columns.Add("46")
+        dtOrFinal.Columns.Add("47")
+        dtOrFinal.Columns.Add("48")
+        dtOrFinal.Columns.Add("49")
+        dtOrFinal.Columns.Add("50")
+        dtOrFinal.Columns.Add("51")
+        dtOrFinal.Columns.Add("52")
+        dtOrFinal.Columns.Add("53")
+        dtOrFinal.Columns.Add("54")
+        dtOrFinal.Columns.Add("55")
+        dtOrFinal.Columns.Add("56")
+        dtOrFinal.Columns.Add("57")
+        dtOrFinal.Columns.Add("58")
+        dtOrFinal.Columns.Add("59")
+        dtOrFinal.Columns.Add("60")
+        dtOrFinal.Columns.Add("61")
+        dtOrFinal.Columns.Add("62")
+        dtOrFinal.Columns.Add("63")
+        dtOrFinal.Columns.Add("64")
+        dtOrFinal.Columns.Add("65")
+        dtOrFinal.Columns.Add("66")
+        dtOrFinal.Columns.Add("67")
+        dtOrFinal.Columns.Add("68")
+        dtOrFinal.Columns.Add("69")
+        dtOrFinal.Columns.Add("70")
+
+        Dim dtOrFinal2 As New DataTable
+
+        dtOrFinal2.Columns.Add("0")
+        dtOrFinal2.Columns.Add("1")
+        dtOrFinal2.Columns.Add("2")
+        dtOrFinal2.Columns.Add("3")
+        Dim dc2 As New DataColumn("Posicion", System.Type.GetType("System.String"))
+        dtOrFinal2.Columns.Add(dc2)
+        dtOrFinal2.Columns.Add("5")
+        dtOrFinal2.Columns.Add("6")
+        dtOrFinal2.Columns.Add("7")
+        dtOrFinal2.Columns.Add("8")
+        dtOrFinal2.Columns.Add("9")
+        dtOrFinal2.Columns.Add("10")
+        dtOrFinal2.Columns.Add("11")
+        dtOrFinal2.Columns.Add("12")
+        dtOrFinal2.Columns.Add("13")
+        dtOrFinal2.Columns.Add("14")
+        dtOrFinal2.Columns.Add("15")
+        dtOrFinal2.Columns.Add("16")
+        dtOrFinal2.Columns.Add("17")
+        dtOrFinal2.Columns.Add("18")
+        dtOrFinal2.Columns.Add("19")
+        dtOrFinal2.Columns.Add("20")
+        dtOrFinal2.Columns.Add("21")
+        dtOrFinal2.Columns.Add("22")
+        dtOrFinal2.Columns.Add("23")
+        dtOrFinal2.Columns.Add("24")
+        dtOrFinal2.Columns.Add("25")
+        dtOrFinal2.Columns.Add("26")
+        dtOrFinal2.Columns.Add("27")
+        dtOrFinal2.Columns.Add("28")
+        dtOrFinal2.Columns.Add("29")
+        dtOrFinal2.Columns.Add("30")
+        dtOrFinal2.Columns.Add("31")
+        dtOrFinal2.Columns.Add("32")
+        dtOrFinal2.Columns.Add("33")
+        dtOrFinal2.Columns.Add("34")
+        dtOrFinal2.Columns.Add("35")
+        dtOrFinal2.Columns.Add("36")
+        dtOrFinal2.Columns.Add("37")
+        dtOrFinal2.Columns.Add("38")
+        dtOrFinal2.Columns.Add("39")
+        dtOrFinal2.Columns.Add("40")
+
+        dtOrFinal2.Columns.Add("41")
+        dtOrFinal2.Columns.Add("42")
+        dtOrFinal2.Columns.Add("43")
+        dtOrFinal2.Columns.Add("44")
+        dtOrFinal2.Columns.Add("45")
+        dtOrFinal2.Columns.Add("46")
+        dtOrFinal2.Columns.Add("47")
+        dtOrFinal2.Columns.Add("48")
+        dtOrFinal2.Columns.Add("49")
+        dtOrFinal2.Columns.Add("50")
+        dtOrFinal2.Columns.Add("51")
+        dtOrFinal2.Columns.Add("52")
+        dtOrFinal2.Columns.Add("53")
+        dtOrFinal2.Columns.Add("54")
+        dtOrFinal2.Columns.Add("55")
+        dtOrFinal2.Columns.Add("56")
+        dtOrFinal2.Columns.Add("57")
+        dtOrFinal2.Columns.Add("58")
+        dtOrFinal2.Columns.Add("59")
+        dtOrFinal2.Columns.Add("60")
+        dtOrFinal2.Columns.Add("61")
+        dtOrFinal2.Columns.Add("62")
+        dtOrFinal2.Columns.Add("63")
+        dtOrFinal2.Columns.Add("64")
+        dtOrFinal2.Columns.Add("65")
+        dtOrFinal2.Columns.Add("66")
+        dtOrFinal2.Columns.Add("67")
+        dtOrFinal2.Columns.Add("68")
+        dtOrFinal2.Columns.Add("69")
+        dtOrFinal2.Columns.Add("70")
+
+        Dim contador As Integer = 0
+
+        'Comparo los valores de una fila con la siguiente.
+        'En el momento que sean distintos que me las inserte
+        Dim d As DataRow
+
+        For Each dr As DataRow In dtOrdenada.Rows
+            d = dr
+            Dim valores() As String
+            Dim datos() As String
+            valores = dtOrdenada(contador)("Posicion").ToString.Split(".")
+            Try
+                datos = dtOrdenada(contador + 1)("Posicion").ToString.Split(".")
+                If valores(1) = datos(1) Then
+                    If valores(2).Length = 1 Then
+                        dtOrFinal.ImportRow(dr)
+                    Else
+                        dtOrFinal2.ImportRow(dr)
+                    End If
+                Else
+                    If valores(2).Length = 1 Then
+                        dtOrFinal.ImportRow(dr)
+                    Else
+                        'Pruebo a quitar el ultimo DVH 25/09/23
+                        'dtOrFinal2.ImportRow(dr)
+                        dtOrFinal2.ImportRow(dr)
+                    End If
+                    Try
+                        For Each fila As DataRow In dtOrFinal2.Rows
+                            dtOrFinal.ImportRow(fila)
+                        Next
+                        dtOrFinal2.Clear()
+                    Catch ex As Exception
+                    End Try
+
                 End If
                 contador += 1
 
@@ -2183,7 +2395,7 @@ Public Class MntoGestionObrasAcero
                 Catch e As Exception
                     dtOrFinal.ImportRow(d)
                 End Try
-                
+
             End Try
         Next
 
@@ -2440,6 +2652,11 @@ Public Class MntoGestionObrasAcero
         For Each dr As DataRow In dtOrFinal3.Rows
             dtOrFinal.ImportRow(dr)
         Next
+
+        For Each dr As DataRow In dtOrFinal.Rows
+            dr("Posicion") = RemoveLowerCaseP(dr("Posicion").ToString())
+        Next
+
         Return dtOrFinal
     End Function
 
@@ -2547,10 +2764,18 @@ Public Class MntoGestionObrasAcero
         Return dtOrFinal
     End Function
 
+    Private Function RemoveAllSpaces(ByVal input As String) As String
+        ' Reemplazar todos los tipos de espacios con una cadena vacía
+        Return Regex.Replace(input, "\s", "")
+    End Function
 
     Public Function OrdenaTodadtMuro(ByVal dtOrdenada As DataTable)
-        Dim dtOrFinal As New DataTable
 
+        For Each dr As DataRow In dtOrdenada.Rows
+            dr("Posicion") = RemoveAllSpaces(dr("Posicion").ToString())
+        Next
+
+        Dim dtOrFinal As New DataTable
         dtOrFinal.Columns.Add("0")
         dtOrFinal.Columns.Add("1")
         dtOrFinal.Columns.Add("2")
@@ -2704,10 +2929,10 @@ Public Class MntoGestionObrasAcero
             valores = dr("Posicion").ToString.Split(".")
             Try
 
-                If valores(2).TrimStart.Length >= 2 Then
+                If valores(1).Length >= 3 Then
                     'Si el segundo caracter es un numero
                     Dim ch As Char
-                    ch = valores(2).TrimStart.ToString.Chars(1)
+                    ch = valores(1).ToString.Chars(1)
                     If esUnNumero(ch) Then
                         dtOrFinal2.ImportRow(dr)
                     Else
@@ -2726,9 +2951,17 @@ Public Class MntoGestionObrasAcero
             dtOrFinal2.ImportRow(dr)
         Next
 
+
+        For Each dr As DataRow In dtOrFinal2.Rows
+            dr("Posicion") = RemoveLowerCaseP(dr("Posicion").ToString())
+        Next
+
         Return dtOrFinal2
     End Function
-
+    Private Function RemoveLowerCaseP(ByVal input As String) As String
+        ' Reemplazar todas las letras minúsculas 'p' con una cadena vacía
+        Return input.Replace("p", "")
+    End Function
     Public Function esUnNumero(ByVal ch As Char) As Boolean
         If ch = "0" Or ch = "1" Or ch = "2" Or ch = "3" Or ch = "4" Or ch = "5" Or ch = "6" Or ch = "7" Or ch = "8" Or ch = "9" Then
             Return False
