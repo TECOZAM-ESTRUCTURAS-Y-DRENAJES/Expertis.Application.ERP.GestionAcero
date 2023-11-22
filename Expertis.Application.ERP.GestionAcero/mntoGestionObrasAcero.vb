@@ -1773,7 +1773,11 @@ Public Class MntoGestionObrasAcero
 
             Case 1
                 'Zuncho
-                dtOrdenada = OrdenaTodadtPOS(dtOrdenada)
+                'COMENTADA COMO ES LA ZUNCHO TEORICAMENTE
+                'dtOrdenada = OrdenaTodadtPOS(dtOrdenada)
+                dtOrdenada = OrdenaTodadtMuro(dtOrdenada)
+                'Ahora. Se ordena por la segunda parte del punto
+                dtOrdenada = ordenTablaFinalMuro(dtOrdenada)
             Case 2
                 'MURO
                 dtOrdenada = OrdenaTodadtMuro(dtOrdenada)
@@ -1789,15 +1793,15 @@ Public Class MntoGestionObrasAcero
 
         End Select
 
+        Dim result As DialogResult = MessageBox.Show("El abs introducido tiene " & dtAllPlan.Rows.Count & " filas y el abs unificado tiene " & dtOrdenada.Rows.Count & ". ¿Deseas continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-
-        Me.Cursor = Cursors.WaitCursor
-        'ExportarACsv(dtOrdenada)
-        ExportarACsvCustom(dtOrdenada)
-        Me.Cursor = Cursors.Default
-        'ExportarAExcel(dtAllPlan)
-
-        'MsgBox("Fichero generado correctamente.")
+        ' Check the user's response.
+        If result = DialogResult.Yes Then
+            Me.Cursor = Cursors.WaitCursor
+            'ExportarACsv(dtOrdenada)
+            ExportarACsvCustom(dtOrdenada)
+            Me.Cursor = Cursors.Default
+        End If
     End Sub
     Public Function OrdenaTodadtPOS(ByVal dtOrdenada As DataTable)
         Dim dtOrFinal As New DataTable
