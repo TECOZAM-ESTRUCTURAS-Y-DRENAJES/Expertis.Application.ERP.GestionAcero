@@ -2657,9 +2657,6 @@ Public Class MntoGestionObrasAcero
             dtOrFinal.ImportRow(dr)
         Next
 
-        For Each dr As DataRow In dtOrFinal.Rows
-            dr("Posicion") = RemoveLowerCaseP(dr("Posicion").ToString())
-        Next
 
         Return dtOrFinal
     End Function
@@ -2955,17 +2952,9 @@ Public Class MntoGestionObrasAcero
             dtOrFinal2.ImportRow(dr)
         Next
 
-
-        For Each dr As DataRow In dtOrFinal2.Rows
-            dr("Posicion") = RemoveLowerCaseP(dr("Posicion").ToString())
-        Next
-
         Return dtOrFinal2
     End Function
-    Private Function RemoveLowerCaseP(ByVal input As String) As String
-        ' Reemplazar todas las letras minúsculas 'p' con una cadena vacía
-        Return input.Replace("p", "")
-    End Function
+
     Public Function esUnNumero(ByVal ch As Char) As Boolean
         If ch = "0" Or ch = "1" Or ch = "2" Or ch = "3" Or ch = "4" Or ch = "5" Or ch = "6" Or ch = "7" Or ch = "8" Or ch = "9" Then
             Return False
