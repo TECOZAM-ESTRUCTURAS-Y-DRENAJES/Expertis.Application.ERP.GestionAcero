@@ -57,9 +57,6 @@ C:\Users\lgonzalez\Desktop\EXPERTIS\CODIGO DESARROLLO\Expertis.Application.ERP.G
 C:\Users\lgonzalez\Desktop\EXPERTIS\CODIGO DESARROLLO\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.dll
 C:\Users\lgonzalez\Desktop\EXPERTIS\CODIGO DESARROLLO\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.xml
 C:\Users\lgonzalez\Desktop\EXPERTIS\CODIGO DESARROLLO\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.pdb
-C:\ExpertisNet50R2test\Bin\Expertis.Application.ERP.GestionAcero.dll
-C:\ExpertisNet50R2test\Bin\Expertis.Application.ERP.GestionAcero.pdb
-C:\ExpertisNet50R2test\Bin\Expertis.Application.ERP.GestionAcero.xml
 C:\DES EXP5R2\CODIGO DESARROLLO\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\ResolveAssemblyReference.cache
 C:\DES EXP5R2\CODIGO DESARROLLO\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.frmEntidad.resources
 C:\DES EXP5R2\CODIGO DESARROLLO\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.frmAsignarPreciosDiametro.resources
@@ -122,6 +119,8 @@ C:\Users\lgonzalez\Desktop\EXPERTIS\DESARROLLO EXPERTIS\FR2Sergio\Application\Ex
 C:\Users\lgonzalez\Desktop\EXPERTIS\DESARROLLO EXPERTIS\FR2Sergio\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.CIMedicionAceroEstado.resources
 C:\Users\lgonzalez\Desktop\EXPERTIS\DESARROLLO EXPERTIS\FR2Sergio\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.CIMedicionAceroTotales.resources
 C:\Users\lgonzalez\Desktop\EXPERTIS\DESARROLLO EXPERTIS\FR2Sergio\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.frmSeleccionEstructura.resources
+C:\ExpertisNet50R2test\Bin\Expertis.Application.ERP.GestionAcero.dll
+C:\ExpertisNet50R2test\Bin\Expertis.Application.ERP.GestionAcero.pdb
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\ResolveAssemblyReference.cache
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.CIMedicionAceroEstado.resources
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Solmicro.Expertis.Application.ERP.GestionAcero.CIMedicionAceroTotales.resources
@@ -152,5 +151,6 @@ C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.G
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.vbproj.GenerateResource.Cache
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.dll.licenses
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.dll
-C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.xml
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.pdb
+C:\ExpertisNet50R2test\Bin\Expertis.Application.ERP.GestionAcero.xml
+C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Release\Expertis.Application.ERP.GestionAcero.xml

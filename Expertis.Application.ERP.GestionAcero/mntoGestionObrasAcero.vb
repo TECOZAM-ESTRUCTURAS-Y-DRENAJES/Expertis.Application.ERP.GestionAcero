@@ -12,12 +12,17 @@ Imports Microsoft.Office.Interop
 Imports Microsoft.VisualBasic.FileIO
 Imports System.IO
 Imports System.Text.RegularExpressions
+Imports System.Net
+Imports System.Security.Cryptography.X509Certificates
+Imports Newtonsoft.Json.Linq
+
+
 
 Public Class MntoGestionObrasAcero
     Inherits Solmicro.Expertis.Engine.UI.SimpleMnto
 
     Private Const cnCOPIARLINEA As String = "Copiar Linea"
-
+    Dim auto As New OperarioCalendario
     Dim lngCertLiberada As Integer
     Dim serror As String = ""
     Dim pIVA As Decimal '= 0.16
@@ -33,27 +38,29 @@ Public Class MntoGestionObrasAcero
 
         With GridCertificaciones
             'Me.FormActions.Add("Importar Albaran por Excel - GRAPHICO - ", AddressOf ImportarAlbaran)
-            Me.AddSeparator()
-            Me.FormActions.Add("Abrir Factura", AddressOf AbrirFactura)
-            Me.FormActions.Add("Abrir Obra", AddressOf AbrirObra)
+            'Me.AddSeparator()
+            'Me.FormActions.Add("Abrir Factura", AddressOf AbrirFactura)
+            'Me.FormActions.Add("Abrir Obra", AddressOf AbrirObra)
         End With
 
         With GridMediciones
             Me.FormActions.Add("UNIFICAR EXCEL - ALLPLAN", AddressOf UnificarExcel)
             Me.AddSeparator()
-            Me.FormActions.Add("Bloquear Grid", AddressOf BloquearGridMediciones)
-            Me.FormActions.Add("DesBloquear Grid", AddressOf DesbloquearGridMediciones)
+            Me.FormActions.Add("INSERTAR HOJA DE RUTA DE GRAPHICO", AddressOf GetHojaRuta)
             Me.AddSeparator()
-            Me.FormActions.Add("Columna Certificar // Marcar Todos", AddressOf CertificarMarcarTodos)
-            Me.FormActions.Add("Columna Certificar // Desmarcar Todos", AddressOf CertificarDesmarcarTodos)
-            Me.AddSeparator()
-            Me.FormActions.Add("Copiar Medición", AddressOf CopiarMedicion)
+            'Me.FormActions.Add("Bloquear Grid", AddressOf BloquearGridMediciones)
+            'Me.FormActions.Add("DesBloquear Grid", AddressOf DesbloquearGridMediciones)
+            'Me.AddSeparator()
+            'Me.FormActions.Add("Columna Certificar // Marcar Todos", AddressOf CertificarMarcarTodos)
+            'Me.FormActions.Add("Columna Certificar // Desmarcar Todos", AddressOf CertificarDesmarcarTodos)
+            'Me.AddSeparator()
+            'Me.FormActions.Add("Copiar Medición", AddressOf CopiarMedicion)
         End With
 
         ComboBox3.DataSource = New EnumData("enumocEstado")
         ComboBox4.DataSource = New EnumData("enumTipoRetencion")
 
-        LoadToolbarActions()
+        'LoadToolbarActions()
         ComprobarMediosElev()
 
         'mstrIDCGestion = New UsuarioCentroGestion().CentroGestionUsuario
@@ -62,9 +69,9 @@ Public Class MntoGestionObrasAcero
         mstrIDCGestion = obj.IDCentroGestion
         'David Velasco
         TextBox4.Enabled = False
-        With GridMediciones
-            .Actions.Add(cnCOPIARLINEA, AddressOf CopiarMedicion, ExpertisApp.GetIcon("xConceptos.ico"))
-        End With
+        'With GridMediciones
+        '.Actions.Add(cnCOPIARLINEA, AddressOf CopiarMedicion, ExpertisApp.GetIcon("xConceptos.ico"))
+        'End With
         'cambiaNombreColumnasOcultas()
     End Sub
 
@@ -86,44 +93,44 @@ Public Class MntoGestionObrasAcero
         End Try
     End Sub
 
-    Private Sub LoadToolbarActions()
-        Try
-            With Me.FormActions
-                .Add("Recalcular Importes", AddressOf AccionRecalcularObra)
-                Me.AddSeparator()
-                .Add("Certificar", AddressOf AccionCertificar)
-                .Add("Facturar Certificación", AddressOf AccionFacturarCertificacion)
-                Me.AddSeparator()
-                .Add("Anular Ultima Certificación", AddressOf AccionAnularCertificar)
-                .Add("Desbloquear Mediciones Certificadas", AddressOf AccionLiberarCertificacion)
-                .Add("Recalcular Certificación", AddressOf AccionRecalcularCertificacion)
-                Me.AddSeparator()
-                .Add("Bloquear Certificación", AddressOf AccionBloquearCertificacion)
-                .Add("Desbloquear Certificación", AddressOf AccionDesbloquearCertificacion)
-                Me.AddSeparator()
-                .Add("Asignar Precios", AddressOf AccionAsignarPrecios)
-                Me.AddSeparator()
-                .Add("Asignar Precios Diámetros", AddressOf AccionAsignarPreciosDiametros)
-                .Add("Facturación por Diámetros", AddressOf AccionFacturaDiametros)
-                Me.AddSeparator()
-                .Add("Exportar Mediciones", AddressOf AccionExportarMediciones)
-                Me.AddSeparator()
-                .Add("Generar Albarán de Venta - Grafogest", AddressOf AccionAlbaranGrafojex)
-                Me.AddSeparator()
-                .Add("Informe Mediciones Acero", AddressOf AccionInformeAcero)
-                .Add("Imprimir Ficha Certificación", AddressOf AccionFichaCertificacion)
-                .Add("Albarán Mallazo y Alambre", AddressOf AccionInformeMallazo)
-                Me.AddSeparator()
-                .Add("Generar Orden de Trabajo", AddressOf AccionOrdenTrabajo)
-                .Add("Introducir Medición Albaran/Colada/Paquete", AddressOf AccionAddProduccion)
-                Me.AddSeparator()
-                '.Add("Exportar Grid a Excel", AddressOf ExportarGridaExcel)
-            End With
+    'Private Sub LoadToolbarActions()
+    '    Try
+    '        With Me.FormActions
+    '            .Add("Recalcular Importes", AddressOf AccionRecalcularObra)
+    '            Me.AddSeparator()
+    '            .Add("Certificar", AddressOf AccionCertificar)
+    '            .Add("Facturar Certificación", AddressOf AccionFacturarCertificacion)
+    '            Me.AddSeparator()
+    '            .Add("Anular Ultima Certificación", AddressOf AccionAnularCertificar)
+    '            .Add("Desbloquear Mediciones Certificadas", AddressOf AccionLiberarCertificacion)
+    '            .Add("Recalcular Certificación", AddressOf AccionRecalcularCertificacion)
+    '            Me.AddSeparator()
+    '            .Add("Bloquear Certificación", AddressOf AccionBloquearCertificacion)
+    '            .Add("Desbloquear Certificación", AddressOf AccionDesbloquearCertificacion)
+    '            Me.AddSeparator()
+    '            .Add("Asignar Precios", AddressOf AccionAsignarPrecios)
+    '            Me.AddSeparator()
+    '            .Add("Asignar Precios Diámetros", AddressOf AccionAsignarPreciosDiametros)
+    '            .Add("Facturación por Diámetros", AddressOf AccionFacturaDiametros)
+    '            Me.AddSeparator()
+    '            .Add("Exportar Mediciones", AddressOf AccionExportarMediciones)
+    '            Me.AddSeparator()
+    '            .Add("Generar Albarán de Venta - Grafogest", AddressOf AccionAlbaranGrafojex)
+    '            Me.AddSeparator()
+    '            .Add("Informe Mediciones Acero", AddressOf AccionInformeAcero)
+    '            .Add("Imprimir Ficha Certificación", AddressOf AccionFichaCertificacion)
+    '            .Add("Albarán Mallazo y Alambre", AddressOf AccionInformeMallazo)
+    '            Me.AddSeparator()
+    '            .Add("Generar Orden de Trabajo", AddressOf AccionOrdenTrabajo)
+    '            .Add("Introducir Medición Albaran/Colada/Paquete", AddressOf AccionAddProduccion)
+    '            Me.AddSeparator()
+    '            '.Add("Exportar Grid a Excel", AddressOf ExportarGridaExcel)
+    '        End With
 
-        Catch ex As Exception
-            Engine.UI.ExpertisApp.GenerateMessage(ex.Message)
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        Engine.UI.ExpertisApp.GenerateMessage(ex.Message)
+    '    End Try
+    'End Sub
 
 #End Region
 
@@ -1672,6 +1679,248 @@ Public Class MntoGestionObrasAcero
         'dtOrdenada = dt.DefaultView.ToTable
         Return dt
     End Function
+
+    'David Velasco 08/02/2024
+    'De momento fase beta para como tratar los datos
+    Public Sub GetHojaRuta()
+
+        Dim hojaDeRuta As String = InputBox("Ingresa el nº de la hoja de ruta:", "Entrada de datos")
+        If hojaDeRuta <> "" Then
+            insertaHojaRuta(hojaDeRuta)
+        Else
+            MessageBox.Show("No ingresaste ninguna hoja de ruta.", "Advertencia")
+        End If
+    End Sub
+    Public Sub insertaHojaRuta(ByVal hojaRuta As String)
+        Dim url As String = "https://192.194.11.4:1000/api-schsw/PR003001?mode=getDelivery&roadMap=" & hojaRuta
+        Dim apikey As String = "SCHSW-API-KEY"
+        Dim valor As String = "6f387e83-e153-a024-6fb903197a6d"
+
+        Dim jsonResult As String = GetInfoGraphico(url, apikey, valor)
+        If jsonResult IsNot Nothing Then
+            Dim dtHojaRuta As DataTable = ConvertJsonToDataTable(jsonResult)
+
+            Dim result As DialogResult = MessageBox.Show("La obra es la " & dtHojaRuta.Rows(0)("Obra") & ". ¿Deseas insertar los datos?", "Confirmación.", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If result = DialogResult.Yes Then
+                setLineasHojaRuta(dtHojaRuta)
+                ExpertisApp.OpenForm("GESTOBACE", New StringFilterItem("IDObra", getIDObra(dtHojaRuta.Rows(0)("Obra"))))
+                'Me.RefreshData()
+
+            Else
+                MessageBox.Show("Has cancelado la operación.", "Información")
+            End If
+        Else
+            MsgBox("Hubo un error al obtener la respuesta JSON.")
+        End If
+    End Sub
+
+    Public Sub setLineasHojaRuta(ByVal dtHojaRuta As DataTable)
+        'DIAMETRO DE LA ESTRUCTURA
+        Dim diametro As String = ""
+
+        'ESTRUCTURA
+        Dim fase As String = ""
+        'LOCALIZACION 1
+        Dim planta As String = ""
+        'LOCALIZACION 2
+        Dim grupo As String = ""
+        'Observaciones = ESTRUCTURA + LOCALIZACION 1 + LOZALIZACION 2
+        Dim observaciones As String = ""
+
+        Dim acumulado8 As Double = 0 : Dim acumulado10 As Double = 0 : Dim acumulado12 As Double = 0 : Dim acumulado16 As Double = 0
+        Dim acumulado20 As Double = 0 : Dim acumulado25 As Double = 0 : Dim acumulado32 As Double = 0
+
+        'ELEMENTOS NO COMERCIALES= CELOSIA(ML), MALLAZO(M2) Y ALAMBRE(KG)
+
+        Dim acumuladoCelosia As Double = 0 : Dim acumuladoAlambre As Double = 0 : Dim acumuladoMallazo As Double = 0
+
+        Dim pedidoAnterior As String = Nothing
+        Dim albaran As String = dtHojaRuta.Rows(0)("HojaDeRuta")
+        Dim obra As String = dtHojaRuta.Rows(0)("Obra")
+        Dim fecha As String = ""
+        Dim pesoFacturacion As String = ""
+
+        For Each row As DataRow In dtHojaRuta.Rows
+            Dim pedidoActual As String = row("Pedido")
+            Dim pesoElemento As Double = getDoubleFromString(row("PesoElemento"))
+            pesoFacturacion = row("TotalPesoPedido")
+            fecha = row("FechaPedido")
+
+            Dim elemento As String = row("Elemento")
+            Dim cantidadProductoComercial As String = row("CantidadProductoComercial")
+
+            If pedidoAnterior IsNot Nothing AndAlso pedidoAnterior <> pedidoActual Then
+                MostrarMensaje(pesoFacturacion, fecha, obra, albaran, pedidoAnterior, acumulado8, acumulado10, acumulado12, acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo)
+                acumulado8 = 0 : acumulado10 = 0 : acumulado12 = 0 : acumulado16 = 0 : acumulado20 = 0 : acumulado25 = 0 : acumulado32 = 0
+                acumuladoAlambre = 0 : acumuladoCelosia = 0 : acumuladoMallazo = 0
+            End If
+
+            diametro = row("Diametro")
+            ' Acumular peso por diámetro
+            ProcesarPesosPorDiametro(cantidadProductoComercial, elemento, diametro, pesoElemento, acumulado8, acumulado10, acumulado12, acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo)
+            pedidoAnterior = pedidoActual
+        Next
+
+        ' Mostrar el mensaje para el último pedido después de salir del bucle
+        If pedidoAnterior IsNot Nothing Then
+            MostrarMensaje(pesoFacturacion, fecha, obra, albaran, pedidoAnterior, acumulado8, acumulado10, acumulado12, acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo)
+        End If
+
+    End Sub
+
+    Sub ProcesarPesosPorDiametro(ByVal cantidadProductoComercial As Double, ByVal elemento As String, ByVal diametro As String, ByVal pesoElemento As Double, ByRef acumulado8 As Double, ByRef acumulado10 As Double, ByRef acumulado12 As Double, ByRef acumulado16 As Double, ByRef acumulado20 As Double, ByRef acumulado25 As Double, ByRef acumulado32 As Double _
+                                 , ByRef acumuladoAlambre As Double, ByRef acumuladoCelosia As Double, ByRef acumuladoMallazo As Double)
+        Select Case diametro
+            Case "0", ""
+                If elemento.ToLower.Contains("alamabre") Then
+                    acumuladoAlambre = acumuladoAlambre + (cantidadProductoComercial * 25)
+                ElseIf elemento.ToLower.Contains("celosía") Or elemento.ToLower.Contains("celosia") Then
+                    acumuladoCelosia = acumuladoCelosia + (cantidadProductoComercial * 6)
+                ElseIf elemento.ToLower.Contains("mallazo") Then
+                    acumuladoMallazo = acumuladoMallazo + (cantidadProductoComercial * 13.2)
+                Else
+                    MsgBox("No detecta el elemento " & elemento)
+                End If
+            Case "8"
+                acumulado8 += pesoElemento
+            Case "10"
+                acumulado10 += pesoElemento
+            Case "12"
+                acumulado12 += pesoElemento
+            Case "16"
+                acumulado16 += pesoElemento
+            Case "20"
+                acumulado20 += pesoElemento
+            Case "25"
+                acumulado25 += pesoElemento
+            Case "32"
+                acumulado32 += pesoElemento
+        End Select
+    End Sub
+
+    Sub MostrarMensaje(ByVal pesoFacturacion As String, ByVal fecha As String, ByVal nobra As String, ByVal albaran As String, ByVal pedido As String, ByVal acumulado8 As Double, ByVal acumulado10 As Double, ByVal acumulado12 As Double, _
+                       ByVal acumulado16 As Double, ByVal acumulado20 As Double, ByVal acumulado25 As Double, ByVal acumulado32 As Double, ByVal acumuladoAlambre As Double, ByVal acumuladoCelosia As Double, ByVal acumuladoMallazo As Double)
+        Dim IDLineaMedicion As String
+        IDLineaMedicion = auto.Autonumerico()
+
+
+        'IDOBRA Y NOBRA
+        Dim IDObra As String
+        IDObra = getIDObra(nobra)
+
+        'FECHACREACIONAUDI Y FECHAMODIFICACIONAUDI, USUARIOAUDI
+        Dim fechaHoy As Date = Today.Date
+        Dim mes As String = Month(fecha)
+        Dim anio As String = Year(fecha)
+        Dim usuario As String = ExpertisApp.UserName
+
+        'PESO FACTURACION = PesoPlanilla, PesoPedido, CertificadoSuministro, FacElaboracion
+        Dim pesoFact As Double = getDoubleFromString(pesoFacturacion)
+        'PESO PRODUCCION = Esperando el dato de Quique
+
+        MsgBox(mes & " " & anio & "" & pesoFact)
+
+        MsgBox("Para el pedido: " & pedido & " los pesos son: " & acumulado8 & " y " & acumulado10 & " y " & acumulado12 & " y " & _
+            acumulado16 & " y " & acumulado20 & " y " & acumulado25 & " y " & acumulado32 & ".Total celosia " & acumuladoCelosia & ", alambre " & acumuladoAlambre & " y de mallazo" & acumuladoMallazo)
+    End Sub
+
+    Public Function getIDObra(ByVal nobra As String)
+        Dim f As New Filter
+        Dim dt As New DataTable
+        f.Add("NObra", FilterOperator.Equal, nobra)
+        dt = New BE.DataEngine().Filter("tbObraCabecera", f)
+
+        Return dt.Rows(0)("IDObra")
+    End Function
+
+    Public Function getDoubleFromString(ByVal pesoElemento As String)
+        ' Reemplazar la coma por un punto
+        Dim valorCambiado As String = pesoElemento.Replace(".", ",")
+
+        Dim valorDouble As Double
+        ' Intentar convertir la cadena modificada a Double
+        If Double.TryParse(valorCambiado, valorDouble) Then
+            Return valorDouble
+        Else
+            ' Manejar el caso en el que la conversión no sea exitosa
+            MsgBox("No se pudo convertir el valor a Double.")
+        End If
+    End Function
+
+    Public Function ConvertJsonToDataTable(ByVal jsonResult As String) As DataTable
+        Dim dataTable As New DataTable()
+        dataTable.Columns.Add("HojaDeRuta", GetType(String))
+        dataTable.Columns.Add("Obra", GetType(String))
+        dataTable.Columns.Add("Pedido", GetType(String))
+        dataTable.Columns.Add("FechaPedido", GetType(String))
+        dataTable.Columns.Add("Diametro", GetType(String))
+        dataTable.Columns.Add("IDArticulo", GetType(String))
+        dataTable.Columns.Add("Elemento", GetType(String))
+        dataTable.Columns.Add("CantidadProductoComercial", GetType(String))
+        dataTable.Columns.Add("PesoElemento", GetType(String))
+        dataTable.Columns.Add("TotalPesoPedido", GetType(String))
+
+        ' Deserializar el JSON a un objeto dinámico
+        Dim jsonObj As JObject = JObject.Parse(jsonResult)
+        Dim dataArray As JArray = jsonObj("data")
+
+        ' Recorrer los datos y agregarlos a la tabla
+        For Each item As JObject In dataArray
+            Dim hojaDeRuta As String = item("roadmapId").ToString()
+            Dim obra As String = item("projectReference").ToString()
+            Dim pedido As String = item("order").ToString()
+            Dim fecha As String = item("roadmapDate").ToString()
+            Dim diametro As String = item("diameterName").ToString()
+            Dim IDArticulo As String = item("customerExternalCode").ToString()
+            Dim elemento As String = item("elementsName").ToString()
+            Dim cantidadProductoComercial As String = item("elementsPackagedFigures").ToString()
+            Dim pesoElemento As String = item("elementsWeight").ToString()
+            Dim pesoPedido As String = item("totalOrderWeight").ToString()
+
+            dataTable.Rows.Add(hojaDeRuta, obra, pedido, fecha, diametro, IDArticulo, elemento, cantidadProductoComercial, pesoElemento, pesoPedido)
+        Next
+
+        Return dataTable
+    End Function
+
+    Public Function GetInfoGraphico(ByVal url As String, ByVal apikey As String, ByVal valor As String) As String
+
+        ' Crear la solicitud HTTP
+        Dim request As HttpWebRequest = CType(WebRequest.Create(url), HttpWebRequest)
+
+        ' Deshabilitar la comprobación de certificados SSL
+        ServicePointManager.ServerCertificateValidationCallback = AddressOf ValidateCertificate
+
+        ' Establecer el método HTTP (GET en este caso)
+        request.Method = "GET"
+
+        ' Establecer el encabezado de API
+        request.Headers.Add(apikey, valor)
+
+        Try
+            ' Obtener la respuesta
+            Using response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
+                ' Leer el contenido de la respuesta
+                Using reader As New StreamReader(response.GetResponseStream())
+                    Dim jsonResponse As String = reader.ReadToEnd()
+
+                    ' Devolver el JSON
+                    Return jsonResponse
+                End Using
+            End Using
+        Catch ex As WebException
+            ' Capturar errores de solicitud HTTP
+            MsgBox("Error al realizar la solicitud: " & ex.Message)
+            Return Nothing ' En caso de error, devuelve Nothing
+        End Try
+    End Function
+
+    Private Function ValidateCertificate(ByVal sender As Object, ByVal certificate As X509Certificate, ByVal chain As X509Chain, ByVal sslPolicyErrors As Security.SslPolicyErrors) As Boolean
+        ' Permitir cualquier certificado SSL (no recomendado en producción)
+        Return True
+    End Function
+
     Private Sub UnificarExcel()
         MessageBox.Show("Seleccione el fichero .abs", "SELECCION FICHERO", MessageBoxButtons.OK, MessageBoxIcon.Information)
         'TABLA ALLPLAN
@@ -1803,6 +2052,7 @@ Public Class MntoGestionObrasAcero
             Me.Cursor = Cursors.Default
         End If
     End Sub
+
     Public Function OrdenaTodadtPOS(ByVal dtOrdenada As DataTable)
         Dim dtOrFinal As New DataTable
 
@@ -2189,6 +2439,7 @@ Public Class MntoGestionObrasAcero
 
         Return dtOrFinal
     End Function
+
     Public Function ordenTablaFinalMuro(ByVal dtOrdenada As DataTable)
         Dim dtOrFinal As New DataTable
 

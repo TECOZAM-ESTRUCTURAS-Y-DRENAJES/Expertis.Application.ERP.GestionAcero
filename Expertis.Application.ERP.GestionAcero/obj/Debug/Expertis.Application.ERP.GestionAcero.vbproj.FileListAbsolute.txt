@@ -129,7 +129,6 @@ C:\Users\lgonzalez\Desktop\EXPERTIS\DESARROLLO EXPERTIS\FR2Sergio\Application\Ex
 C:\Users\lgonzalez\Desktop\EXPERTIS\DESARROLLO EXPERTIS\FR2Sergio\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Solmicro.Expertis.Application.ERP.GestionAcero.frmSeleccionEstructura.resources
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Expertis.Application.ERP.GestionAcero.dll
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Expertis.Application.ERP.GestionAcero.pdb
-C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Expertis.Application.ERP.GestionAcero.xml
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Microsoft.Office.Interop.Excel.dll
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Microsoft.Vbe.Interop.dll
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\ResolveAssemblyReference.cache
@@ -162,5 +161,7 @@ C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.G
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.vbproj.GenerateResource.Cache
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.dll.licenses
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.dll
-C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.xml
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.pdb
+C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Expertis.Application.ERP.GestionAcero.xml
+C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.xml
