@@ -1697,6 +1697,13 @@ Public Class MntoGestionObrasAcero
         Dim valor As String = "6f387e83-e153-a024-6fb903197a6d"
 
         Dim jsonResult As String = GetInfoGraphico(url, apikey, valor)
+        Dim jsonObject As JObject = JObject.Parse(jsonResult)
+
+        If jsonObject("data") IsNot Nothing AndAlso jsonObject("data").Count = 0 Then
+            MsgBox("La hoja de ruta no existe en GRAPHICO.")
+            Exit Sub
+        End If
+
         If jsonResult IsNot Nothing Then
             Dim dtHojaRuta As DataTable = ConvertJsonToDataTable(jsonResult)
 
@@ -1718,8 +1725,29 @@ Public Class MntoGestionObrasAcero
 
     Public Sub setLineasHojaRuta(ByVal dtHojaRuta As DataTable)
 
+        If getSobreescribir(dtHojaRuta).Equals(True) Then
+            Dim result As DialogResult = MessageBox.Show("¿Ya existen datos para este albarán, deseas actualizarlos?", "Pregunta", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
+            If result = DialogResult.Yes Then
+                '1º BORRA LOS DATOS
+                borrarLineasAlbaran(dtHojaRuta)
+                '2º INTRODUZCO DATOS
+                gestionarDatos(dtHojaRuta)
+            Else
+                MessageBox.Show("No hace nada obviamente.", "Información")
+            End If
+        Else
+            gestionarDatos(dtHojaRuta)
+        End If
+        
+    End Sub
+    Public Sub borrarLineasAlbaran(ByVal dtHojaRuta As DataTable)
+        Dim albaran As String = dtHojaRuta.Rows(0)("HojaDeRuta")
 
+        Dim strDel As String = "delete from tbObraMedicionAcero where numAlbaran='" & albaran & "'"
+        auto.Ejecutar(strDel)
+    End Sub
+    Public Sub gestionarDatos(ByVal dtHojaRuta As DataTable)
         'DIAMETRO DE LA ESTRUCTURA
         Dim diametro As String = ""
         'Observaciones = ESTRUCTURA + LOCALIZACION 1 + LOZALIZACION 2
@@ -1789,9 +1817,20 @@ Public Class MntoGestionObrasAcero
         End If
 
         GestionaBasculayTransporte(dtHojaRuta)
-
     End Sub
 
+    Public Function getSobreescribir(ByVal dtHojaRuta As DataTable) As Boolean
+        Dim albaran As String = dtHojaRuta.Rows(0)("HojaDeRuta")
+        Dim dt As New DataTable
+        Dim filtro As New Filter
+        filtro.Add("numAlbaran", FilterOperator.Equal, albaran)
+        dt = New BE.DataEngine().Filter("tbObraMedicionAcero", filtro)
+
+        If dt.Rows.Count = 0 Then
+            Return False
+        Else : Return True
+        End If
+    End Function
     Public Sub GestionaBasculayTransporte(ByVal dtHojaRuta As DataTable)
         Dim nobra As String = dtHojaRuta.Rows(0)("Obra")
         Dim idobra As String = getIDObra(nobra)
@@ -1918,7 +1957,7 @@ Public Class MntoGestionObrasAcero
             Return valorDouble
         Else
             ' Manejar el caso en el que la conversión no sea exitosa
-            MsgBox("No se pudo convertir el valor a Double.")
+            'MsgBox("No se pudo convertir el valor a Double.")
         End If
     End Function
 
