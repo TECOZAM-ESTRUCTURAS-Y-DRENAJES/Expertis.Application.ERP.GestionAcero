@@ -1706,15 +1706,10 @@ Public Class MntoGestionObrasAcero
 
         If jsonResult IsNot Nothing Then
             Dim dtHojaRuta As DataTable = ConvertJsonToDataTable(jsonResult)
-
             Dim result As DialogResult = MessageBox.Show("La obra es la " & dtHojaRuta.Rows(0)("Obra") & ". ¿Deseas insertar los datos?", "Confirmación.", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
                 setLineasHojaRuta(dtHojaRuta)
-                ExpertisApp.OpenForm("GESTOBACE", New StringFilterItem("IDObra", getIDObra(dtHojaRuta.Rows(0)("Obra"))))
-                MessageBox.Show("Albarán creado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.RefreshData()
-
             Else
                 MessageBox.Show("Has cancelado la operación.", "Información")
             End If
@@ -1733,13 +1728,21 @@ Public Class MntoGestionObrasAcero
                 borrarLineasAlbaran(dtHojaRuta)
                 '2º INTRODUZCO DATOS
                 gestionarDatos(dtHojaRuta)
+                '3º Va ventana y confirma introduccion.
+                muestraInfoOK(dtHojaRuta)
             Else
                 MessageBox.Show("No hace nada obviamente.", "Información")
             End If
         Else
             gestionarDatos(dtHojaRuta)
+            muestraInfoOK(dtHojaRuta)
         End If
-        
+    End Sub
+
+    Public Sub muestraInfoOK(ByVal dtHojaRuta As DataTable)
+        ExpertisApp.OpenForm("GESTOBACE", New StringFilterItem("IDObra", getIDObra(dtHojaRuta.Rows(0)("Obra"))))
+        MessageBox.Show("Albarán creado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Me.RefreshData()
     End Sub
     Public Sub borrarLineasAlbaran(ByVal dtHojaRuta As DataTable)
         Dim albaran As String = dtHojaRuta.Rows(0)("HojaDeRuta")
