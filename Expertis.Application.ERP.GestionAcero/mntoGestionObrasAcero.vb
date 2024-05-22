@@ -840,66 +840,66 @@ Public Class MntoGestionObrasAcero
 
     Private Sub GridMediciones_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridMediciones.DoubleClick
         Try
-            With GridMediciones
+            'With GridMediciones
 
-                If .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-                    .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.DropDownList
-                    CargarLista(Me.CurrentRow("IDObra"))
-                    .Refresh()
-                Else
-                    .Columns("Estructura").HasValueList = False
-                    .Columns("Estructura").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-                    .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox
-                    .Columns("Estructura").HasValueList = False
-                    .Refresh()
-                End If
-                'David Velasco 27/04
-                If .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-                    .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.DropDownList
-                    CargarLista2("Observaciones", Me.CurrentRow("IDObra"))
-                    .Refresh()
-                Else
-                    .Columns("Observaciones").HasValueList = False
-                    .Columns("Observaciones").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-                    .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox
-                    .Columns("Observaciones").HasValueList = False
-                    .Refresh()
-                End If
-                If .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-                    .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.DropDownList
-                    CargarLista2("Observaciones2", Me.CurrentRow("IDObra"))
-                    .Refresh()
-                Else
-                    .Columns("Observaciones2").HasValueList = False
-                    .Columns("Observaciones2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-                    .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox
-                    .Columns("Observaciones2").HasValueList = False
-                    .Refresh()
-                End If
-                If .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-                    .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.DropDownList
-                    CargarLista2("Localizacion1", Me.CurrentRow("IDObra"))
-                    .Refresh()
-                Else
-                    .Columns("Localizacion1").HasValueList = False
-                    .Columns("Localizacion1").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-                    .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox
-                    .Columns("Localizacion1").HasValueList = False
-                    .Refresh()
-                End If
-                If .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-                    .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.DropDownList
-                    CargarLista2("Localizacion2", Me.CurrentRow("IDObra"))
-                    .Refresh()
-                Else
-                    .Columns("Localizacion2").HasValueList = False
-                    .Columns("Localizacion2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-                    .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox
-                    .Columns("Localizacion2").HasValueList = False
-                    .Refresh()
-                End If
-                'David Velasco 27/04
-            End With
+            '    If .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+            '        .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.DropDownList
+            '        CargarLista(Me.CurrentRow("IDObra"))
+            '        .Refresh()
+            '    Else
+            '        .Columns("Estructura").HasValueList = False
+            '        .Columns("Estructura").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+            '        .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox
+            '        .Columns("Estructura").HasValueList = False
+            '        .Refresh()
+            '    End If
+            '    'David Velasco 27/04
+            '    If .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+            '        .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.DropDownList
+            '        CargarLista2("Observaciones", Me.CurrentRow("IDObra"))
+            '        .Refresh()
+            '    Else
+            '        .Columns("Observaciones").HasValueList = False
+            '        .Columns("Observaciones").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+            '        .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox
+            '        .Columns("Observaciones").HasValueList = False
+            '        .Refresh()
+            '    End If
+            '    If .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+            '        .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.DropDownList
+            '        CargarLista2("Observaciones2", Me.CurrentRow("IDObra"))
+            '        .Refresh()
+            '    Else
+            '        .Columns("Observaciones2").HasValueList = False
+            '        .Columns("Observaciones2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+            '        .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox
+            '        .Columns("Observaciones2").HasValueList = False
+            '        .Refresh()
+            '    End If
+            '    If .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+            '        .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.DropDownList
+            '        CargarLista2("Localizacion1", Me.CurrentRow("IDObra"))
+            '        .Refresh()
+            '    Else
+            '        .Columns("Localizacion1").HasValueList = False
+            '        .Columns("Localizacion1").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+            '        .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox
+            '        .Columns("Localizacion1").HasValueList = False
+            '        .Refresh()
+            '    End If
+            '    If .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+            '        .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.DropDownList
+            '        CargarLista2("Localizacion2", Me.CurrentRow("IDObra"))
+            '        .Refresh()
+            '    Else
+            '        .Columns("Localizacion2").HasValueList = False
+            '        .Columns("Localizacion2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+            '        .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox
+            '        .Columns("Localizacion2").HasValueList = False
+            '        .Refresh()
+            '    End If
+            '    'David Velasco 27/04
+            'End With
 
             If Me.RecordsState = Engine.UI.RecordsState.Saved Then
                 With GridMediciones
@@ -1705,7 +1705,8 @@ Public Class MntoGestionObrasAcero
             If result = DialogResult.Yes Then
                 setLineasHojaRuta(dtHojaRuta)
                 ExpertisApp.OpenForm("GESTOBACE", New StringFilterItem("IDObra", getIDObra(dtHojaRuta.Rows(0)("Obra"))))
-                'Me.RefreshData()
+                MessageBox.Show("Albarán creado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.RefreshData()
 
             Else
                 MessageBox.Show("Has cancelado la operación.", "Información")
@@ -1716,15 +1717,11 @@ Public Class MntoGestionObrasAcero
     End Sub
 
     Public Sub setLineasHojaRuta(ByVal dtHojaRuta As DataTable)
+
+
+
         'DIAMETRO DE LA ESTRUCTURA
         Dim diametro As String = ""
-
-        'ESTRUCTURA
-        Dim fase As String = ""
-        'LOCALIZACION 1
-        Dim planta As String = ""
-        'LOCALIZACION 2
-        Dim grupo As String = ""
         'Observaciones = ESTRUCTURA + LOCALIZACION 1 + LOZALIZACION 2
         Dim observaciones As String = ""
 
@@ -1736,6 +1733,13 @@ Public Class MntoGestionObrasAcero
         Dim acumuladoCelosia As Double = 0 : Dim acumuladoAlambre As Double = 0 : Dim acumuladoMallazo As Double = 0
 
         Dim pedidoAnterior As String = Nothing
+        Dim pesoProduccionAnterior As String = Nothing
+        Dim faseAnterior As String = Nothing
+        Dim plantaAnterior As String = Nothing
+        Dim grupoAnterior As String = Nothing
+        Dim descripcionPedidoAnterior As String = Nothing
+        Dim descripcionSubpedidoAnterior As String = Nothing
+
         Dim albaran As String = dtHojaRuta.Rows(0)("HojaDeRuta")
         Dim obra As String = dtHojaRuta.Rows(0)("Obra")
         Dim fecha As String = ""
@@ -1743,15 +1747,24 @@ Public Class MntoGestionObrasAcero
 
         For Each row As DataRow In dtHojaRuta.Rows
             Dim pedidoActual As String = row("Pedido")
+            Dim pesoProduccionActual As Double = getDoubleFromString(row("TotalPesoProduccion"))
+            Dim faseActual As String = row("Fase")
+            Dim plantaActual As String = row("Planta")
+            Dim grupoActual As String = row("Grupo")
+            Dim descripcionPedidoActual As String = row("DescripcionPedido")
+            Dim descripcionSubpedidoActual As String = row("DescripcionSubpedido")
+
             Dim pesoElemento As Double = getDoubleFromString(row("PesoElemento"))
-            pesoFacturacion = row("TotalPesoPedido")
             fecha = row("FechaPedido")
 
             Dim elemento As String = row("Elemento")
             Dim cantidadProductoComercial As String = row("CantidadProductoComercial")
 
             If pedidoAnterior IsNot Nothing AndAlso pedidoAnterior <> pedidoActual Then
-                MostrarMensaje(pesoFacturacion, fecha, obra, albaran, pedidoAnterior, acumulado8, acumulado10, acumulado12, acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo)
+                CreaLineas(pesoProduccionAnterior, fecha, obra, albaran, pedidoAnterior, acumulado8, acumulado10, acumulado12, _
+                               acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo, _
+                               faseAnterior, plantaAnterior, grupoAnterior, descripcionPedidoAnterior, descripcionSubpedidoAnterior)
+
                 acumulado8 = 0 : acumulado10 = 0 : acumulado12 = 0 : acumulado16 = 0 : acumulado20 = 0 : acumulado25 = 0 : acumulado32 = 0
                 acumuladoAlambre = 0 : acumuladoCelosia = 0 : acumuladoMallazo = 0
             End If
@@ -1760,20 +1773,61 @@ Public Class MntoGestionObrasAcero
             ' Acumular peso por diámetro
             ProcesarPesosPorDiametro(cantidadProductoComercial, elemento, diametro, pesoElemento, acumulado8, acumulado10, acumulado12, acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo)
             pedidoAnterior = pedidoActual
+            pesoProduccionAnterior = pesoProduccionActual
+            grupoAnterior = grupoActual
+            faseAnterior = faseActual
+            plantaAnterior = plantaActual
+            descripcionPedidoAnterior = descripcionPedidoActual
+            descripcionSubpedidoAnterior = descripcionSubpedidoActual
         Next
 
         ' Mostrar el mensaje para el último pedido después de salir del bucle
         If pedidoAnterior IsNot Nothing Then
-            MostrarMensaje(pesoFacturacion, fecha, obra, albaran, pedidoAnterior, acumulado8, acumulado10, acumulado12, acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo)
+            CreaLineas(pesoProduccionAnterior, fecha, obra, albaran, pedidoAnterior, acumulado8, acumulado10, acumulado12, _
+                           acumulado16, acumulado20, acumulado25, acumulado32, acumuladoAlambre, acumuladoCelosia, acumuladoMallazo, _
+                           faseAnterior, plantaAnterior, grupoAnterior, descripcionPedidoAnterior, descripcionSubpedidoAnterior)
         End If
+
+        GestionaBasculayTransporte(dtHojaRuta)
 
     End Sub
 
+    Public Sub GestionaBasculayTransporte(ByVal dtHojaRuta As DataTable)
+        Dim nobra As String = dtHojaRuta.Rows(0)("Obra")
+        Dim idobra As String = getIDObra(nobra)
+        Dim albaran As String = dtHojaRuta.Rows(0)("HojaDeRuta")
+        Dim fecha As String = dtHojaRuta.Rows(0)("FechaPedido")
+        Dim pesoBascula As Double = getDoubleFromString(dtHojaRuta.Rows(0)("PesoBascula"))
+
+        'GESTIONA EL PESO BASCULA
+        If pesoBascula <> 0 Then
+            Dim txtSQL As String
+            txtSQL = "Insert into tbObraMedicionAcero(IDLineaMedicionA, IDObra, Estructura,PesoBascula," & _
+            "Fecha, Alambre, Celosia, Mallazo, D8, D10, D12, D16, D20, D25, D32, PesoPlanilla, PesoPedido, CertificadoSuministro, numAlbaran, FacElaboracion, Planilla, NObra, FechaCreacionAudi, FechaModificacionAudi, UsuarioAudi, Mes, Año)" & _
+            "Values('" & auto.Autonumerico() & "','" & idobra & "', 'BASCULA', '" & pesoBascula & "','" & _
+            CambiarFormatoFecha(fecha) & "', '0','0','0','0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '" & albaran & "', '0', '0', '" & nobra & "', '" & CambiarFormatoFechaHoy(DateTime.Now) & "', '" & CambiarFormatoFechaHoy(DateTime.Now) & "', '" & ExpertisApp.UserName & "', '" & Month(fecha) & "', '" & Year(fecha) & "')"
+            auto.Ejecutar(txtSQL)
+        End If
+
+        Dim confirmacionPrecioTransporte As Double = getDoubleFromString(dtHojaRuta.Rows(0)("ConfirmacionPrecioTransporte"))
+        Dim precioTransporte As Double = getDoubleFromString(dtHojaRuta.Rows(0)("PrecioTransporte"))
+
+        'GESTIONA EL TRANSPORTE
+        If confirmacionPrecioTransporte <> 0 Then
+            Dim txtSQL As String
+            txtSQL = "Insert into tbObraMedicionAcero(IDLineaMedicionA, IDObra, Estructura," & _
+            "Fecha, Alambre, Celosia, Mallazo, D8, D10, D12, D16, D20, D25, D32, PesoPlanilla, PesoPedido, CertificadoSuministro, numAlbaran, FacElaboracion, Planilla, NObra,Transporte, ETransporte, FechaCreacionAudi, FechaModificacionAudi, UsuarioAudi, Mes, Año)" & _
+            "Values('" & auto.Autonumerico() & "','" & idobra & "', 'TRANSPORTE','" & _
+            CambiarFormatoFecha(fecha) & "', '0','0','0','0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '" & albaran & "', '0', '0', '" & nobra & "',1,'" & precioTransporte & "', '" & CambiarFormatoFechaHoy(DateTime.Now) & "', '" & CambiarFormatoFechaHoy(DateTime.Now) & "', '" & ExpertisApp.UserName & "', '" & Month(fecha) & "', '" & Year(fecha) & "')"
+            auto.Ejecutar(txtSQL)
+        End If
+
+    End Sub
     Sub ProcesarPesosPorDiametro(ByVal cantidadProductoComercial As Double, ByVal elemento As String, ByVal diametro As String, ByVal pesoElemento As Double, ByRef acumulado8 As Double, ByRef acumulado10 As Double, ByRef acumulado12 As Double, ByRef acumulado16 As Double, ByRef acumulado20 As Double, ByRef acumulado25 As Double, ByRef acumulado32 As Double _
                                  , ByRef acumuladoAlambre As Double, ByRef acumuladoCelosia As Double, ByRef acumuladoMallazo As Double)
         Select Case diametro
             Case "0", ""
-                If elemento.ToLower.Contains("alamabre") Then
+                If elemento.ToLower.Contains("alambre") Then
                     acumuladoAlambre = acumuladoAlambre + (cantidadProductoComercial * 25)
                 ElseIf elemento.ToLower.Contains("celosía") Or elemento.ToLower.Contains("celosia") Then
                     acumuladoCelosia = acumuladoCelosia + (cantidadProductoComercial * 6)
@@ -1799,31 +1853,51 @@ Public Class MntoGestionObrasAcero
         End Select
     End Sub
 
-    Sub MostrarMensaje(ByVal pesoFacturacion As String, ByVal fecha As String, ByVal nobra As String, ByVal albaran As String, ByVal pedido As String, ByVal acumulado8 As Double, ByVal acumulado10 As Double, ByVal acumulado12 As Double, _
-                       ByVal acumulado16 As Double, ByVal acumulado20 As Double, ByVal acumulado25 As Double, ByVal acumulado32 As Double, ByVal acumuladoAlambre As Double, ByVal acumuladoCelosia As Double, ByVal acumuladoMallazo As Double)
-        Dim IDLineaMedicion As String
-        IDLineaMedicion = auto.Autonumerico()
+    Sub CreaLineas(ByVal pesoProduccion As String, ByVal fecha As String, ByVal nobra As String, ByVal albaran As String, ByVal pedido As String, ByVal acumulado8 As Double, ByVal acumulado10 As Double, ByVal acumulado12 As Double, _
+                       ByVal acumulado16 As Double, ByVal acumulado20 As Double, ByVal acumulado25 As Double, ByVal acumulado32 As Double, ByVal acumuladoAlambre As Double, ByVal acumuladoCelosia As Double, ByVal acumuladoMallazo As Double, _
+                       ByVal fase As String, ByVal planta As String, ByVal grupo As String, ByVal descPedido As String, ByVal descSubpedido As String)
+        Dim IDLineaMedicionA As String
+        IDLineaMedicionA = auto.Autonumerico()
 
-
-        'IDOBRA Y NOBRA
         Dim IDObra As String
         IDObra = getIDObra(nobra)
 
-        'FECHACREACIONAUDI Y FECHAMODIFICACIONAUDI, USUARIOAUDI
-        Dim fechaHoy As Date = Today.Date
         Dim mes As String = Month(fecha)
         Dim anio As String = Year(fecha)
         Dim usuario As String = ExpertisApp.UserName
 
         'PESO FACTURACION = PesoPlanilla, PesoPedido, CertificadoSuministro, FacElaboracion
-        Dim pesoFact As Double = getDoubleFromString(pesoFacturacion)
-        'PESO PRODUCCION = Esperando el dato de Quique
+        Dim pesoFact As Double = (acumulado8 + acumulado10 + acumulado12 + acumulado16 + acumulado20 + acumulado25 + acumulado32)
+        'PESO PRODUCCION = Es la variable pesoProduccion que le paso en el constructor
+        'MsgBox("Para el pedido: " & pedido & " los pesos totales son:Peso Facturacion(Peso planilla) " & pesoFact & " y el peso produccion(Planilla) es:" & pesoProduccion)
+        Dim observaciones As String = ""
+        observaciones = descPedido
+        Dim txtSQL As String
+        txtSQL = "Insert into tbObraMedicionAcero(IDLineaMedicionA, IDObra, Estructura, Localizacion1, Localizacion2," & _
+        "Fecha, Alambre, Celosia, Mallazo, D8, D10, D12, D16, D20, D25, D32, PesoPlanilla, PesoPedido, CertificadoSuministro, numAlbaran, numPedido, FacElaboracion, Planilla, NObra,Observaciones, Observaciones2, FechaCreacionAudi, FechaModificacionAudi, UsuarioAudi, Mes, Año)" & _
+        "Values('" & IDLineaMedicionA & "','" & IDObra & "', '" & fase & "', '" & planta & "', '" & grupo & "', '" & _
+        CambiarFormatoFecha(fecha) & "', '" & acumuladoAlambre.ToString.Replace(",", ".") & "','" & acumuladoCelosia.ToString.Replace(",", ".") & "','" & acumuladoMallazo.ToString.Replace(",", ".") & "','" & acumulado8.ToString.Replace(",", ".") & "', '" & acumulado10.ToString.Replace(",", ".") & "', '" & acumulado12.ToString.Replace(",", ".") & "', '" & acumulado16.ToString.Replace(",", ".") & "', '" & acumulado20.ToString.Replace(",", ".") & "', '" & acumulado25.ToString.Replace(",", ".") & "', '" & acumulado32.ToString.Replace(",", ".") & "', '" & _
+        pesoFact.ToString.Replace(",", ".") & "', '" & pesoFact.ToString.Replace(",", ".") & "', '" & pesoFact.ToString.Replace(",", ".") & "', '" & albaran & "', '" & pedido & "', '" & pesoFact.ToString.Replace(",", ".") & "', '" & pesoProduccion.ToString.Replace(",", ".") & "', '" & nobra & "','" & observaciones & "','" & descSubpedido & "', '" & CambiarFormatoFechaHoy(DateTime.Now) & "', '" & CambiarFormatoFechaHoy(DateTime.Now) & "', '" & usuario & "', '" & mes & "', '" & anio & "')"
+        auto.Ejecutar(txtSQL)
 
-        MsgBox(mes & " " & anio & "" & pesoFact)
+        'MsgBox("Para el pedido: " & pedido & " los pesos totales son:Peso Facturacion(Peso planilla) " & pesoPlanilla & " y el peso produccion(Planilla) es:" & pesoProduccion)
 
-        MsgBox("Para el pedido: " & pedido & " los pesos son: " & acumulado8 & " y " & acumulado10 & " y " & acumulado12 & " y " & _
-            acumulado16 & " y " & acumulado20 & " y " & acumulado25 & " y " & acumulado32 & ".Total celosia " & acumuladoCelosia & ", alambre " & acumuladoAlambre & " y de mallazo" & acumuladoMallazo)
     End Sub
+
+    Function CambiarFormatoFecha(ByVal fecha As String) As String
+        ' Dividir la fecha en partes: año, mes y día
+        Dim partesFecha() As String = fecha.Split("-"c)
+        ' Reorganizar las partes de la fecha en el nuevo formato
+        Dim fechaCambiada As String = partesFecha(2) & "/" & partesFecha(1) & "/" & partesFecha(0)
+        ' Devolver la fecha en el nuevo formato
+        Return fechaCambiada
+    End Function
+    Function CambiarFormatoFechaHoy(ByVal fecha As String) As String
+        ' Dividir la cadena en partes: fecha y hora
+        Dim partesFechaHora() As String = fecha.Split(" "c)
+        ' Devolver la fecha en el nuevo formato
+        Return partesFechaHora(0)
+    End Function
 
     Public Function getIDObra(ByVal nobra As String)
         Dim f As New Filter
@@ -1860,6 +1934,17 @@ Public Class MntoGestionObrasAcero
         dataTable.Columns.Add("CantidadProductoComercial", GetType(String))
         dataTable.Columns.Add("PesoElemento", GetType(String))
         dataTable.Columns.Add("TotalPesoPedido", GetType(String))
+        dataTable.Columns.Add("TotalPesoProduccion", GetType(String))
+        dataTable.Columns.Add("Fase", GetType(String))
+        dataTable.Columns.Add("Planta", GetType(String))
+        dataTable.Columns.Add("Grupo", GetType(String))
+        dataTable.Columns.Add("DescripcionPedido", GetType(String))
+        dataTable.Columns.Add("DescripcionSubpedido", GetType(String))
+        dataTable.Columns.Add("PesoBascula", GetType(String))
+        dataTable.Columns.Add("PrecioTransporte", GetType(String))
+        dataTable.Columns.Add("ConfirmacionPrecioTransporte", GetType(String))
+
+
 
         ' Deserializar el JSON a un objeto dinámico
         Dim jsonObj As JObject = JObject.Parse(jsonResult)
@@ -1877,8 +1962,18 @@ Public Class MntoGestionObrasAcero
             Dim cantidadProductoComercial As String = item("elementsPackagedFigures").ToString()
             Dim pesoElemento As String = item("elementsWeight").ToString()
             Dim pesoPedido As String = item("totalOrderWeight").ToString()
+            Dim pesoPedidoProduccion As String = item("totalOrderProductionWeight").ToString()
+            Dim fase As String = item("phases").ToString()
+            Dim planta As String = item("floors").ToString()
+            Dim grupo As String = item("groups").ToString()
+            Dim descripcionPedido As String = item("orderDescription").ToString()
+            Dim descripcionSubpedido As String = item("subOrderDescription").ToString()
+            Dim pesoBascula As String = item("roadmapScaleWeight").ToString()
+            Dim precioTransporte As String = item("transportPrice").ToString()
+            Dim confirmacionPrecioTransporte As String = item("finalPrice").ToString()
 
-            dataTable.Rows.Add(hojaDeRuta, obra, pedido, fecha, diametro, IDArticulo, elemento, cantidadProductoComercial, pesoElemento, pesoPedido)
+            dataTable.Rows.Add(hojaDeRuta, obra, pedido, fecha, diametro, IDArticulo, elemento, cantidadProductoComercial, pesoElemento, pesoPedido, _
+                pesoPedidoProduccion, fase, planta, grupo, descripcionPedido, descripcionSubpedido, pesoBascula, precioTransporte, confirmacionPrecioTransporte)
         Next
 
         Return dataTable
