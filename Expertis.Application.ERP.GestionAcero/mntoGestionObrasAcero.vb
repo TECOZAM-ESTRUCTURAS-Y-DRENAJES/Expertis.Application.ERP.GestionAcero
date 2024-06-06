@@ -840,66 +840,66 @@ Public Class MntoGestionObrasAcero
 
     Private Sub GridMediciones_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridMediciones.DoubleClick
         Try
-            'With GridMediciones
+            With GridMediciones
 
-            '    If .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-            '        .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.DropDownList
-            '        CargarLista(Me.CurrentRow("IDObra"))
-            '        .Refresh()
-            '    Else
-            '        .Columns("Estructura").HasValueList = False
-            '        .Columns("Estructura").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-            '        .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox
-            '        .Columns("Estructura").HasValueList = False
-            '        .Refresh()
-            '    End If
-            '    'David Velasco 27/04
-            '    If .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-            '        .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.DropDownList
-            '        CargarLista2("Observaciones", Me.CurrentRow("IDObra"))
-            '        .Refresh()
-            '    Else
-            '        .Columns("Observaciones").HasValueList = False
-            '        .Columns("Observaciones").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-            '        .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox
-            '        .Columns("Observaciones").HasValueList = False
-            '        .Refresh()
-            '    End If
-            '    If .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-            '        .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.DropDownList
-            '        CargarLista2("Observaciones2", Me.CurrentRow("IDObra"))
-            '        .Refresh()
-            '    Else
-            '        .Columns("Observaciones2").HasValueList = False
-            '        .Columns("Observaciones2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-            '        .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox
-            '        .Columns("Observaciones2").HasValueList = False
-            '        .Refresh()
-            '    End If
-            '    If .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-            '        .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.DropDownList
-            '        CargarLista2("Localizacion1", Me.CurrentRow("IDObra"))
-            '        .Refresh()
-            '    Else
-            '        .Columns("Localizacion1").HasValueList = False
-            '        .Columns("Localizacion1").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-            '        .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox
-            '        .Columns("Localizacion1").HasValueList = False
-            '        .Refresh()
-            '    End If
-            '    If .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
-            '        .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.DropDownList
-            '        CargarLista2("Localizacion2", Me.CurrentRow("IDObra"))
-            '        .Refresh()
-            '    Else
-            '        .Columns("Localizacion2").HasValueList = False
-            '        .Columns("Localizacion2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
-            '        .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox
-            '        .Columns("Localizacion2").HasValueList = False
-            '        .Refresh()
-            '    End If
-            '    'David Velasco 27/04
-            'End With
+                If .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+                    .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.DropDownList
+                    CargarLista(Me.CurrentRow("IDObra"))
+                    .Refresh()
+                Else
+                    .Columns("Estructura").HasValueList = False
+                    .Columns("Estructura").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+                    .Columns("Estructura").EditType = Janus.Windows.GridEX.EditType.TextBox
+                    .Columns("Estructura").HasValueList = False
+                    .Refresh()
+                End If
+                '    'David Velasco 27/04
+                '    If .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+                '        .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.DropDownList
+                '        CargarLista2("Observaciones", Me.CurrentRow("IDObra"))
+                '        .Refresh()
+                '    Else
+                '        .Columns("Observaciones").HasValueList = False
+                '        .Columns("Observaciones").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+                '        .Columns("Observaciones").EditType = Janus.Windows.GridEX.EditType.TextBox
+                '        .Columns("Observaciones").HasValueList = False
+                '        .Refresh()
+                '    End If
+                '    If .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+                '        .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.DropDownList
+                '        CargarLista2("Observaciones2", Me.CurrentRow("IDObra"))
+                '        .Refresh()
+                '    Else
+                '        .Columns("Observaciones2").HasValueList = False
+                '        .Columns("Observaciones2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+                '        .Columns("Observaciones2").EditType = Janus.Windows.GridEX.EditType.TextBox
+                '        .Columns("Observaciones2").HasValueList = False
+                '        .Refresh()
+                '    End If
+                If .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+                    .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.DropDownList
+                    CargarLista2("Localizacion1", Me.CurrentRow("IDObra"))
+                    .Refresh()
+                Else
+                    .Columns("Localizacion1").HasValueList = False
+                    .Columns("Localizacion1").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+                    .Columns("Localizacion1").EditType = Janus.Windows.GridEX.EditType.TextBox
+                    .Columns("Localizacion1").HasValueList = False
+                    .Refresh()
+                End If
+                If .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox Then
+                    .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.DropDownList
+                    CargarLista2("Localizacion2", Me.CurrentRow("IDObra"))
+                    .Refresh()
+                Else
+                    .Columns("Localizacion2").HasValueList = False
+                    .Columns("Localizacion2").ButtonStyle = Janus.Windows.GridEX.ButtonStyle.NoButton
+                    .Columns("Localizacion2").EditType = Janus.Windows.GridEX.EditType.TextBox
+                    .Columns("Localizacion2").HasValueList = False
+                    .Refresh()
+                End If
+                '    'David Velasco 27/04/24
+            End With
 
             If Me.RecordsState = Engine.UI.RecordsState.Saved Then
                 With GridMediciones
