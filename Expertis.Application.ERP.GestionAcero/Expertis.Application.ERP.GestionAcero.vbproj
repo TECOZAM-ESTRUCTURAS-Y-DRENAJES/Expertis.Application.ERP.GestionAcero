@@ -152,149 +152,154 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CIMedicionAceroEstado.Designer.vb">
+    <Compile Include="Ventanas principales\CIMedicionAceroEstado.Designer.vb">
       <DependentUpon>CIMedicionAceroEstado.vb</DependentUpon>
     </Compile>
-    <Compile Include="CIMedicionAceroEstado.vb">
+    <Compile Include="Ventanas principales\CIMedicionAceroEstado.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CIMedicionAceroTotales.Designer.vb">
+    <Compile Include="Ventanas principales\CIMedicionAceroTotales.Designer.vb">
       <DependentUpon>CIMedicionAceroTotales.vb</DependentUpon>
     </Compile>
-    <Compile Include="CIMedicionAceroTotales.vb">
+    <Compile Include="Ventanas principales\CIMedicionAceroTotales.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Class1.vb" />
-    <Compile Include="frmEntidad.Designer.vb">
+    <Compile Include="No usadas\frmEntidad.Designer.vb">
       <DependentUpon>frmEntidad.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmEntidad.vb">
+    <Compile Include="No usadas\frmEntidad.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmClaseCarga.Designer.vb">
+    <Compile Include="No usadas\frmClaseCarga.Designer.vb">
       <DependentUpon>frmClaseCarga.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmClaseCarga.vb">
+    <Compile Include="No usadas\frmClaseCarga.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAsignarPreciosDiametro.Designer.vb">
+    <Compile Include="No usadas\frmAsignarPreciosDiametro.Designer.vb">
       <DependentUpon>frmAsignarPreciosDiametro.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAsignarPreciosDiametro.vb">
+    <Compile Include="No usadas\frmAsignarPreciosDiametro.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAsignarPrecios.Designer.vb">
+    <Compile Include="No usadas\frmAsignarPrecios.Designer.vb">
       <DependentUpon>frmAsignarPrecios.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAsignarPrecios.vb">
+    <Compile Include="No usadas\frmAsignarPrecios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAlbaranGrafojex.Designer.vb">
+    <Compile Include="No usadas\frmAlbaranGrafojex.Designer.vb">
       <DependentUpon>frmAlbaranGrafojex.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAlbaranGrafojex.vb">
+    <Compile Include="No usadas\frmAlbaranGrafojex.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmActMedicionesAcero.Designer.vb">
+    <Compile Include="No usadas\frmActMedicionesAcero.Designer.vb">
       <DependentUpon>frmActMedicionesAcero.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmActMedicionesAcero.vb">
+    <Compile Include="No usadas\frmActMedicionesAcero.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmExportar.Designer.vb">
+    <Compile Include="No usadas\frmExportar.Designer.vb">
       <DependentUpon>frmExportar.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmExportar.vb">
+    <Compile Include="No usadas\frmExportar.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFactDiametro.Designer.vb">
+    <Compile Include="Ventanas auxiliares\frmFactDiametro.Designer.vb">
       <DependentUpon>frmFactDiametro.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmFactDiametro.vb">
+    <Compile Include="Ventanas auxiliares\frmFactDiametro.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFichaCertificacion.Designer.vb">
+    <Compile Include="No usadas\frmFichaCertificacion.Designer.vb">
       <DependentUpon>frmFichaCertificacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmFichaCertificacion.vb">
+    <Compile Include="No usadas\frmFichaCertificacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInformeAcero.Designer.vb">
+    <Compile Include="Ventanas auxiliares\frmInformeAcero.Designer.vb">
       <DependentUpon>frmInformeAcero.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmInformeAcero.vb">
+    <Compile Include="Ventanas auxiliares\frmInformeAcero.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInformeFecha.Designer.vb">
+    <Compile Include="Ventanas auxiliares\frmInformeFecha.Designer.vb">
       <DependentUpon>frmInformeFecha.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmInformeFecha.vb">
+    <Compile Include="Ventanas auxiliares\frmInformeFecha.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInformeMallazo.Designer.vb">
+    <Compile Include="No usadas\frmInformeMallazo.Designer.vb">
       <DependentUpon>frmInformeMallazo.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmInformeMallazo.vb">
+    <Compile Include="No usadas\frmInformeMallazo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmlFechaEstFactura.Designer.vb">
+    <Compile Include="Ventanas auxiliares\frmlFechaEstFactura.Designer.vb">
       <DependentUpon>frmlFechaEstFactura.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmlFechaEstFactura.vb">
+    <Compile Include="Ventanas auxiliares\frmlFechaEstFactura.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmNumeroSerie.Designer.vb">
+    <Compile Include="No usadas\frmNumeroSerie.Designer.vb">
       <DependentUpon>frmNumeroSerie.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmNumeroSerie.vb">
+    <Compile Include="No usadas\frmNumeroSerie.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmNumFechaAlba.Designer.vb">
+    <Compile Include="No usadas\frmNumFechaAlba.Designer.vb">
       <DependentUpon>frmNumFechaAlba.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmNumFechaAlba.vb">
+    <Compile Include="No usadas\frmNumFechaAlba.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOpcionesAlbaran.Designer.vb">
+    <Compile Include="No usadas\frmOpcionesAlbaran.Designer.vb">
       <DependentUpon>frmOpcionesAlbaran.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmOpcionesAlbaran.vb">
+    <Compile Include="No usadas\frmOpcionesAlbaran.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOrdenTrabajo.Designer.vb">
+    <Compile Include="No usadas\frmOrdenTrabajo.Designer.vb">
       <DependentUpon>frmOrdenTrabajo.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmOrdenTrabajo.vb">
+    <Compile Include="No usadas\frmOrdenTrabajo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmProveedor.Designer.vb">
+    <Compile Include="No usadas\frmProveedor.Designer.vb">
       <DependentUpon>frmProveedor.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmProveedor.vb">
+    <Compile Include="No usadas\frmProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSeleccionEstructura.Designer.vb">
+    <Compile Include="Ventanas auxiliares\frmSeleccionEstructura.Designer.vb">
       <DependentUpon>frmSeleccionEstructura.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmSeleccionEstructura.vb">
+    <Compile Include="Ventanas auxiliares\frmSeleccionEstructura.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmVistaPrevia.Designer.vb">
+    <Compile Include="No usadas\frmVistaPrevia.Designer.vb">
       <DependentUpon>frmVistaPrevia.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmVistaPrevia.vb">
+    <Compile Include="No usadas\frmVistaPrevia.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InformeAceroBueno.Designer.vb">
+    <Compile Include="Ventanas auxiliares\InformeAceroBueno.Designer.vb">
       <DependentUpon>InformeAceroBueno.vb</DependentUpon>
     </Compile>
-    <Compile Include="InformeAceroBueno.vb">
+    <Compile Include="Ventanas auxiliares\InformeAceroBueno.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mntoGestionObrasAcero.Designer.vb">
+    <Compile Include="Ventanas principales\CIPesoBasculaObra.Designer.vb">
+      <DependentUpon>CIPesoBasculaObra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas principales\CIPesoBasculaObra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventanas principales\mntoGestionObrasAcero.Designer.vb">
       <DependentUpon>mntoGestionObrasAcero.vb</DependentUpon>
     </Compile>
-    <Compile Include="mntoGestionObrasAcero.vb">
+    <Compile Include="Ventanas principales\mntoGestionObrasAcero.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -312,109 +317,113 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SeleccionarCertificacion.Designer.vb">
+    <Compile Include="No usadas\SeleccionarCertificacion.Designer.vb">
       <DependentUpon>SeleccionarCertificacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="SeleccionarCertificacion.vb">
+    <Compile Include="No usadas\SeleccionarCertificacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SeleccionarObra.Designer.vb">
+    <Compile Include="No usadas\SeleccionarObra.Designer.vb">
       <DependentUpon>SeleccionarObra.vb</DependentUpon>
     </Compile>
-    <Compile Include="SeleccionarObra.vb">
+    <Compile Include="No usadas\SeleccionarObra.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CIMedicionAceroEstado.resx">
+    <EmbeddedResource Include="Ventanas principales\CIMedicionAceroEstado.resx">
       <DependentUpon>CIMedicionAceroEstado.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CIMedicionAceroTotales.resx">
+    <EmbeddedResource Include="Ventanas principales\CIMedicionAceroTotales.resx">
       <DependentUpon>CIMedicionAceroTotales.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEntidad.resx">
+    <EmbeddedResource Include="No usadas\frmEntidad.resx">
       <DependentUpon>frmEntidad.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAsignarPreciosDiametro.resx">
+    <EmbeddedResource Include="No usadas\frmAsignarPreciosDiametro.resx">
       <DependentUpon>frmAsignarPreciosDiametro.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAsignarPrecios.resx">
+    <EmbeddedResource Include="No usadas\frmAsignarPrecios.resx">
       <DependentUpon>frmAsignarPrecios.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAlbaranGrafojex.resx">
+    <EmbeddedResource Include="No usadas\frmAlbaranGrafojex.resx">
       <DependentUpon>frmAlbaranGrafojex.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmActMedicionesAcero.resx">
+    <EmbeddedResource Include="No usadas\frmActMedicionesAcero.resx">
       <DependentUpon>frmActMedicionesAcero.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmExportar.resx">
+    <EmbeddedResource Include="No usadas\frmExportar.resx">
       <DependentUpon>frmExportar.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmFactDiametro.resx">
+    <EmbeddedResource Include="Ventanas auxiliares\frmFactDiametro.resx">
       <DependentUpon>frmFactDiametro.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmFichaCertificacion.resx">
+    <EmbeddedResource Include="No usadas\frmFichaCertificacion.resx">
       <DependentUpon>frmFichaCertificacion.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInformeAcero.resx">
+    <EmbeddedResource Include="Ventanas auxiliares\frmInformeAcero.resx">
       <DependentUpon>frmInformeAcero.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInformeFecha.resx">
+    <EmbeddedResource Include="Ventanas auxiliares\frmInformeFecha.resx">
       <DependentUpon>frmInformeFecha.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInformeMallazo.resx">
+    <EmbeddedResource Include="No usadas\frmInformeMallazo.resx">
       <DependentUpon>frmInformeMallazo.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmlFechaEstFactura.resx">
+    <EmbeddedResource Include="Ventanas auxiliares\frmlFechaEstFactura.resx">
       <DependentUpon>frmlFechaEstFactura.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmNumeroSerie.resx">
+    <EmbeddedResource Include="No usadas\frmNumeroSerie.resx">
       <DependentUpon>frmNumeroSerie.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmNumFechaAlba.resx">
+    <EmbeddedResource Include="No usadas\frmNumFechaAlba.resx">
       <DependentUpon>frmNumFechaAlba.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmOpcionesAlbaran.resx">
+    <EmbeddedResource Include="No usadas\frmOpcionesAlbaran.resx">
       <DependentUpon>frmOpcionesAlbaran.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmOrdenTrabajo.resx">
+    <EmbeddedResource Include="No usadas\frmOrdenTrabajo.resx">
       <DependentUpon>frmOrdenTrabajo.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmProveedor.resx">
+    <EmbeddedResource Include="No usadas\frmProveedor.resx">
       <DependentUpon>frmProveedor.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSeleccionEstructura.resx">
+    <EmbeddedResource Include="Ventanas auxiliares\frmSeleccionEstructura.resx">
       <DependentUpon>frmSeleccionEstructura.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmVistaPrevia.resx">
+    <EmbeddedResource Include="No usadas\frmVistaPrevia.resx">
       <DependentUpon>frmVistaPrevia.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="InformeAceroBueno.resx">
+    <EmbeddedResource Include="Ventanas auxiliares\InformeAceroBueno.resx">
       <DependentUpon>InformeAceroBueno.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="mntoGestionObrasAcero.resx">
+    <EmbeddedResource Include="Ventanas principales\CIPesoBasculaObra.resx">
+      <DependentUpon>CIPesoBasculaObra.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas principales\mntoGestionObrasAcero.resx">
       <DependentUpon>mntoGestionObrasAcero.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -425,17 +434,16 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SeleccionarCertificacion.resx">
+    <EmbeddedResource Include="No usadas\SeleccionarCertificacion.resx">
       <DependentUpon>SeleccionarCertificacion.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SeleccionarObra.resx">
+    <EmbeddedResource Include="No usadas\SeleccionarObra.resx">
       <DependentUpon>SeleccionarObra.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

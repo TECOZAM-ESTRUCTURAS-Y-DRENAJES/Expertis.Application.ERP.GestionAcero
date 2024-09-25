@@ -165,3 +165,4 @@ C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.G
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Newtonsoft.Json.dll
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\bin\Debug\Expertis.Application.ERP.GestionAcero.xml
 C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Expertis.Application.ERP.GestionAcero.xml
+C:\Users\dvelasco\Desktop\FuentesExpertis\Application\Expertis.Application.ERP.GestionAcero\Expertis.Application.ERP.GestionAcero\obj\Debug\Solmicro.Expertis.Application.ERP.GestionAcero.CIPesoBasculaObra.resources
