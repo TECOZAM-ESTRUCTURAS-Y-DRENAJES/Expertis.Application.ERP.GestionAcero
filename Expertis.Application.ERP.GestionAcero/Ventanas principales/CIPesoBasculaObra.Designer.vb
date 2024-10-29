@@ -24,9 +24,13 @@ Partial Class CIPesoBasculaObra
     Private Sub InitializeComponent()
         Dim Grid_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cmbOpciones_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIPesoBasculaObra))
         Dim cmbMes_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cmbAnio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbAño2c3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIPesoBasculaObra))
+        Dim cbMes2C3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbMes1C3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbAño1c3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Me.lblEstado = New Solmicro.Expertis.Engine.UI.Label
         Me.clbFechaHasta = New Solmicro.Expertis.Engine.UI.CalendarBox
         Me.lblFecha1 = New Solmicro.Expertis.Engine.UI.Label
@@ -46,6 +50,17 @@ Partial Class CIPesoBasculaObra
         Me.Label3 = New Solmicro.Expertis.Engine.UI.Label
         Me.Label2 = New Solmicro.Expertis.Engine.UI.Label
         Me.Frame3 = New Solmicro.Expertis.Engine.UI.Frame
+        Me.Frame4 = New Solmicro.Expertis.Engine.UI.Frame
+        Me.cbAño2c3 = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label10 = New Solmicro.Expertis.Engine.UI.Label
+        Me.cbMes2C3 = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label9 = New Solmicro.Expertis.Engine.UI.Label
+        Me.cbMes1C3 = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label8 = New Solmicro.Expertis.Engine.UI.Label
+        Me.cbAño1c3 = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label6 = New Solmicro.Expertis.Engine.UI.Label
+        Me.Label7 = New Solmicro.Expertis.Engine.UI.Label
+        Me.cbMet3 = New Solmicro.Expertis.Engine.UI.CheckBox
         Me.FilterPanel.SuspendLayout()
         Me.CIMntoGridPanel.suspendlayout()
         CType(Me.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -60,26 +75,32 @@ Partial Class CIPesoBasculaObra
         CType(Me.cmbMes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbAnio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Frame3.SuspendLayout()
+        Me.Frame4.SuspendLayout()
+        CType(Me.cbAño2c3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbMes2C3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbMes1C3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbAño1c3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'FilterPanel
         '
+        Me.FilterPanel.Controls.Add(Me.Frame4)
         Me.FilterPanel.Controls.Add(Me.Frame3)
         Me.FilterPanel.Controls.Add(Me.Frame2)
         Me.FilterPanel.Controls.Add(Me.Frame1)
         Me.FilterPanel.Location = New System.Drawing.Point(0, 330)
-        Me.FilterPanel.Size = New System.Drawing.Size(936, 155)
+        Me.FilterPanel.Size = New System.Drawing.Size(1141, 155)
         '
         'CIMntoGridPanel
         '
-        Me.CIMntoGridPanel.Size = New System.Drawing.Size(936, 330)
+        Me.CIMntoGridPanel.Size = New System.Drawing.Size(1141, 330)
         '
         'Grid
         '
         Me.Grid.ColumnAutoResize = True
         Grid_DesignTimeLayout.LayoutString = resources.GetString("Grid_DesignTimeLayout.LayoutString")
         Me.Grid.DesignTimeLayout = Grid_DesignTimeLayout
-        Me.Grid.Size = New System.Drawing.Size(936, 330)
+        Me.Grid.Size = New System.Drawing.Size(1141, 330)
         '
         'Toolbar
         '
@@ -91,11 +112,11 @@ Partial Class CIPesoBasculaObra
         '
         'MainPanel
         '
-        Me.MainPanel.Size = New System.Drawing.Size(936, 485)
+        Me.MainPanel.Size = New System.Drawing.Size(1141, 485)
         '
         'MainPanelCIMntoContainer
         '
-        Me.MainPanelCIMntoContainer.Size = New System.Drawing.Size(936, 485)
+        Me.MainPanelCIMntoContainer.Size = New System.Drawing.Size(1141, 485)
         '
         'lblEstado
         '
@@ -108,14 +129,14 @@ Partial Class CIPesoBasculaObra
         'clbFechaHasta
         '
         Me.clbFechaHasta.DisabledBackColor = System.Drawing.Color.White
-        Me.clbFechaHasta.Location = New System.Drawing.Point(86, 78)
+        Me.clbFechaHasta.Location = New System.Drawing.Point(86, 88)
         Me.clbFechaHasta.Name = "clbFechaHasta"
         Me.clbFechaHasta.Size = New System.Drawing.Size(121, 21)
         Me.clbFechaHasta.TabIndex = 5
         '
         'lblFecha1
         '
-        Me.lblFecha1.Location = New System.Drawing.Point(20, 85)
+        Me.lblFecha1.Location = New System.Drawing.Point(20, 95)
         Me.lblFecha1.Name = "lblFecha1"
         Me.lblFecha1.Size = New System.Drawing.Size(62, 13)
         Me.lblFecha1.TabIndex = 29
@@ -124,14 +145,14 @@ Partial Class CIPesoBasculaObra
         'clbFechaDesde
         '
         Me.clbFechaDesde.DisabledBackColor = System.Drawing.Color.White
-        Me.clbFechaDesde.Location = New System.Drawing.Point(86, 50)
+        Me.clbFechaDesde.Location = New System.Drawing.Point(86, 60)
         Me.clbFechaDesde.Name = "clbFechaDesde"
         Me.clbFechaDesde.Size = New System.Drawing.Size(121, 21)
         Me.clbFechaDesde.TabIndex = 4
         '
         'lblFecha
         '
-        Me.lblFecha.Location = New System.Drawing.Point(20, 53)
+        Me.lblFecha.Location = New System.Drawing.Point(20, 63)
         Me.lblFecha.Name = "lblFecha"
         Me.lblFecha.Size = New System.Drawing.Size(62, 13)
         Me.lblFecha.TabIndex = 27
@@ -142,7 +163,7 @@ Partial Class CIPesoBasculaObra
         Me.txtChatarra.DisabledBackColor = System.Drawing.Color.White
         Me.txtChatarra.Location = New System.Drawing.Point(88, 26)
         Me.txtChatarra.Name = "txtChatarra"
-        Me.txtChatarra.Size = New System.Drawing.Size(151, 21)
+        Me.txtChatarra.Size = New System.Drawing.Size(115, 21)
         Me.txtChatarra.TabIndex = 6
         '
         'Frame1
@@ -153,16 +174,16 @@ Partial Class CIPesoBasculaObra
         Me.Frame1.Controls.Add(Me.clbFechaDesde)
         Me.Frame1.Controls.Add(Me.lblFecha1)
         Me.Frame1.Controls.Add(Me.clbFechaHasta)
-        Me.Frame1.Location = New System.Drawing.Point(330, 27)
+        Me.Frame1.Location = New System.Drawing.Point(298, 20)
         Me.Frame1.Name = "Frame1"
-        Me.Frame1.Size = New System.Drawing.Size(233, 120)
+        Me.Frame1.Size = New System.Drawing.Size(233, 127)
         Me.Frame1.TabIndex = 32
         Me.Frame1.TabStop = False
-        Me.Frame1.Text = "Criterio 2 - Entre fechas"
+        Me.Frame1.Text = "Criterio 2 - Entre fechas sin tener en cuenta dia de cierre"
         '
         'Label5
         '
-        Me.Label5.Location = New System.Drawing.Point(20, 26)
+        Me.Label5.Location = New System.Drawing.Point(20, 36)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(52, 13)
         Me.Label5.TabIndex = 52
@@ -170,7 +191,7 @@ Partial Class CIPesoBasculaObra
         '
         'cbMet2
         '
-        Me.cbMet2.Location = New System.Drawing.Point(86, 21)
+        Me.cbMet2.Location = New System.Drawing.Point(86, 31)
         Me.cbMet2.Name = "cbMet2"
         Me.cbMet2.Size = New System.Drawing.Size(37, 23)
         Me.cbMet2.TabIndex = 51
@@ -187,10 +208,10 @@ Partial Class CIPesoBasculaObra
         Me.Frame2.Controls.Add(Me.Label2)
         Me.Frame2.Location = New System.Drawing.Point(21, 20)
         Me.Frame2.Name = "Frame2"
-        Me.Frame2.Size = New System.Drawing.Size(280, 127)
+        Me.Frame2.Size = New System.Drawing.Size(279, 127)
         Me.Frame2.TabIndex = 33
         Me.Frame2.TabStop = False
-        Me.Frame2.Text = "Criterio 1 - Día de cierre de obra"
+        Me.Frame2.Text = "Criterio 1 - Teniendo en cuenta día de cierre"
         '
         'Label4
         '
@@ -216,7 +237,7 @@ Partial Class CIPesoBasculaObra
         Me.cmbOpciones.Name = "cmbOpciones"
         Me.cmbOpciones.SelectedIndex = -1
         Me.cmbOpciones.SelectedItem = Nothing
-        Me.cmbOpciones.Size = New System.Drawing.Size(174, 21)
+        Me.cmbOpciones.Size = New System.Drawing.Size(112, 21)
         Me.cmbOpciones.TabIndex = 1
         '
         'cmbMes
@@ -228,7 +249,7 @@ Partial Class CIPesoBasculaObra
         Me.cmbMes.Name = "cmbMes"
         Me.cmbMes.SelectedIndex = -1
         Me.cmbMes.SelectedItem = Nothing
-        Me.cmbMes.Size = New System.Drawing.Size(175, 21)
+        Me.cmbMes.Size = New System.Drawing.Size(113, 21)
         Me.cmbMes.TabIndex = 3
         '
         'Label1
@@ -248,7 +269,7 @@ Partial Class CIPesoBasculaObra
         Me.cmbAnio.Name = "cmbAnio"
         Me.cmbAnio.SelectedIndex = -1
         Me.cmbAnio.SelectedItem = Nothing
-        Me.cmbAnio.Size = New System.Drawing.Size(175, 21)
+        Me.cmbAnio.Size = New System.Drawing.Size(113, 21)
         Me.cmbAnio.TabIndex = 2
         '
         'Label3
@@ -271,18 +292,132 @@ Partial Class CIPesoBasculaObra
         '
         Me.Frame3.Controls.Add(Me.txtChatarra)
         Me.Frame3.Controls.Add(Me.lblEstado)
-        Me.Frame3.Location = New System.Drawing.Point(586, 27)
+        Me.Frame3.Location = New System.Drawing.Point(885, 20)
         Me.Frame3.Name = "Frame3"
-        Me.Frame3.Size = New System.Drawing.Size(277, 66)
+        Me.Frame3.Size = New System.Drawing.Size(211, 66)
         Me.Frame3.TabIndex = 34
         Me.Frame3.TabStop = False
         Me.Frame3.Text = "Otros datos"
+        '
+        'Frame4
+        '
+        Me.Frame4.Controls.Add(Me.cbAño2c3)
+        Me.Frame4.Controls.Add(Me.Label10)
+        Me.Frame4.Controls.Add(Me.cbMes2C3)
+        Me.Frame4.Controls.Add(Me.Label9)
+        Me.Frame4.Controls.Add(Me.cbMes1C3)
+        Me.Frame4.Controls.Add(Me.Label8)
+        Me.Frame4.Controls.Add(Me.cbAño1c3)
+        Me.Frame4.Controls.Add(Me.Label6)
+        Me.Frame4.Controls.Add(Me.Label7)
+        Me.Frame4.Controls.Add(Me.cbMet3)
+        Me.Frame4.Location = New System.Drawing.Point(529, 20)
+        Me.Frame4.Name = "Frame4"
+        Me.Frame4.Size = New System.Drawing.Size(357, 127)
+        Me.Frame4.TabIndex = 35
+        Me.Frame4.TabStop = False
+        Me.Frame4.Text = "Criterio 3 - Entre MESES productivos teniendo en cuenta día de cierre"
+        '
+        'cbAño2c3
+        '
+        cbAño2c3_DesignTimeLayout.LayoutString = resources.GetString("cbAño2c3_DesignTimeLayout.LayoutString")
+        Me.cbAño2c3.DesignTimeLayout = cbAño2c3_DesignTimeLayout
+        Me.cbAño2c3.DisabledBackColor = System.Drawing.Color.White
+        Me.cbAño2c3.Location = New System.Drawing.Point(253, 89)
+        Me.cbAño2c3.Name = "cbAño2c3"
+        Me.cbAño2c3.SelectedIndex = -1
+        Me.cbAño2c3.SelectedItem = Nothing
+        Me.cbAño2c3.Size = New System.Drawing.Size(81, 21)
+        Me.cbAño2c3.TabIndex = 59
+        '
+        'Label10
+        '
+        Me.Label10.Location = New System.Drawing.Point(202, 94)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(45, 13)
+        Me.Label10.TabIndex = 60
+        Me.Label10.Text = "Año 2:"
+        '
+        'cbMes2C3
+        '
+        cbMes2C3_DesignTimeLayout.LayoutString = resources.GetString("cbMes2C3_DesignTimeLayout.LayoutString")
+        Me.cbMes2C3.DesignTimeLayout = cbMes2C3_DesignTimeLayout
+        Me.cbMes2C3.DisabledBackColor = System.Drawing.Color.White
+        Me.cbMes2C3.Location = New System.Drawing.Point(73, 90)
+        Me.cbMes2C3.Name = "cbMes2C3"
+        Me.cbMes2C3.SelectedIndex = -1
+        Me.cbMes2C3.SelectedItem = Nothing
+        Me.cbMes2C3.Size = New System.Drawing.Size(113, 21)
+        Me.cbMes2C3.TabIndex = 57
+        '
+        'Label9
+        '
+        Me.Label9.Location = New System.Drawing.Point(22, 94)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(45, 13)
+        Me.Label9.TabIndex = 58
+        Me.Label9.Text = "Mes 2:"
+        '
+        'cbMes1C3
+        '
+        cbMes1C3_DesignTimeLayout.LayoutString = resources.GetString("cbMes1C3_DesignTimeLayout.LayoutString")
+        Me.cbMes1C3.DesignTimeLayout = cbMes1C3_DesignTimeLayout
+        Me.cbMes1C3.DisabledBackColor = System.Drawing.Color.White
+        Me.cbMes1C3.Location = New System.Drawing.Point(73, 62)
+        Me.cbMes1C3.Name = "cbMes1C3"
+        Me.cbMes1C3.SelectedIndex = -1
+        Me.cbMes1C3.SelectedItem = Nothing
+        Me.cbMes1C3.Size = New System.Drawing.Size(113, 21)
+        Me.cbMes1C3.TabIndex = 55
+        '
+        'Label8
+        '
+        Me.Label8.Location = New System.Drawing.Point(22, 66)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(45, 13)
+        Me.Label8.TabIndex = 56
+        Me.Label8.Text = "Mes 1:"
+        '
+        'cbAño1c3
+        '
+        cbAño1c3_DesignTimeLayout.LayoutString = resources.GetString("cbAño1c3_DesignTimeLayout.LayoutString")
+        Me.cbAño1c3.DesignTimeLayout = cbAño1c3_DesignTimeLayout
+        Me.cbAño1c3.DisabledBackColor = System.Drawing.Color.White
+        Me.cbAño1c3.Location = New System.Drawing.Point(253, 61)
+        Me.cbAño1c3.Name = "cbAño1c3"
+        Me.cbAño1c3.SelectedIndex = -1
+        Me.cbAño1c3.SelectedItem = Nothing
+        Me.cbAño1c3.Size = New System.Drawing.Size(81, 21)
+        Me.cbAño1c3.TabIndex = 53
+        '
+        'Label6
+        '
+        Me.Label6.Location = New System.Drawing.Point(22, 39)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(52, 13)
+        Me.Label6.TabIndex = 52
+        Me.Label6.Text = "Activar:"
+        '
+        'Label7
+        '
+        Me.Label7.Location = New System.Drawing.Point(202, 66)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(45, 13)
+        Me.Label7.TabIndex = 54
+        Me.Label7.Text = "Año 1:"
+        '
+        'cbMet3
+        '
+        Me.cbMet3.Location = New System.Drawing.Point(88, 34)
+        Me.cbMet3.Name = "cbMet3"
+        Me.cbMet3.Size = New System.Drawing.Size(37, 23)
+        Me.cbMet3.TabIndex = 51
         '
         'CIPesoBasculaObra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(944, 573)
+        Me.ClientSize = New System.Drawing.Size(1149, 573)
         Me.Name = "CIPesoBasculaObra"
         Me.Text = "CIPesoBasculaObra"
         Me.FilterPanel.ResumeLayout(False)
@@ -302,6 +437,12 @@ Partial Class CIPesoBasculaObra
         CType(Me.cmbAnio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Frame3.ResumeLayout(False)
         Me.Frame3.PerformLayout()
+        Me.Frame4.ResumeLayout(False)
+        Me.Frame4.PerformLayout()
+        CType(Me.cbAño2c3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbMes2C3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbMes1C3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbAño1c3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -324,4 +465,15 @@ Partial Class CIPesoBasculaObra
     Friend WithEvents cbMet1 As Solmicro.Expertis.Engine.UI.CheckBox
     Friend WithEvents Label5 As Solmicro.Expertis.Engine.UI.Label
     Friend WithEvents cbMet2 As Solmicro.Expertis.Engine.UI.CheckBox
+    Friend WithEvents Frame4 As Solmicro.Expertis.Engine.UI.Frame
+    Friend WithEvents cbMes2C3 As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents Label9 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents cbMes1C3 As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents Label8 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents cbAño1c3 As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents Label7 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents Label6 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents cbMet3 As Solmicro.Expertis.Engine.UI.CheckBox
+    Friend WithEvents cbAño2c3 As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents Label10 As Solmicro.Expertis.Engine.UI.Label
 End Class

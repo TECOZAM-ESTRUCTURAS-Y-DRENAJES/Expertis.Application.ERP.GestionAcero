@@ -11,12 +11,18 @@ Public Class CIPesoBasculaObra
         Dim mes As String = cmbMes.Value
         Dim año As String = cmbAnio.Value
 
-        If (cbMet1.Checked AndAlso cbMet2.Checked) Then
-            MsgBox("Atención: No se pueden unificar criterios. Por favor, selecciona solo un criterio.", vbExclamation + vbOKOnly, "Información Importante")
+        ' Contar cuántos checkboxes están seleccionados
+        Dim checkedCount As Integer = 0
+        If cbMet1.Checked Then checkedCount += 1
+        If cbMet2.Checked Then checkedCount += 1
+        If cbMet3.Checked Then checkedCount += 1
+
+        ' Verificar si hay más de un checkbox seleccionado
+        If checkedCount > 1 Then
+            MsgBox("Atención: Solo puedes seleccionar un criterio. Por favor, selecciona solo un criterio.", vbExclamation + vbOKOnly, "Información Importante")
             Exit Sub
-        End If
-        If (Not cbMet1.Checked AndAlso Not cbMet2.Checked) Then
-            MsgBox("Atención: Por favor, selecciona al menos uno de los criterios.", vbExclamation + vbOKOnly, "Información Importante")
+        ElseIf checkedCount = 0 Then
+            MsgBox("Atención: Por favor, selecciona al menos un criterio.", vbExclamation + vbOKOnly, "Información Importante")
             Exit Sub
         End If
 
@@ -33,13 +39,20 @@ Public Class CIPesoBasculaObra
             Else
                 MsgBox("Selecciona las dos fechas")
             End If
+        ElseIf cbMet3.Checked Then
+            If Len(cbMes1C3.Value) <> 0 And Len(cbMes2C3.Value) <> 0 And Len(cbAño1c3.Value) <> 0 And Len(cbAño2c3.Value) <> 0 Then
+                CalculaCriterio3(cbMes1C3.Value, cbMes2C3.Value, cbAño1c3.Value, cbAño2c3.Value)
+            Else
+                MsgBox("Por favor, completa los cuatro valores necesarios para el tercer criterio.", vbExclamation + vbOKOnly, "Información Importante")
+            End If
         End If
     End Sub
 
     Public Sub CalculaCriterio1(ByVal opcion As String, ByVal mes As String, ByVal anio As String)
         Dim dtObras As New DataTable
-        dtObras = getObrasMovimientos(mes, anio)
-        Dim dtNueva As DataTable = RellenaDiaFacturacion(dtObras)
+        dtObras = getObrasMovimientos()
+        Dim fecha As String = "01/01/2024"
+        Dim dtNueva As DataTable = RellenaDiaFacturacion(dtObras, fecha)
         ' Filtrar filas con ambas columnas no vacías
         FiltraYNotifica(dtNueva)
         Dim dtFinal As New DataTable
@@ -53,6 +66,87 @@ Public Class CIPesoBasculaObra
         Grid.DataSource = dtFinal
         txtChatarra.Text = ""
     End Sub
+
+    Public Sub CalculaCriterio3(ByVal mes1 As String, ByVal mes2 As String, ByVal año1 As String, ByVal año2 As String)
+        Dim dtObras As New DataTable
+        dtObras = getObrasMovimientos()
+        Dim fecha As String = "01/" & mes1 & "/" & año1 & ""
+        Dim dtNueva As DataTable = RellenaDiaFacturacion(dtObras, fecha)
+        FiltraYNotifica(dtNueva)
+
+        Dim dtFinal As New DataTable
+        dtFinal = OpcionMesesProductivo(dtNueva, mes1, mes2, año1, año2)
+        Grid.DataSource = dtFinal
+
+        txtChatarra.Text = ""
+    End Sub
+    Public Function OpcionMesesProductivo(ByVal dtNueva As DataTable, ByVal mes1 As String, ByVal mes2 As String, ByVal año1 As String, ByVal año2 As String) As DataTable
+        Dim fecha1 As String
+        Dim fecha2 As String
+
+        ' Crear un DataTable para almacenar los resultados finales
+        Dim dtResultados As New DataTable
+        dtResultados.Columns.Add("Codigo", GetType(String))
+        dtResultados.Columns.Add("Obra", GetType(String))
+        dtResultados.Columns.Add("kg_planilla", GetType(Double))
+        dtResultados.Columns.Add("kg_bascula", GetType(Double))
+        dtResultados.Columns.Add("kg_produccion", GetType(Double))
+        ' Agregar nuevas columnas para DiaCierre, Fecha1 y Fecha2
+        dtResultados.Columns.Add("DiaCierre", GetType(Integer))
+        dtResultados.Columns.Add("Fecha1", GetType(String))
+        dtResultados.Columns.Add("Fecha2", GetType(String))
+
+        For Each dr As DataRow In dtNueva.Rows
+            Dim diaCierre As Integer = Convert.ToInt32(dr("DiaCierre"))
+
+            ' Calcular fecha2 (día de cierre del mes actual)
+            Try
+                fecha2 = New DateTime(año2, mes2, diaCierre).ToString("dd/MM/yyyy")
+            Catch ex As Exception
+                fecha2 = New DateTime(año2, mes2, diaCierre - 1).ToString("dd/MM/yyyy")
+            End Try
+
+
+            ' Calcular fecha1 (día siguiente al día de cierre del mes anterior)
+            Dim fechaBase As DateTime
+
+            Try
+                ' Calcular fechaBase como el día siguiente al día de cierre del mes anterior
+                fechaBase = New DateTime(año1, mes1, diaCierre + 1)
+            Catch ex As ArgumentOutOfRangeException
+                ' Si el día excede el número de días en el mes, asignar el primer día del mes siguiente
+                fechaBase = New DateTime(año1, mes1, 1).AddMonths(1)
+            End Try
+
+            ' Formatear fechas
+            fecha1 = fechaBase.ToString("dd/MM/yyyy")
+
+            ' Filtrar y obtener datos de obras usando las fechas calculadas
+            Dim dtObras As DataTable = setDataObras(fecha1, fecha2, dr("Codigo").ToString())
+
+            ' Agregar los resultados al DataTable final
+            For Each obraRow As DataRow In dtObras.Rows
+                ' Crear una nueva fila en dtResultados y agregarle los datos de obra
+                Dim newRow As DataRow = dtResultados.NewRow()
+
+                newRow("Codigo") = obraRow("Codigo")
+                newRow("Obra") = obraRow("Obra")
+                newRow("kg_planilla") = obraRow("kg_planilla")
+                newRow("kg_bascula") = obraRow("kg_bascula")
+                newRow("kg_produccion") = obraRow("kg_produccion")
+
+                ' Agregar los datos calculados de DiaCierre, Fecha1 y Fecha2
+                newRow("DiaCierre") = diaCierre
+                newRow("Fecha1") = fecha1
+                newRow("Fecha2") = fecha2
+
+                ' Añadir la fila al DataTable final
+                dtResultados.Rows.Add(newRow)
+            Next
+        Next
+        Return dtResultados
+    End Function
+
 
     Public Function OpcionInicioMes(ByVal dtNueva As DataTable, ByVal mes As String, ByVal anio As String) As DataTable
         Dim fecha1 As String
@@ -263,14 +357,13 @@ Public Class CIPesoBasculaObra
         Next
     End Sub
 
-    Public Function RellenaDiaFacturacion(ByRef dtObras As DataTable) As DataTable
+    Public Function RellenaDiaFacturacion(ByRef dtObras As DataTable, ByVal fecha As String) As DataTable
         Dim dtNueva As New DataTable
         dtNueva.Columns.Add("Codigo", GetType(String))
         dtNueva.Columns.Add("DiaCierre", GetType(String))
 
         Dim dt As New DataTable
 
-        Dim fecha As String = "01/01/2024"
         Dim obra As String
         For Each dr As DataRow In dtObras.Rows
             Dim f As New Filter
@@ -296,7 +389,7 @@ Public Class CIPesoBasculaObra
         Return dtNueva
     End Function
 
-    Public Function getObrasMovimientos(ByVal mes As String, ByVal anio As String)
+    Public Function getObrasMovimientos()
         Dim dtObras As New DataTable
         Dim f As New Filter
         dtObras = New BE.DataEngine().Filter("vBasculasAcero", f, "Distinct(Codigo)")
@@ -386,5 +479,12 @@ Public Class CIPesoBasculaObra
         dtOpciones.Rows.Add("Inicio del mes")
         dtOpciones.AcceptChanges()
         cmbOpciones.DataSource = dtOpciones
+
+        'COMBOS CRITERIO 3
+        cbMes1C3.DataSource = dtMeses
+        cbMes2C3.DataSource = dtMeses
+        cbAño1c3.DataSource = dtAnios
+        cbAño2c3.DataSource = dtAnios
     End Sub
+
 End Class
