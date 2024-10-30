@@ -220,7 +220,12 @@ Public Class CIPesoBasculaObra
             Dim diaCierre As Integer = Convert.ToInt32(dr("DiaCierre"))
 
             ' Calcular fecha2 (día de cierre del mes actual)
-            fecha2 = New DateTime(anio, mes, diaCierre).ToString("dd/MM/yyyy")
+            Try
+                fecha2 = New DateTime(anio, mes, diaCierre).ToString("dd/MM/yyyy")
+            Catch ex As Exception
+                fecha2 = New DateTime(anio, mes, diaCierre - 1).ToString("dd/MM/yyyy")
+            End Try
+
 
             ' Calcular fecha1 (día siguiente al día de cierre del mes anterior)
             Dim fechaBase As DateTime
