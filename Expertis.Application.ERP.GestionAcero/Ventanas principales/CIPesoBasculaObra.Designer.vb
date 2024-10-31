@@ -88,19 +88,19 @@ Partial Class CIPesoBasculaObra
         Me.FilterPanel.Controls.Add(Me.Frame3)
         Me.FilterPanel.Controls.Add(Me.Frame2)
         Me.FilterPanel.Controls.Add(Me.Frame1)
-        Me.FilterPanel.Location = New System.Drawing.Point(0, 330)
-        Me.FilterPanel.Size = New System.Drawing.Size(1141, 155)
+        Me.FilterPanel.Location = New System.Drawing.Point(0, 317)
+        Me.FilterPanel.Size = New System.Drawing.Size(1141, 168)
         '
         'CIMntoGridPanel
         '
-        Me.CIMntoGridPanel.Size = New System.Drawing.Size(1141, 330)
+        Me.CIMntoGridPanel.Size = New System.Drawing.Size(1141, 317)
         '
         'Grid
         '
         Me.Grid.ColumnAutoResize = True
         Grid_DesignTimeLayout.LayoutString = resources.GetString("Grid_DesignTimeLayout.LayoutString")
         Me.Grid.DesignTimeLayout = Grid_DesignTimeLayout
-        Me.Grid.Size = New System.Drawing.Size(1141, 330)
+        Me.Grid.Size = New System.Drawing.Size(1141, 317)
         '
         'Toolbar
         '
