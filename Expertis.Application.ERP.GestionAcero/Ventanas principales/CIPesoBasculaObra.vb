@@ -147,15 +147,17 @@ Public Class CIPesoBasculaObra
         dtResultados.Columns.Add("DiaCierre", GetType(Integer))
         dtResultados.Columns.Add("Fecha1", GetType(String))
         dtResultados.Columns.Add("Fecha2", GetType(String))
+        Dim año As String
 
         For Each dr As DataRow In dtNueva.Rows
+            año = anio
             Dim diaCierre As Integer = Convert.ToInt32(dr("DiaCierre"))
 
             ' Calcular fecha2 (día de cierre del mes actual)
             Try
-                fecha2 = New DateTime(anio, mes, diaCierre).ToString("dd/MM/yyyy")
+                fecha2 = New DateTime(año, mes, diaCierre).ToString("dd/MM/yyyy")
             Catch ex As Exception
-                fecha2 = New DateTime(anio, mes, diaCierre - 1).ToString("dd/MM/yyyy")
+                fecha2 = New DateTime(año, mes, diaCierre - 1).ToString("dd/MM/yyyy")
             End Try
 
 
@@ -168,15 +170,15 @@ Public Class CIPesoBasculaObra
             ' Verificar si el mes anterior es menor a 1 (para diciembre)
             If mesAnterior < 1 Then
                 mesAnterior = 12
-                anio -= 1 ' Decrementar el año si pasamos de diciembre a enero
+                año -= 1 ' Decrementar el año si pasamos de diciembre a enero
             End If
 
             Try
                 ' Calcular fechaBase como el día siguiente al día de cierre del mes anterior
-                fechaBase = New DateTime(anio, mesAnterior, diaCierre + 1)
+                fechaBase = New DateTime(año, mesAnterior, diaCierre + 1)
             Catch ex As ArgumentOutOfRangeException
                 ' Si el día excede el número de días en el mes, asignar el primer día del mes siguiente
-                fechaBase = New DateTime(anio, mesAnterior, 1).AddMonths(1)
+                fechaBase = New DateTime(año, mesAnterior, 1).AddMonths(1)
             End Try
 
             ' Formatear fechas
