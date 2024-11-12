@@ -33,7 +33,6 @@ Public Class CIPesoBasculaObra
         End If
 
         If cbMet1.Checked Then
-
             If Len(opcion) <> 0 And Len(mes) <> 0 And Len(año) <> 0 Then
                 CalculaCriterio1(opcion, mes, año)
             Else
@@ -80,10 +79,15 @@ Public Class CIPesoBasculaObra
     Public Function OpcionInicioMes(ByVal dtNueva As DataTable, ByVal mes As String, ByVal anio As String) As DataTable
         Dim fecha1 As String
         Dim fecha2 As String
-
+        Dim filtroEstructura As String
+        filtroEstructura = cbEstructura.Value
+        If String.IsNullOrEmpty(filtroEstructura) Then
+            filtroEstructura = "TODOS"
+        End If
         ' Crear un DataTable para almacenar los resultados finales
         Dim dtResultados As New DataTable
         dtResultados.Columns.Add("Codigo", GetType(String))
+        dtResultados.Columns.Add("Estructura", GetType(String))
         dtResultados.Columns.Add("Obra", GetType(String))
         dtResultados.Columns.Add("kg_planilla", GetType(Double))
         dtResultados.Columns.Add("kg_bascula", GetType(Double))
@@ -99,46 +103,86 @@ Public Class CIPesoBasculaObra
             ' Calcular fecha1 (primer día del mes)
             fecha1 = New DateTime(anio, mes, 1).ToString("dd/MM/yyyy")
 
-            Try
-                fecha2 = New DateTime(anio, mes, diaCierre).ToString("dd/MM/yyyy")
-            Catch ex As Exception
-                fecha2 = New DateTime(anio, mes, diaCierre - 1).ToString("dd/MM/yyyy")
-            End Try
+            ' Calcular el último día del mes actual
+            Dim ultimoDiaDelMes As Integer = DateTime.DaysInMonth(anio, mes)
+
+            ' Ajustar el día de cierre si excede el último día del mes
+            If diaCierre > ultimoDiaDelMes Then
+                diaCierre = ultimoDiaDelMes
+            End If
+
+            ' Calcular fecha2 con el día ajustado
+            fecha2 = New DateTime(anio, mes, diaCierre).ToString("dd/MM/yyyy")
 
             ' Filtrar y obtener datos de obras usando las fechas calculadas
             Dim dtObras As DataTable = setDataObras(fecha1, fecha2, dr("Codigo").ToString())
 
-            ' Agregar los resultados al DataTable final
+            Dim acumulados As New Dictionary(Of String, DataRow)
+
             For Each obraRow As DataRow In dtObras.Rows
-                ' Crear una nueva fila en dtResultados y agregarle los datos de obra
-                Dim newRow As DataRow = dtResultados.NewRow()
+                ' Definir la clave para el acumulador
+                Dim claveAcumulador As String
+                If obraRow("Estructura").ToString().ToUpper() = "TECOZAM" Then
+                    claveAcumulador = "TECOZAM"
+                ElseIf obraRow("Estructura").ToString().ToUpper() = "FERRALLAS" Then
+                    claveAcumulador = "FERRALLAS"
+                Else
+                    claveAcumulador = "CLIENTE"
+                End If
 
-                newRow("Codigo") = obraRow("Codigo")
-                newRow("Obra") = obraRow("Obra")
-                newRow("kg_planilla") = obraRow("kg_planilla")
-                newRow("kg_bascula") = obraRow("kg_bascula")
-                newRow("kg_produccion") = obraRow("kg_produccion")
+                ' Filtrar según el valor del combo (filtroEstructura)
+                If filtroEstructura <> "TODOS" AndAlso filtroEstructura.ToUpper() <> claveAcumulador.ToUpper() Then
+                    ' Si el filtro está activado y la clave no coincide, omitimos esta fila
+                    Continue For
+                End If
 
-                ' Agregar los datos calculados de DiaCierre, Fecha1 y Fecha2
-                newRow("DiaCierre") = diaCierre
-                newRow("Fecha1") = fecha1
-                newRow("Fecha2") = fecha2
+                ' Verificar si la clave ya existe en el acumulador
+                If Not acumulados.ContainsKey(claveAcumulador) Then
+                    ' Si no existe, crear una nueva fila para acumular
+                    Dim newRow As DataRow = dtResultados.NewRow()
+                    newRow("Codigo") = obraRow("Codigo")
+                    newRow("Estructura") = claveAcumulador
+                    newRow("Obra") = obraRow("Obra")
+                    newRow("kg_planilla") = 0
+                    newRow("kg_bascula") = 0
+                    newRow("kg_produccion") = 0
+                    newRow("DiaCierre") = diaCierre
+                    newRow("Fecha1") = fecha1
+                    newRow("Fecha2") = fecha2
+                    acumulados(claveAcumulador) = newRow
+                End If
 
-                ' Añadir la fila al DataTable final
-                dtResultados.Rows.Add(newRow)
+                ' Acumular los valores en la fila correspondiente
+                acumulados(claveAcumulador)("kg_planilla") += Nz(obraRow("kg_planilla"), 0)
+                acumulados(claveAcumulador)("kg_bascula") += Nz(obraRow("kg_bascula"), 0)
+                acumulados(claveAcumulador)("kg_produccion") += Nz(obraRow("kg_produccion"), 0)
+            Next
+
+            ' Agregar las filas acumuladas al DataTable final
+            For Each acumuladoRow As DataRow In acumulados.Values
+                dtResultados.Rows.Add(acumuladoRow)
             Next
         Next
 
         Return dtResultados
     End Function
+
 
     Public Function OpcionMesProductivo(ByVal dtNueva As DataTable, ByVal mes As String, ByVal anio As String) As DataTable
         Dim fecha1 As String
         Dim fecha2 As String
 
+        ' Configurar filtroEstructura a "TODOS" si no está seleccionado
+        Dim filtroEstructura As String
+        filtroEstructura = cbEstructura.Value
+        If String.IsNullOrEmpty(filtroEstructura) Then
+            filtroEstructura = "TODOS"
+        End If
+
         ' Crear un DataTable para almacenar los resultados finales
         Dim dtResultados As New DataTable
         dtResultados.Columns.Add("Codigo", GetType(String))
+        dtResultados.Columns.Add("Estructura", GetType(String))
         dtResultados.Columns.Add("Obra", GetType(String))
         dtResultados.Columns.Add("kg_planilla", GetType(Double))
         dtResultados.Columns.Add("kg_bascula", GetType(Double))
@@ -147,76 +191,107 @@ Public Class CIPesoBasculaObra
         dtResultados.Columns.Add("DiaCierre", GetType(Integer))
         dtResultados.Columns.Add("Fecha1", GetType(String))
         dtResultados.Columns.Add("Fecha2", GetType(String))
-        Dim año As String
 
         For Each dr As DataRow In dtNueva.Rows
-            año = anio
             Dim diaCierre As Integer = Convert.ToInt32(dr("DiaCierre"))
-
-            ' Calcular fecha2 (día de cierre del mes actual)
-            Try
-                fecha2 = New DateTime(año, mes, diaCierre).ToString("dd/MM/yyyy")
-            Catch ex As Exception
-                fecha2 = New DateTime(año, mes, diaCierre - 1).ToString("dd/MM/yyyy")
-            End Try
-
-
-            ' Calcular fecha1 (día siguiente al día de cierre del mes anterior)
-            Dim fechaBase As DateTime
-
-            ' Obtener el mes anterior
+            Dim año As Integer = anio
             Dim mesAnterior As Integer = mes - 1
 
-            ' Verificar si el mes anterior es menor a 1 (para diciembre)
+            ' Ajustar mes y año si el mes anterior es diciembre
             If mesAnterior < 1 Then
                 mesAnterior = 12
-                año -= 1 ' Decrementar el año si pasamos de diciembre a enero
+                año -= 1
             End If
 
+            ' Calcular el último día del mes actual
+            Dim ultimoDiaDelMes As Integer = DateTime.DaysInMonth(anio, mes)
+
+            ' Ajustar el día de cierre si excede el último día del mes
+            If diaCierre > ultimoDiaDelMes Then
+                diaCierre = ultimoDiaDelMes
+            End If
+
+            ' Calcular fecha2 con el día ajustado
+            fecha2 = New DateTime(anio, mes, diaCierre).ToString("dd/MM/yyyy")
+
+            ' Calcular fecha1 como el día siguiente al día de cierre del mes anterior
+            Dim fechaBase As DateTime
             Try
-                ' Calcular fechaBase como el día siguiente al día de cierre del mes anterior
                 fechaBase = New DateTime(año, mesAnterior, diaCierre + 1)
             Catch ex As ArgumentOutOfRangeException
-                ' Si el día excede el número de días en el mes, asignar el primer día del mes siguiente
                 fechaBase = New DateTime(año, mesAnterior, 1).AddMonths(1)
             End Try
 
-            ' Formatear fechas
             fecha1 = fechaBase.ToString("dd/MM/yyyy")
 
             ' Filtrar y obtener datos de obras usando las fechas calculadas
             Dim dtObras As DataTable = setDataObras(fecha1, fecha2, dr("Codigo").ToString())
 
-            ' Agregar los resultados al DataTable final
+            ' Estructura acumulada para los resultados
+            Dim acumulados As New Dictionary(Of String, DataRow)
+
             For Each obraRow As DataRow In dtObras.Rows
-                ' Crear una nueva fila en dtResultados y agregarle los datos de obra
-                Dim newRow As DataRow = dtResultados.NewRow()
+                ' Determinar la clave para acumulación
+                Dim claveAcumulador As String
+                If obraRow("Estructura").ToString().ToUpper() = "TECOZAM" Then
+                    claveAcumulador = "TECOZAM"
+                ElseIf obraRow("Estructura").ToString().ToUpper() = "FERRALLAS" Then
+                    claveAcumulador = "FERRALLAS"
+                Else
+                    claveAcumulador = "CLIENTE"
+                End If
 
-                newRow("Codigo") = obraRow("Codigo")
-                newRow("Obra") = obraRow("Obra")
-                newRow("kg_planilla") = obraRow("kg_planilla")
-                newRow("kg_bascula") = obraRow("kg_bascula")
-                newRow("kg_produccion") = obraRow("kg_produccion")
+                ' Aplicar el filtro según el valor del combo
+                If filtroEstructura <> "TODOS" AndAlso filtroEstructura.ToUpper() <> claveAcumulador.ToUpper() Then
+                    Continue For
+                End If
 
-                ' Agregar los datos calculados de DiaCierre, Fecha1 y Fecha2
-                newRow("DiaCierre") = diaCierre
-                newRow("Fecha1") = fecha1
-                newRow("Fecha2") = fecha2
+                ' Si no existe una fila acumuladora para esta clave, crear una nueva
+                If Not acumulados.ContainsKey(claveAcumulador) Then
+                    Dim newRow As DataRow = dtResultados.NewRow()
+                    newRow("Codigo") = obraRow("Codigo")
+                    newRow("Estructura") = claveAcumulador
+                    newRow("Obra") = obraRow("Obra")
+                    newRow("kg_planilla") = 0
+                    newRow("kg_bascula") = 0
+                    newRow("kg_produccion") = 0
+                    newRow("DiaCierre") = diaCierre
+                    newRow("Fecha1") = fecha1
+                    newRow("Fecha2") = fecha2
+                    acumulados(claveAcumulador) = newRow
+                End If
 
-                ' Añadir la fila al DataTable final
-                dtResultados.Rows.Add(newRow)
+                ' Acumular los valores en la fila correspondiente
+                acumulados(claveAcumulador)("kg_planilla") += Nz(obraRow("kg_planilla"), 0)
+                acumulados(claveAcumulador)("kg_bascula") += Nz(obraRow("kg_bascula"), 0)
+                acumulados(claveAcumulador)("kg_produccion") += Nz(obraRow("kg_produccion"), 0)
+            Next
+
+            ' Agregar filas acumuladas al DataTable final
+            For Each acumuladoRow As DataRow In acumulados.Values
+                dtResultados.Rows.Add(acumuladoRow)
             Next
         Next
+
         Return dtResultados
     End Function
+
 
     Public Function OpcionFinMes(ByVal dtNueva As DataTable, ByVal mes As String, ByVal anio As String) As DataTable
         Dim fecha1 As String
         Dim fecha2 As String
 
+        Dim filtroEstructura As String
+        filtroEstructura = cbEstructura.Value
+        ' Configurar filtroEstructura a "TODOS" si no está seleccionado
+        If String.IsNullOrEmpty(filtroEstructura) Then
+            filtroEstructura = "TODOS"
+        End If
+
         ' Crear un DataTable para almacenar los resultados finales
         Dim dtResultados As New DataTable
         dtResultados.Columns.Add("Codigo", GetType(String))
+        dtResultados.Columns.Add("Estructura", GetType(String))
         dtResultados.Columns.Add("Obra", GetType(String))
         dtResultados.Columns.Add("kg_planilla", GetType(Double))
         dtResultados.Columns.Add("kg_bascula", GetType(Double))
@@ -228,46 +303,70 @@ Public Class CIPesoBasculaObra
 
         For Each dr As DataRow In dtNueva.Rows
             Dim diaCierre As Integer = Convert.ToInt32(dr("DiaCierre"))
-
-            ' Calcular el último día del mes actual
             Dim ultimoDiaDelMes As Integer = DateTime.DaysInMonth(anio, mes)
 
-            ' Si el día de cierre es el último día del mes, no lo incluimos en el resultado
+            ' Si el día de cierre es el último día del mes, omitir esta fila
             If diaCierre >= ultimoDiaDelMes Then
-                Continue For ' Salta a la siguiente iteración
+                Continue For
             End If
 
-            ' Calcular fecha1 (día siguiente al día de cierre)
+            ' Calcular fecha1 (día siguiente al día de cierre) y fecha2 (último día del mes actual)
             fecha1 = New DateTime(anio, mes, diaCierre).AddDays(1).ToString("dd/MM/yyyy")
-
-            ' Calcular fecha2 (último día del mes actual)
             fecha2 = New DateTime(anio, mes, ultimoDiaDelMes).ToString("dd/MM/yyyy")
 
             ' Filtrar y obtener datos de obras usando las fechas calculadas
             Dim dtObras As DataTable = setDataObras(fecha1, fecha2, dr("Codigo").ToString())
 
-            ' Agregar los resultados al DataTable final
+            ' Estructura acumulada para los resultados
+            Dim acumulados As New Dictionary(Of String, DataRow)
+
             For Each obraRow As DataRow In dtObras.Rows
-                ' Crear una nueva fila en dtResultados y agregarle los datos de obra
-                Dim newRow As DataRow = dtResultados.NewRow()
+                ' Determinar la clave para acumulación
+                Dim claveAcumulador As String
+                If obraRow("Estructura").ToString().ToUpper() = "TECOZAM" Then
+                    claveAcumulador = "TECOZAM"
+                ElseIf obraRow("Estructura").ToString().ToUpper() = "FERRALLAS" Then
+                    claveAcumulador = "FERRALLAS"
+                Else
+                    claveAcumulador = "CLIENTE"
+                End If
 
-                newRow("Codigo") = obraRow("Codigo")
-                newRow("Obra") = obraRow("Obra")
-                newRow("kg_planilla") = obraRow("kg_planilla")
-                newRow("kg_bascula") = obraRow("kg_bascula")
-                newRow("kg_produccion") = obraRow("kg_produccion")
+                ' Aplicar el filtro según el valor del combo
+                If filtroEstructura <> "TODOS" AndAlso filtroEstructura.ToUpper() <> claveAcumulador.ToUpper() Then
+                    ' Si el filtro está activado y la clave no coincide, omitir esta fila
+                    Continue For
+                End If
 
-                ' Agregar los datos calculados de DiaCierre, Fecha1 y Fecha2
-                newRow("DiaCierre") = diaCierre
-                newRow("Fecha1") = fecha1
-                newRow("Fecha2") = fecha2
+                ' Si no existe una fila acumuladora para esta clave, crear una nueva
+                If Not acumulados.ContainsKey(claveAcumulador) Then
+                    Dim newRow As DataRow = dtResultados.NewRow()
+                    newRow("Codigo") = obraRow("Codigo")
+                    newRow("Estructura") = claveAcumulador
+                    newRow("Obra") = obraRow("Obra")
+                    newRow("kg_planilla") = 0
+                    newRow("kg_bascula") = 0
+                    newRow("kg_produccion") = 0
+                    newRow("DiaCierre") = diaCierre
+                    newRow("Fecha1") = fecha1
+                    newRow("Fecha2") = fecha2
+                    acumulados(claveAcumulador) = newRow
+                End If
 
-                ' Añadir la fila al DataTable final
-                dtResultados.Rows.Add(newRow)
+                ' Acumular los valores en la fila correspondiente
+                acumulados(claveAcumulador)("kg_planilla") += Nz(obraRow("kg_planilla"), 0)
+                acumulados(claveAcumulador)("kg_bascula") += Nz(obraRow("kg_bascula"), 0)
+                acumulados(claveAcumulador)("kg_produccion") += Nz(obraRow("kg_produccion"), 0)
+            Next
+
+            ' Agregar filas acumuladas al DataTable final
+            For Each acumuladoRow As DataRow In acumulados.Values
+                dtResultados.Rows.Add(acumuladoRow)
             Next
         Next
+
         Return dtResultados
     End Function
+
 
 #End Region
 
@@ -303,14 +402,20 @@ Public Class CIPesoBasculaObra
         Dim fecha1 As String
         Dim fecha2 As String
 
+        Dim filtroEstructura As String
+        filtroEstructura = cbEstructura.Value
+        If String.IsNullOrEmpty(filtroEstructura) Then
+            filtroEstructura = "TODOS"
+        End If
+
         ' Crear un DataTable para almacenar los resultados finales
         Dim dtResultados As New DataTable
         dtResultados.Columns.Add("Codigo", GetType(String))
+        dtResultados.Columns.Add("Estructura", GetType(String))
         dtResultados.Columns.Add("Obra", GetType(String))
         dtResultados.Columns.Add("kg_planilla", GetType(Double))
         dtResultados.Columns.Add("kg_bascula", GetType(Double))
         dtResultados.Columns.Add("kg_produccion", GetType(Double))
-        ' Agregar nuevas columnas para DiaCierre, Fecha1 y Fecha2
         dtResultados.Columns.Add("DiaCierre", GetType(Integer))
         dtResultados.Columns.Add("Fecha1", GetType(String))
         dtResultados.Columns.Add("Fecha2", GetType(String))
@@ -318,53 +423,80 @@ Public Class CIPesoBasculaObra
         For Each dr As DataRow In dtNueva.Rows
             Dim diaCierre As Integer = Convert.ToInt32(dr("DiaCierre"))
 
-            ' Calcular fecha2 (día de cierre del mes actual)
-            Try
-                fecha2 = New DateTime(año2, mes2, diaCierre).ToString("dd/MM/yyyy")
-            Catch ex As Exception
-                fecha2 = New DateTime(año2, mes2, diaCierre - 1).ToString("dd/MM/yyyy")
-            End Try
+            ' Calcular el último día del mes final (mes2 y año2)
+            Dim ultimoDiaDelMes As Integer = DateTime.DaysInMonth(año2, mes2)
 
+            ' Ajustar el día de cierre si excede el último día del mes
+            If diaCierre > ultimoDiaDelMes Then
+                diaCierre = ultimoDiaDelMes
+            End If
 
-            ' Calcular fecha1 (día siguiente al día de cierre del mes anterior)
+            ' Calcular fecha2 con el día ajustado en el mes de cierre final
+            fecha2 = New DateTime(año2, mes2, diaCierre).ToString("dd/MM/yyyy")
+
+            ' Calcular fecha1 como el día siguiente al día de cierre del mes inicial (mes1 y año1)
             Dim fechaBase As DateTime
-
             Try
-                ' Calcular fechaBase como el día siguiente al día de cierre del mes anterior
                 fechaBase = New DateTime(año1, mes1, diaCierre + 1)
             Catch ex As ArgumentOutOfRangeException
-                ' Si el día excede el número de días en el mes, asignar el primer día del mes siguiente
                 fechaBase = New DateTime(año1, mes1, 1).AddMonths(1)
             End Try
 
-            ' Formatear fechas
+            ' Formatear fecha1
             fecha1 = fechaBase.ToString("dd/MM/yyyy")
 
             ' Filtrar y obtener datos de obras usando las fechas calculadas
             Dim dtObras As DataTable = setDataObras(fecha1, fecha2, dr("Codigo").ToString())
 
-            ' Agregar los resultados al DataTable final
+            ' Estructura acumulada para los resultados
+            Dim acumulados As New Dictionary(Of String, DataRow)
+
             For Each obraRow As DataRow In dtObras.Rows
-                ' Crear una nueva fila en dtResultados y agregarle los datos de obra
-                Dim newRow As DataRow = dtResultados.NewRow()
+                ' Determinar la clave para acumulación
+                Dim claveAcumulador As String
+                If obraRow("Estructura").ToString().ToUpper() = "TECOZAM" Then
+                    claveAcumulador = "TECOZAM"
+                ElseIf obraRow("Estructura").ToString().ToUpper() = "FERRALLAS" Then
+                    claveAcumulador = "FERRALLAS"
+                Else
+                    claveAcumulador = "CLIENTE"
+                End If
 
-                newRow("Codigo") = obraRow("Codigo")
-                newRow("Obra") = obraRow("Obra")
-                newRow("kg_planilla") = obraRow("kg_planilla")
-                newRow("kg_bascula") = obraRow("kg_bascula")
-                newRow("kg_produccion") = obraRow("kg_produccion")
+                ' Aplicar el filtro según el valor del combo
+                If filtroEstructura <> "TODOS" AndAlso filtroEstructura.ToUpper() <> claveAcumulador.ToUpper() Then
+                    Continue For
+                End If
 
-                ' Agregar los datos calculados de DiaCierre, Fecha1 y Fecha2
-                newRow("DiaCierre") = diaCierre
-                newRow("Fecha1") = fecha1
-                newRow("Fecha2") = fecha2
+                ' Si no existe una fila acumuladora para esta clave, crear una nueva
+                If Not acumulados.ContainsKey(claveAcumulador) Then
+                    Dim newRow As DataRow = dtResultados.NewRow()
+                    newRow("Codigo") = obraRow("Codigo")
+                    newRow("Estructura") = claveAcumulador
+                    newRow("Obra") = obraRow("Obra")
+                    newRow("kg_planilla") = 0
+                    newRow("kg_bascula") = 0
+                    newRow("kg_produccion") = 0
+                    newRow("DiaCierre") = diaCierre
+                    newRow("Fecha1") = fecha1
+                    newRow("Fecha2") = fecha2
+                    acumulados(claveAcumulador) = newRow
+                End If
 
-                ' Añadir la fila al DataTable final
-                dtResultados.Rows.Add(newRow)
+                ' Acumular los valores en la fila correspondiente
+                acumulados(claveAcumulador)("kg_planilla") += Nz(obraRow("kg_planilla"), 0)
+                acumulados(claveAcumulador)("kg_bascula") += Nz(obraRow("kg_bascula"), 0)
+                acumulados(claveAcumulador)("kg_produccion") += Nz(obraRow("kg_produccion"), 0)
+            Next
+
+            ' Agregar filas acumuladas al DataTable final
+            For Each acumuladoRow As DataRow In acumulados.Values
+                dtResultados.Rows.Add(acumuladoRow)
             Next
         Next
+
         Return dtResultados
     End Function
+
 #End Region
 
 #Region "Getters"
@@ -428,29 +560,64 @@ Public Class CIPesoBasculaObra
     ' Modificación de setDataObras para incluir NObra
     Public Function setDataObras(ByVal fecha1 As String, ByVal fecha2 As String, ByVal NObra As String) As DataTable
         Dim sql As String
-        sql = "SELECT Codigo, Obra, SUM(kg_planilla) AS kg_planilla, SUM(kg_produccion) AS kg_produccion, SUM(kg_bascula) AS kg_bascula "
+        sql = "SELECT Codigo,Estructura, Obra, SUM(kg_planilla) AS kg_planilla, SUM(kg_produccion) AS kg_produccion, SUM(kg_bascula) AS kg_bascula "
         sql &= "FROM vBasculasAcero "
         sql &= "WHERE Fecha >= '" & fecha1 & "' AND Fecha <= '" & fecha2 & "' "
         sql &= "AND Codigo = '" & NObra & "' "
-        sql &= "GROUP BY Codigo, Obra"
+        sql &= "GROUP BY Codigo, Obra, Estructura"
 
         Dim dt As DataTable = auxiliares.EjecutarSqlSelect(sql)
 
         Return dt
     End Function
 
+    
     Public Function setDataObras(ByVal fecha1 As String, ByVal fecha2 As String) As DataTable
+        Dim filtroEstructura As String
+        filtroEstructura = cbEstructura.Value
+
+        ' Si no hay ningún filtro seleccionado, establecer el filtro como "TODOS"
+        If String.IsNullOrEmpty(filtroEstructura) Then
+            filtroEstructura = "TODOS"
+        End If
+
         Dim sql As String
-        sql = "select Codigo, Obra, SUM(kg_planilla) AS kg_planilla, SUM(kg_produccion) AS kg_produccion, SUM(kg_bascula) AS kg_bascula "
-        sql &= "from vBasculasAcero "
-        sql &= "where Fecha >= '" & fecha1 & "' and Fecha <= '" & fecha2 & "'"
-        sql &= "group by Codigo, Obra"
+        sql = "SELECT Codigo, Obra, "
 
+        ' Si el filtro es "TODOS" o "CLIENTE", no se agrupa por 'Estructura', solo por 'Obra'
+        If filtroEstructura = "TODOS" Or filtroEstructura = "CLIENTE" Then
+            sql &= "SUM(kg_planilla) AS kg_planilla, SUM(kg_produccion) AS kg_produccion, SUM(kg_bascula) AS kg_bascula "
+            sql &= "FROM vBasculasAcero "
+            sql &= "WHERE Fecha >= '" & fecha1 & "' AND Fecha <= '" & fecha2 & "'"
 
-        Dim dt = auxiliares.EjecutarSqlSelect(sql)
+            ' Si el filtro es "CLIENTE", mostramos todos los registros que no son TECOZAM ni FERRALLAS
+            If filtroEstructura = "CLIENTE" Then
+                sql &= " AND UPPER(Estructura) NOT IN ('TECOZAM', 'FERRALLAS')"
+            End If
+
+            ' Agrupar por 'Codigo' y 'Obra' sin incluir 'Estructura'
+            sql &= " GROUP BY Codigo, Obra"
+        Else
+            ' Si el filtro es cualquier estructura específica (TECOZAM o FERRALLAS), agrupamos también por 'Estructura'
+            sql &= "Estructura, SUM(kg_planilla) AS kg_planilla, SUM(kg_produccion) AS kg_produccion, SUM(kg_bascula) AS kg_bascula "
+            sql &= "FROM vBasculasAcero "
+            sql &= "WHERE Fecha >= '" & fecha1 & "' AND Fecha <= '" & fecha2 & "'"
+
+            ' Filtrar por la estructura seleccionada
+            sql &= " AND UPPER(Estructura) = '" & filtroEstructura.ToUpper() & "'"
+
+            ' Agrupar por 'Codigo', 'Obra' y 'Estructura' cuando el filtro es específico
+            sql &= " GROUP BY Codigo, Obra, Estructura"
+        End If
+
+        ' Ejecutar el SQL y devolver el DataTable
+        Dim dt As DataTable = auxiliares.EjecutarSqlSelect(sql)
 
         Return dt
     End Function
+
+
+
 #End Region
 
 #Region "Otros"
@@ -514,6 +681,16 @@ Public Class CIPesoBasculaObra
         cbMes2C3.DataSource = dtMeses
         cbAño1c3.DataSource = dtAnios
         cbAño2c3.DataSource = dtAnios
+
+        ' CMB ESTRUCTURA
+        Dim dtEstructura As New DataTable
+        dtEstructura.Columns.Add("Concepto")
+        dtEstructura.Rows.Add("TODOS")
+        dtEstructura.Rows.Add("CLIENTE")
+        dtEstructura.Rows.Add("TECOZAM")
+        dtEstructura.Rows.Add("FERRALLAS")
+        dtEstructura.AcceptChanges()
+        cbEstructura.DataSource = dtEstructura
     End Sub
 
     Private Sub cbMet1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbMet1.CheckedChanged

@@ -27,10 +27,11 @@ Partial Class CIPesoBasculaObra
         Dim cmbMes_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cmbAnio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cbAño2c3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIPesoBasculaObra))
         Dim cbMes2C3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cbMes1C3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cbAño1c3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbEstructura_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIPesoBasculaObra))
         Me.lblEstado = New Solmicro.Expertis.Engine.UI.Label
         Me.clbFechaHasta = New Solmicro.Expertis.Engine.UI.CalendarBox
         Me.lblFecha1 = New Solmicro.Expertis.Engine.UI.Label
@@ -61,6 +62,8 @@ Partial Class CIPesoBasculaObra
         Me.Label6 = New Solmicro.Expertis.Engine.UI.Label
         Me.Label7 = New Solmicro.Expertis.Engine.UI.Label
         Me.cbMet3 = New Solmicro.Expertis.Engine.UI.CheckBox
+        Me.cbEstructura = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label11 = New Solmicro.Expertis.Engine.UI.Label
         Me.FilterPanel.SuspendLayout()
         Me.CIMntoGridPanel.suspendlayout()
         CType(Me.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,6 +83,7 @@ Partial Class CIPesoBasculaObra
         CType(Me.cbMes2C3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbMes1C3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbAño1c3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbEstructura, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'FilterPanel
@@ -88,19 +92,19 @@ Partial Class CIPesoBasculaObra
         Me.FilterPanel.Controls.Add(Me.Frame3)
         Me.FilterPanel.Controls.Add(Me.Frame2)
         Me.FilterPanel.Controls.Add(Me.Frame1)
-        Me.FilterPanel.Location = New System.Drawing.Point(0, 317)
-        Me.FilterPanel.Size = New System.Drawing.Size(1141, 168)
+        Me.FilterPanel.Location = New System.Drawing.Point(0, 308)
+        Me.FilterPanel.Size = New System.Drawing.Size(1190, 177)
         '
         'CIMntoGridPanel
         '
-        Me.CIMntoGridPanel.Size = New System.Drawing.Size(1141, 317)
+        Me.CIMntoGridPanel.Size = New System.Drawing.Size(1190, 308)
         '
         'Grid
         '
         Me.Grid.ColumnAutoResize = True
         Grid_DesignTimeLayout.LayoutString = resources.GetString("Grid_DesignTimeLayout.LayoutString")
         Me.Grid.DesignTimeLayout = Grid_DesignTimeLayout
-        Me.Grid.Size = New System.Drawing.Size(1141, 317)
+        Me.Grid.Size = New System.Drawing.Size(1190, 308)
         '
         'Toolbar
         '
@@ -112,15 +116,15 @@ Partial Class CIPesoBasculaObra
         '
         'MainPanel
         '
-        Me.MainPanel.Size = New System.Drawing.Size(1141, 485)
+        Me.MainPanel.Size = New System.Drawing.Size(1190, 485)
         '
         'MainPanelCIMntoContainer
         '
-        Me.MainPanelCIMntoContainer.Size = New System.Drawing.Size(1141, 485)
+        Me.MainPanelCIMntoContainer.Size = New System.Drawing.Size(1190, 485)
         '
         'lblEstado
         '
-        Me.lblEstado.Location = New System.Drawing.Point(19, 31)
+        Me.lblEstado.Location = New System.Drawing.Point(19, 58)
         Me.lblEstado.Name = "lblEstado"
         Me.lblEstado.Size = New System.Drawing.Size(63, 13)
         Me.lblEstado.TabIndex = 31
@@ -161,9 +165,9 @@ Partial Class CIPesoBasculaObra
         'txtChatarra
         '
         Me.txtChatarra.DisabledBackColor = System.Drawing.Color.White
-        Me.txtChatarra.Location = New System.Drawing.Point(88, 26)
+        Me.txtChatarra.Location = New System.Drawing.Point(115, 55)
         Me.txtChatarra.Name = "txtChatarra"
-        Me.txtChatarra.Size = New System.Drawing.Size(115, 21)
+        Me.txtChatarra.Size = New System.Drawing.Size(126, 21)
         Me.txtChatarra.TabIndex = 6
         '
         'Frame1
@@ -174,7 +178,7 @@ Partial Class CIPesoBasculaObra
         Me.Frame1.Controls.Add(Me.clbFechaDesde)
         Me.Frame1.Controls.Add(Me.lblFecha1)
         Me.Frame1.Controls.Add(Me.clbFechaHasta)
-        Me.Frame1.Location = New System.Drawing.Point(298, 20)
+        Me.Frame1.Location = New System.Drawing.Point(297, 29)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.Size = New System.Drawing.Size(233, 127)
         Me.Frame1.TabIndex = 32
@@ -206,7 +210,7 @@ Partial Class CIPesoBasculaObra
         Me.Frame2.Controls.Add(Me.cmbAnio)
         Me.Frame2.Controls.Add(Me.Label3)
         Me.Frame2.Controls.Add(Me.Label2)
-        Me.Frame2.Location = New System.Drawing.Point(21, 20)
+        Me.Frame2.Location = New System.Drawing.Point(20, 29)
         Me.Frame2.Name = "Frame2"
         Me.Frame2.Size = New System.Drawing.Size(279, 127)
         Me.Frame2.TabIndex = 33
@@ -290,11 +294,13 @@ Partial Class CIPesoBasculaObra
         '
         'Frame3
         '
+        Me.Frame3.Controls.Add(Me.cbEstructura)
         Me.Frame3.Controls.Add(Me.txtChatarra)
+        Me.Frame3.Controls.Add(Me.Label11)
         Me.Frame3.Controls.Add(Me.lblEstado)
-        Me.Frame3.Location = New System.Drawing.Point(885, 20)
+        Me.Frame3.Location = New System.Drawing.Point(884, 29)
         Me.Frame3.Name = "Frame3"
-        Me.Frame3.Size = New System.Drawing.Size(211, 66)
+        Me.Frame3.Size = New System.Drawing.Size(276, 127)
         Me.Frame3.TabIndex = 34
         Me.Frame3.TabStop = False
         Me.Frame3.Text = "Otros datos"
@@ -311,7 +317,7 @@ Partial Class CIPesoBasculaObra
         Me.Frame4.Controls.Add(Me.Label6)
         Me.Frame4.Controls.Add(Me.Label7)
         Me.Frame4.Controls.Add(Me.cbMet3)
-        Me.Frame4.Location = New System.Drawing.Point(529, 20)
+        Me.Frame4.Location = New System.Drawing.Point(528, 29)
         Me.Frame4.Name = "Frame4"
         Me.Frame4.Size = New System.Drawing.Size(357, 127)
         Me.Frame4.TabIndex = 35
@@ -413,11 +419,31 @@ Partial Class CIPesoBasculaObra
         Me.cbMet3.Size = New System.Drawing.Size(37, 23)
         Me.cbMet3.TabIndex = 51
         '
+        'cbEstructura
+        '
+        cbEstructura_DesignTimeLayout.LayoutString = resources.GetString("cbEstructura_DesignTimeLayout.LayoutString")
+        Me.cbEstructura.DesignTimeLayout = cbEstructura_DesignTimeLayout
+        Me.cbEstructura.DisabledBackColor = System.Drawing.Color.White
+        Me.cbEstructura.Location = New System.Drawing.Point(115, 26)
+        Me.cbEstructura.Name = "cbEstructura"
+        Me.cbEstructura.SelectedIndex = -1
+        Me.cbEstructura.SelectedItem = Nothing
+        Me.cbEstructura.Size = New System.Drawing.Size(126, 21)
+        Me.cbEstructura.TabIndex = 36
+        '
+        'Label11
+        '
+        Me.Label11.Location = New System.Drawing.Point(19, 31)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(70, 13)
+        Me.Label11.TabIndex = 37
+        Me.Label11.Text = "Estructura:"
+        '
         'CIPesoBasculaObra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1149, 573)
+        Me.ClientSize = New System.Drawing.Size(1198, 573)
         Me.Name = "CIPesoBasculaObra"
         Me.Text = "CIPesoBasculaObra"
         Me.FilterPanel.ResumeLayout(False)
@@ -443,6 +469,7 @@ Partial Class CIPesoBasculaObra
         CType(Me.cbMes2C3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbMes1C3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbAño1c3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbEstructura, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -476,4 +503,6 @@ Partial Class CIPesoBasculaObra
     Friend WithEvents cbMet3 As Solmicro.Expertis.Engine.UI.CheckBox
     Friend WithEvents cbAño2c3 As Solmicro.Expertis.Engine.UI.ComboBox
     Friend WithEvents Label10 As Solmicro.Expertis.Engine.UI.Label
+    Friend WithEvents cbEstructura As Solmicro.Expertis.Engine.UI.ComboBox
+    Friend WithEvents Label11 As Solmicro.Expertis.Engine.UI.Label
 End Class
