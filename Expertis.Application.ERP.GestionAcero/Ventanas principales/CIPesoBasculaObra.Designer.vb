@@ -26,12 +26,12 @@ Partial Class CIPesoBasculaObra
         Dim cmbOpciones_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cmbMes_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cmbAnio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim cbEstructura_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cbAño2c3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIPesoBasculaObra))
         Dim cbMes2C3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cbMes1C3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
         Dim cbAño1c3_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
-        Dim cbEstructura_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CIPesoBasculaObra))
         Me.lblEstado = New Solmicro.Expertis.Engine.UI.Label
         Me.clbFechaHasta = New Solmicro.Expertis.Engine.UI.CalendarBox
         Me.lblFecha1 = New Solmicro.Expertis.Engine.UI.Label
@@ -51,6 +51,8 @@ Partial Class CIPesoBasculaObra
         Me.Label3 = New Solmicro.Expertis.Engine.UI.Label
         Me.Label2 = New Solmicro.Expertis.Engine.UI.Label
         Me.Frame3 = New Solmicro.Expertis.Engine.UI.Frame
+        Me.cbEstructura = New Solmicro.Expertis.Engine.UI.ComboBox
+        Me.Label11 = New Solmicro.Expertis.Engine.UI.Label
         Me.Frame4 = New Solmicro.Expertis.Engine.UI.Frame
         Me.cbAño2c3 = New Solmicro.Expertis.Engine.UI.ComboBox
         Me.Label10 = New Solmicro.Expertis.Engine.UI.Label
@@ -62,8 +64,6 @@ Partial Class CIPesoBasculaObra
         Me.Label6 = New Solmicro.Expertis.Engine.UI.Label
         Me.Label7 = New Solmicro.Expertis.Engine.UI.Label
         Me.cbMet3 = New Solmicro.Expertis.Engine.UI.CheckBox
-        Me.cbEstructura = New Solmicro.Expertis.Engine.UI.ComboBox
-        Me.Label11 = New Solmicro.Expertis.Engine.UI.Label
         Me.FilterPanel.SuspendLayout()
         Me.CIMntoGridPanel.suspendlayout()
         CType(Me.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -78,12 +78,12 @@ Partial Class CIPesoBasculaObra
         CType(Me.cmbMes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmbAnio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Frame3.SuspendLayout()
+        CType(Me.cbEstructura, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Frame4.SuspendLayout()
         CType(Me.cbAño2c3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbMes2C3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbMes1C3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbAño1c3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbEstructura, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'FilterPanel
@@ -305,6 +305,26 @@ Partial Class CIPesoBasculaObra
         Me.Frame3.TabStop = False
         Me.Frame3.Text = "Otros datos"
         '
+        'cbEstructura
+        '
+        cbEstructura_DesignTimeLayout.LayoutString = resources.GetString("cbEstructura_DesignTimeLayout.LayoutString")
+        Me.cbEstructura.DesignTimeLayout = cbEstructura_DesignTimeLayout
+        Me.cbEstructura.DisabledBackColor = System.Drawing.Color.White
+        Me.cbEstructura.Location = New System.Drawing.Point(115, 26)
+        Me.cbEstructura.Name = "cbEstructura"
+        Me.cbEstructura.SelectedIndex = -1
+        Me.cbEstructura.SelectedItem = Nothing
+        Me.cbEstructura.Size = New System.Drawing.Size(126, 21)
+        Me.cbEstructura.TabIndex = 36
+        '
+        'Label11
+        '
+        Me.Label11.Location = New System.Drawing.Point(19, 31)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(70, 13)
+        Me.Label11.TabIndex = 37
+        Me.Label11.Text = "Estructura:"
+        '
         'Frame4
         '
         Me.Frame4.Controls.Add(Me.cbAño2c3)
@@ -419,26 +439,6 @@ Partial Class CIPesoBasculaObra
         Me.cbMet3.Size = New System.Drawing.Size(37, 23)
         Me.cbMet3.TabIndex = 51
         '
-        'cbEstructura
-        '
-        cbEstructura_DesignTimeLayout.LayoutString = resources.GetString("cbEstructura_DesignTimeLayout.LayoutString")
-        Me.cbEstructura.DesignTimeLayout = cbEstructura_DesignTimeLayout
-        Me.cbEstructura.DisabledBackColor = System.Drawing.Color.White
-        Me.cbEstructura.Location = New System.Drawing.Point(115, 26)
-        Me.cbEstructura.Name = "cbEstructura"
-        Me.cbEstructura.SelectedIndex = -1
-        Me.cbEstructura.SelectedItem = Nothing
-        Me.cbEstructura.Size = New System.Drawing.Size(126, 21)
-        Me.cbEstructura.TabIndex = 36
-        '
-        'Label11
-        '
-        Me.Label11.Location = New System.Drawing.Point(19, 31)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(70, 13)
-        Me.Label11.TabIndex = 37
-        Me.Label11.Text = "Estructura:"
-        '
         'CIPesoBasculaObra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
@@ -463,13 +463,13 @@ Partial Class CIPesoBasculaObra
         CType(Me.cmbAnio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Frame3.ResumeLayout(False)
         Me.Frame3.PerformLayout()
+        CType(Me.cbEstructura, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Frame4.ResumeLayout(False)
         Me.Frame4.PerformLayout()
         CType(Me.cbAño2c3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbMes2C3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbMes1C3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbAño1c3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbEstructura, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
