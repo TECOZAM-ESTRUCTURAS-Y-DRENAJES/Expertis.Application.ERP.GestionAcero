@@ -1692,7 +1692,7 @@ Public Class MntoGestionObrasAcero
         End If
     End Sub
     Public Sub insertaHojaRuta(ByVal hojaRuta As String)
-        Dim url As String = "https://192.194.11.4:1000/api-schsw/PR003001?mode=getDelivery&roadMap=" & hojaRuta
+        Dim url As String = "https://192.194.11.6:1000/api-schsw/PR003001?mode=getDelivery&roadMap=" & hojaRuta
         Dim apikey As String = "SCHSW-API-KEY"
         Dim valor As String = "6f387e83-e153-a024-6fb903197a6d"
 
